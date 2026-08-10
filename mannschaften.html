@@ -252,6 +252,46 @@
         grid-template-columns: 1fr;
       }
 
+      .team-navigation {
+  flex-direction: column;
+  padding: 15px;
+}
+
+.team-navigation a {
+  text-align: center;
+}
+
+    html {
+  scroll-behavior: smooth;
+}
+
+.team-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px 20px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.team-navigation a {
+  background: #071c4a;
+  color: white;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.team-navigation a:hover {
+  background: #ffd800;
+  color: #071c4a;
+}  
+    
     }
 
   </style>
@@ -311,11 +351,36 @@
 
 </section>
 
+  <div class="team-navigation">
+
+  <a href="#erste">1. Mannschaft</a>
+
+  <a href="#zweite">2. Mannschaft</a>
+
+  <a href="#dritte">3. Mannschaft</a>
+
+</div>
+
+  <div class="team-navigation">
+
+  <a href="#erste">
+    1. Mannschaft
+  </a>
+
+  <a href="#zweite">
+    2. Mannschaft
+  </a>
+
+  <a href="#dritte">
+    3. Mannschaft
+  </a>
+
+</div>
+
 
 
 <!-- 1. MANNSCHAFT -->
-
-<section class="team-section">
+<section class="team-section" id="erste">
 
   <h2 class="team-title">
     1. Mannschaft
@@ -381,8 +446,7 @@
 
 
 <!-- 2. MANNSCHAFT -->
-
-<section class="team-section">
+<section class="team-section" id="zweite">
 
   <h2 class="team-title">
     2. Mannschaft
@@ -448,9 +512,7 @@
 
 
 <!-- 3. MANNSCHAFT -->
-
-<section class="team-section">
-
+<section class="team-section" id="dritte">
   <h2 class="team-title">
     3. Mannschaft
   </h2>
