@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vorstand Dashboard | Fenerbahçe Marl</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .club-name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logout-btn {
+      background: #ffd800;
+      color: #071c4a;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 25px;
+    }
+
+    .dashboard h1 {
+      color: #071c4a;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 40px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .box {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 25px rgba(0,0,0,.08);
+    }
+
+    .box h2 {
+      color: #071c4a;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #071c4a;
+      margin-bottom: 7px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      padding: 13px;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #071c4a;
+    }
+
+    .image-preview {
+      width: 100%;
+      height: 200px;
+      background: #eee;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      object-fit: cover;
+    }
+
+    .publish-btn {
+      width: 100%;
+      background: #071c4a;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .publish-btn:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .news-item {
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .news-item h3 {
+      color: #071c4a;
+      margin-bottom: 7px;
+    }
+
+    .news-item p {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .news-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      border: none;
+      padding: 8px 13px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+    .delete-btn {
+      background: #c62828;
+      color: white;
+    }
+
+    .empty-news {
+      color: #777;
+      text-align: center;
+      padding: 40px 10px;
+    }
+
+    @media(max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="club-name">
+    Fenerbahçe Marl – Vorstand
+  </div>
+
+  <button class="logout-btn" id="logoutButton">
+    Abmelden
+  </button>
+
+</header>
+
+
+<main class="dashboard">
+
+  <h1>News verwalten</h1>
+
+  <p class="subtitle">
+    Hier können Vereinsnews erstellt, bearbeitet und gelöscht werden.
+  </p>
+
+
+  <div class="dashboard-grid">
+
+
+    <!-- NEUE NEWS -->
+
+    <div class="box">
+
+      <h2>Neue News erstellen</h2>
+
+      <form id="newsForm">
+
+        <label for="title">
+          Überschrift
+        </label>
+
+        <input
+          type="text"
+          id="title"
+          placeholder="z.B. Sieg im ersten Saisonspiel"
+          required
+        >
+
+
+        <label for="image">
+          Bild
+        </label>
+
+        <input
+          type="file"
+          id="image"
+          accept="image/jpeg,image/png,image/webp"
+          required
+        >
+
+
+        <img
+          id="imagePreview"
+          class="image-preview"
+          alt="Vorschau"
+        >
+
+
+        <label for="text">
+          News-Text
+        </label>
+
+        <textarea
+          id="text"
+          placeholder="Schreibe hier die vollständige News..."
+          required
+        ></textarea>
+
+
+        <button
+          type="submit"
+          class="publish-btn"
+        >
+          NEWS VERÖFFENTLICHEN
+        </button>
+
+      </form>
+
+    </div>
+
+
+
+    <!-- VORHANDENE NEWS -->
+
+    <div class="box">
+
+      <h2>Veröffentlichte News</h2>
+
+      <div
+        class="news-list"
+        id="newsList"
+      >
+
+        <div class="empty-news">
+          Noch keine News vorhanden.
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+<script>
+
+  const imageInput = document.getElementById("image");
+  const imagePreview = document.getElementById("imagePreview");
+
+
+  imageInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) {
+      imagePreview.style.display = "none";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      imagePreview.src = event.target.result;
+      imagePreview.style.display = "block";
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+
+
+  document
+    .getElementById("newsForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Das Dashboard funktioniert. Im nächsten Schritt verbinden wir es mit unserem Backend und der Datenbank."
+      );
+
+    });
+
+
+
+  document
+    .getElementById("logoutButton")
+    .addEventListener("click", function() {
+
+      window.location.href = "vorstand-login.html";
+
+    });
+
+</script>
+
+</body>
+</html>
