@@ -315,55 +315,555 @@
 
 <script>
 
-  const imageInput = document.getElementById("image");
-  const imagePreview = document.getElementById("imagePreview");
+const API_URL = "https://fenerbahce-marl-backend.onrender.com";
+
+const token = localStorage.getItem("vorstandToken");
+
+const newsForm = document.getElementById("newsForm");
+const titleInput = document.getElementById("title");
+const textInput = document.getElementById("text");
+const imageInput = document.getElementById("image");
+const imagePreview = document.getElementById("imagePreview");
+const newsList = document.getElementById("newsList");
+const logoutButton = document.getElementById("logoutButton");
+
+let editingNewsId = null;
+let currentImageUrl = null;
 
 
-  imageInput.addEventListener("change", function() {
+/* =========================================
+   LOGIN PRÜFEN
+========================================= */
 
-    const file = this.files[0];
+async function checkLogin() {
 
-    if (!file) {
-      imagePreview.style.display = "none";
+  if (!token) {
+    window.location.href = "vorstand-login.html";
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+    if (!response.ok) {
+      localStorage.removeItem("vorstandToken");
+      window.location.href = "vorstand-login.html";
       return;
     }
 
-    const reader = new FileReader();
+    loadNews();
 
-    reader.onload = function(event) {
+  } catch (error) {
 
-      imagePreview.src = event.target.result;
-      imagePreview.style.display = "block";
+    console.error(error);
 
-    };
+    alert("Verbindung zum Server fehlgeschlagen.");
 
-    reader.readAsDataURL(file);
+  }
 
-  });
-
+}
 
 
-  document
-    .getElementById("newsForm")
-    .addEventListener("submit", function(event) {
+/* =========================================
+   BILD VORSCHAU
+========================================= */
 
-      event.preventDefault();
+imageInput.addEventListener("change", function() {
 
-      alert(
-        "Das Dashboard funktioniert. Im nächsten Schritt verbinden wir es mit unserem Backend und der Datenbank."
+  const file = this.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+
+    imagePreview.src = event.target.result;
+    imagePreview.style.display = "block";
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================
+   BILD HOCHLADEN
+========================================= */
+
+async function uploadImage(file) {
+
+  const formData = new FormData();
+
+  formData.append("image", file);
+
+  const response = await fetch(
+    API_URL + "/api/upload",
+    {
+      method: "POST",
+
+      headers: {
+        Authorization: "Bearer " + token
+      },
+
+      body: formData
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.error || "Bild konnte nicht hochgeladen werden."
+    );
+  }
+
+  return data.image_url;
+
+}
+
+
+/* =========================================
+   NEWS VERÖFFENTLICHEN / BEARBEITEN
+========================================= */
+
+newsForm.addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  const title = titleInput.value.trim();
+  const text = textInput.value.trim();
+  const file = imageInput.files[0];
+
+  if (!title || !text) {
+    alert("Bitte Überschrift und Text ausfüllen.");
+    return;
+  }
+
+  if (!editingNewsId && !file) {
+    alert("Bitte ein Bild auswählen.");
+    return;
+  }
+
+
+  const publishButton =
+    document.querySelector(".publish-btn");
+
+  publishButton.disabled = true;
+  publishButton.textContent = "BITTE WARTEN...";
+
+
+  try {
+
+    let imageUrl = currentImageUrl;
+
+
+    /* Neues Bild hochladen */
+
+    if (file) {
+      imageUrl = await uploadImage(file);
+    }
+
+
+    /* Neue News */
+
+    if (!editingNewsId) {
+
+      const response = await fetch(
+        API_URL + "/api/news",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token
+          },
+
+          body: JSON.stringify({
+            title: title,
+            text: text,
+            image_url: imageUrl
+          })
+        }
       );
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "News konnte nicht veröffentlicht werden."
+        );
+      }
+
+      alert("News wurde veröffentlicht.");
+
+    }
+
+
+    /* News bearbeiten */
+
+    else {
+
+      const response = await fetch(
+        API_URL + "/api/news/" + editingNewsId,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token
+          },
+
+          body: JSON.stringify({
+            title: title,
+            text: text,
+            image_url: imageUrl
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "News konnte nicht bearbeitet werden."
+        );
+      }
+
+      alert("News wurde gespeichert.");
+
+    }
+
+
+    resetForm();
+
+    await loadNews();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  } finally {
+
+    publishButton.disabled = false;
+
+    publishButton.textContent =
+      editingNewsId
+        ? "ÄNDERUNGEN SPEICHERN"
+        : "NEWS VERÖFFENTLICHEN";
+
+  }
+
+});
+
+
+/* =========================================
+   NEWS LADEN
+========================================= */
+
+async function loadNews() {
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/news"
+    );
+
+    const news = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        "News konnten nicht geladen werden."
+      );
+    }
+
+
+    if (news.length === 0) {
+
+      newsList.innerHTML = `
+        <div class="empty-news">
+          Noch keine News vorhanden.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    newsList.innerHTML = "";
+
+
+    news.forEach(item => {
+
+      const newsItem =
+        document.createElement("div");
+
+      newsItem.className = "news-item";
+
+
+      const date =
+        new Date(item.created_at)
+        .toLocaleDateString(
+          "de-DE",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+          }
+        );
+
+
+      newsItem.innerHTML = `
+
+        ${
+          item.image_url
+          ?
+          `
+          <img
+            src="${item.image_url}"
+            style="
+              width:100%;
+              height:150px;
+              object-fit:cover;
+              border-radius:7px;
+              margin-bottom:15px;
+            "
+          >
+          `
+          :
+          ""
+        }
+
+        <h3>
+          ${escapeHTML(item.title)}
+        </h3>
+
+        <p>
+          ${date}
+        </p>
+
+        <div class="news-actions">
+
+          <button
+            class="edit-btn"
+            onclick="editNews(${item.id})"
+          >
+            Bearbeiten
+          </button>
+
+          <button
+            class="delete-btn"
+            onclick="deleteNews(${item.id})"
+          >
+            Löschen
+          </button>
+
+        </div>
+
+      `;
+
+
+      newsList.appendChild(newsItem);
+
     });
 
 
+  } catch (error) {
 
-  document
-    .getElementById("logoutButton")
-    .addEventListener("click", function() {
+    console.error(error);
 
-      window.location.href = "vorstand-login.html";
+    newsList.innerHTML = `
+      <div class="empty-news">
+        News konnten nicht geladen werden.
+      </div>
+    `;
 
+  }
+
+}
+
+
+/* =========================================
+   NEWS BEARBEITEN
+========================================= */
+
+async function editNews(id) {
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/news/" + id
+    );
+
+    const item = await response.json();
+
+    if (!response.ok) {
+      throw new Error("News konnte nicht geladen werden.");
+    }
+
+
+    editingNewsId = item.id;
+    currentImageUrl = item.image_url;
+
+
+    titleInput.value = item.title;
+    textInput.value = item.text;
+
+
+    if (item.image_url) {
+
+      imagePreview.src = item.image_url;
+      imagePreview.style.display = "block";
+
+    }
+
+
+    imageInput.required = false;
+
+
+    document.querySelector(".publish-btn")
+      .textContent = "ÄNDERUNGEN SPEICHERN";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =========================================
+   NEWS LÖSCHEN
+========================================= */
+
+async function deleteNews(id) {
+
+  const confirmed =
+    confirm("Möchtest du diese News wirklich löschen?");
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/news/" + id,
+      {
+        method: "DELETE",
+
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "News konnte nicht gelöscht werden."
+      );
+    }
+
+
+    alert("News wurde gelöscht.");
+
+    loadNews();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* =========================================
+   FORMULAR ZURÜCKSETZEN
+========================================= */
+
+function resetForm() {
+
+  newsForm.reset();
+
+  editingNewsId = null;
+  currentImageUrl = null;
+
+  imagePreview.src = "";
+  imagePreview.style.display = "none";
+
+  imageInput.required = true;
+
+  document.querySelector(".publish-btn")
+    .textContent = "NEWS VERÖFFENTLICHEN";
+
+}
+
+
+/* =========================================
+   TEXT SICHER AUSGEBEN
+========================================= */
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================
+   ABMELDEN
+========================================= */
+
+logoutButton.addEventListener("click", function() {
+
+  localStorage.removeItem("vorstandToken");
+
+  window.location.href =
+    "vorstand-login.html";
+
+});
+
+
+/* =========================================
+   START
+========================================= */
+
+checkLogin();
 
 </script>
 
