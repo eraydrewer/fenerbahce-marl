@@ -47,6 +47,8 @@
       color: #ffd800;
     }
 
+    /* HERO */
+
     .hero {
       height: 600px;
       background:
@@ -69,6 +71,206 @@
       font-size: 21px;
     }
 
+
+    /* SPIEL / NEWS / TABELLE */
+
+    .home-info {
+      max-width: 1400px;
+      margin: -50px auto 0;
+      padding: 0 25px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,.15);
+    }
+
+    .home-box {
+      padding: 28px;
+    }
+
+    .home-box + .home-box {
+      border-left: 1px solid #e5e5e5;
+    }
+
+    .box-title {
+      color: #071c4a;
+      font-size: 19px;
+      margin-bottom: 22px;
+      font-weight: 800;
+    }
+
+
+    /* NÄCHSTES SPIEL */
+
+    .competition {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .match-teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .team {
+      flex: 1;
+    }
+
+    .team-logo {
+      width: 70px;
+      height: 70px;
+      background: #f1f1f1;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #071c4a;
+    }
+
+    .team-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .vs {
+      font-size: 22px;
+      font-weight: bold;
+      color: #071c4a;
+    }
+
+    .match-details {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+      line-height: 2;
+      color: #555;
+    }
+
+    .match-button {
+      display: block;
+      margin-top: 20px;
+      background: #071c4a;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .match-button:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+
+    /* NEWS */
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .news-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .news-image {
+      height: 120px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .news-content {
+      padding: 15px;
+    }
+
+    .news-date {
+      display: inline-block;
+      background: #ffd800;
+      color: #071c4a;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 5px 8px;
+      margin-bottom: 10px;
+    }
+
+    .news-card h3 {
+      font-size: 15px;
+      color: #071c4a;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .news-card a {
+      text-decoration: none;
+      color: #071c4a;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+
+    /* TABELLE */
+
+    .league-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .league-table th {
+      text-align: left;
+      color: #777;
+      padding: 10px 5px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .league-table td {
+      padding: 12px 5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .league-table tr.fener {
+      background: #fff6c7;
+      font-weight: bold;
+    }
+
+    .table-link {
+      display: block;
+      margin-top: 18px;
+      text-align: center;
+      text-decoration: none;
+      color: #071c4a;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+
+    /* NORMALE SEKTIONEN */
+
     .section {
       max-width: 1200px;
       margin: auto;
@@ -79,26 +281,7 @@
       text-align: center;
       font-size: 38px;
       color: #071c4a;
-      margin-bottom: 50px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .card {
-      background: white;
-      padding: 35px;
-      border-radius: 10px;
-      box-shadow: 0 5px 25px rgba(0,0,0,.08);
-      text-align: center;
-    }
-
-    .card h3 {
-      color: #071c4a;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
     }
 
     .yellow-line {
@@ -108,6 +291,9 @@
       margin: 15px auto 25px;
     }
 
+
+    /* FOOTER */
+
     footer {
       background: #071c4a;
       color: white;
@@ -115,7 +301,28 @@
       padding: 35px 20px;
     }
 
+
+    /* HANDY */
+
+    @media(max-width: 1000px) {
+
+      .home-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-box + .home-box {
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
     @media(max-width: 800px) {
+
       header {
         flex-direction: column;
         gap: 15px;
@@ -135,51 +342,315 @@
         font-size: 42px;
       }
 
-      .cards {
-        grid-template-columns: 1fr;
+      .home-info {
+        margin-top: -30px;
+        padding: 0 15px;
       }
+
     }
   </style>
 </head>
 
+
 <body>
 
 <header>
-  <div class="club-name">Fenerbahçe Marl</div>
+
+  <div class="club-name">
+    Fenerbahçe Marl
+  </div>
 
   <nav>
-  <a href="index.html">Startseite</a>
-  <a href="mannschaften.html">Mannschaften</a>
-  <a href="#sponsoren">Sponsoren</a>
-  <a href="#vorstand">Vorstand</a>
-  <a href="#kontakt">Kontakt</a>
-</nav>
+    <a href="index.html">Startseite</a>
+    <a href="mannschaften.html">Mannschaften</a>
+    <a href="news.html">News</a>
+    <a href="#sponsoren">Sponsoren</a>
+    <a href="#vorstand">Vorstand</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
 </header>
 
+
 <section class="hero">
+
   <div>
     <h1>Fenerbahçe Marl</h1>
     <p>Willkommen auf der offiziellen Vereinswebsite</p>
   </div>
+
 </section>
 
+
+
+<!-- SPIEL / NEWS / TABELLE -->
+
+<section class="home-info">
+
+  <div class="home-grid">
+
+
+    <!-- LINKS: NÄCHSTES SPIEL -->
+
+    <div class="home-box">
+
+      <h2 class="box-title">
+        NÄCHSTES SPIEL
+      </h2>
+
+      <div class="competition">
+        Kreisliga A
+      </div>
+
+      <div class="match-teams">
+
+        <div class="team">
+
+          <div class="team-logo">
+            FBM
+          </div>
+
+          <div class="team-name">
+            Fenerbahçe Marl
+          </div>
+
+        </div>
+
+
+        <div class="vs">
+          VS.
+        </div>
+
+
+        <div class="team">
+
+          <div class="team-logo">
+            Gegner
+          </div>
+
+          <div class="team-name">
+            Gegner
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="match-details">
+
+        📅 Sonntag, 16. August 2026<br>
+
+        🕒 15:00 Uhr<br>
+
+        📍 Marl
+
+      </div>
+
+
+      <a href="#" class="match-button">
+        ZUM SPIELPLAN →
+      </a>
+
+    </div>
+
+
+
+    <!-- MITTE: NEWS -->
+
+    <div class="home-box">
+
+      <h2 class="box-title">
+        AKTUELLE NEWS
+      </h2>
+
+
+      <div class="news-grid">
+
+
+        <div class="news-card">
+
+          <div class="news-image">
+            News Bild
+          </div>
+
+          <div class="news-content">
+
+            <span class="news-date">
+              11. AUG 2026
+            </span>
+
+            <h3>
+              Willkommen auf unserer neuen Vereinswebsite
+            </h3>
+
+            <a href="#">
+              Weiterlesen →
+            </a>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="news-card">
+
+          <div class="news-image">
+            News Bild
+          </div>
+
+          <div class="news-content">
+
+            <span class="news-date">
+              10. AUG 2026
+            </span>
+
+            <h3>
+              Vorbereitung auf die neue Saison
+            </h3>
+
+            <a href="#">
+              Weiterlesen →
+            </a>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="news-card">
+
+          <div class="news-image">
+            News Bild
+          </div>
+
+          <div class="news-content">
+
+            <span class="news-date">
+              09. AUG 2026
+            </span>
+
+            <h3>
+              Neuigkeiten rund um Fenerbahçe Marl
+            </h3>
+
+            <a href="#">
+              Weiterlesen →
+            </a>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RECHTS: TABELLE -->
+
+    <div class="home-box">
+
+      <h2 class="box-title">
+        TABELLE
+      </h2>
+
+      <table class="league-table">
+
+        <thead>
+          <tr>
+            <th>PL.</th>
+            <th>MANNSCHAFT</th>
+            <th>PKT.</th>
+          </tr>
+        </thead>
+
+
+        <tbody>
+
+          <tr>
+            <td>1.</td>
+            <td>Mannschaft 1</td>
+            <td>12</td>
+          </tr>
+
+          <tr class="fener">
+            <td>2.</td>
+            <td>Fenerbahçe Marl</td>
+            <td>10</td>
+          </tr>
+
+          <tr>
+            <td>3.</td>
+            <td>Mannschaft 3</td>
+            <td>8</td>
+          </tr>
+
+          <tr>
+            <td>4.</td>
+            <td>Mannschaft 4</td>
+            <td>7</td>
+          </tr>
+
+          <tr>
+            <td>5.</td>
+            <td>Mannschaft 5</td>
+            <td>5</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+
+      <a href="#" class="table-link">
+        ZUR GESAMTTABELLE →
+      </a>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
 <section class="section" id="vorstand">
-  <h2 class="section-title">Unser Vorstand</h2>
+
+  <h2 class="section-title">
+    Unser Vorstand
+  </h2>
+
   <div class="yellow-line"></div>
 
   <p style="text-align:center;">
     Weitere Informationen zum Vorstand folgen.
   </p>
+
 </section>
 
+
+
 <section class="section" id="kontakt">
-  <h2 class="section-title">Kontakt</h2>
+
+  <h2 class="section-title">
+    Kontakt
+  </h2>
+
   <div class="yellow-line"></div>
 
   <p style="text-align:center;">
     Kontaktieren Sie Fenerbahçe Marl.
   </p>
+
 </section>
+
+
 
 <footer>
   © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
