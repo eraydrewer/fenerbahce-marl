@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vorstand Login | Fenerbahçe Marl</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f3f4f7;
+      color: #111;
+    }
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .club-name {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #ffd800;
+    }
+
+    .login-page {
+      min-height: calc(100vh - 130px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+    }
+
+    .login-box {
+      background: white;
+      width: 100%;
+      max-width: 430px;
+      padding: 45px;
+      border-radius: 14px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    }
+
+    .login-box h1 {
+      text-align: center;
+      color: #071c4a;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .yellow-line {
+      width: 55px;
+      height: 5px;
+      background: #ffd800;
+      margin: 15px auto 30px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      color: #071c4a;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #071c4a;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      background: #071c4a;
+      color: white;
+      padding: 15px;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+    .error-message {
+      display: none;
+      background: #ffe5e5;
+      color: #b00020;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: #071c4a;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    @media(max-width: 800px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .login-box {
+        padding: 30px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="club-name">
+    Fenerbahçe Marl
+  </div>
+
+  <nav>
+    <a href="index.html">Startseite</a>
+    <a href="mannschaften.html">Mannschaften</a>
+    <a href="news.html">News</a>
+  </nav>
+
+</header>
+
+
+<main class="login-page">
+
+  <div class="login-box">
+
+    <h1>Vorstand</h1>
+
+    <div class="yellow-line"></div>
+
+    <p>
+      Anmeldung zum Verwaltungsbereich
+    </p>
+
+
+    <div class="error-message" id="errorMessage">
+      Benutzername oder Passwort ist falsch.
+    </div>
+
+
+    <form id="loginForm">
+
+      <label for="username">
+        Benutzername
+      </label>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Benutzername"
+        required
+      >
+
+
+      <label for="password">
+        Passwort
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Passwort"
+        required
+      >
+
+
+      <button type="submit">
+        ANMELDEN
+      </button>
+
+    </form>
+
+
+    <a href="index.html" class="back-link">
+      ← Zurück zur Startseite
+    </a>
+
+  </div>
+
+</main>
+
+
+<script>
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      alert("Der Login wird im nächsten Schritt mit dem Backend verbunden.");
+
+    });
+</script>
+
+</body>
+</html>
