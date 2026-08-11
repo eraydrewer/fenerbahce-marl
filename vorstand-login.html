@@ -244,15 +244,85 @@
 
 
 <script>
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", function(event) {
+  <script>
 
-      event.preventDefault();
+const API_URL = "https://fenerbahce-marl-backend.onrender.com";
 
-      alert("Der Login wird im nächsten Schritt mit dem Backend verbunden.");
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", async function(event) {
 
-    });
+    event.preventDefault();
+
+    const username =
+      document.getElementById("username").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+    errorMessage.style.display = "none";
+
+
+    try {
+
+      const response = await fetch(
+        API_URL + "/api/login",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            username: username,
+            password: password
+          })
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      if (!response.ok) {
+
+        errorMessage.textContent =
+          data.error || "Benutzername oder Passwort ist falsch.";
+
+        errorMessage.style.display = "block";
+
+        return;
+      }
+
+
+      localStorage.setItem(
+        "vorstandToken",
+        data.token
+      );
+
+
+      window.location.href =
+        "vorstand-dashboard.html";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      errorMessage.textContent =
+        "Verbindung zum Server fehlgeschlagen.";
+
+      errorMessage.style.display = "block";
+
+    }
+
+  });
+
+</script>
 </script>
 
 </body>
