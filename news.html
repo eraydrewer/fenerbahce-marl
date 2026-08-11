@@ -295,6 +295,128 @@
 
 </footer>
 
+  <script>
+
+const API_URL = "https://fenerbahce-marl-backend.onrender.com";
+
+const newsContainer = document.getElementById("newsContainer");
+
+
+async function loadNews() {
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/news"
+    );
+
+    const news = await response.json();
+
+
+    if (!response.ok) {
+      throw new Error("News konnten nicht geladen werden.");
+    }
+
+
+    if (news.length === 0) {
+
+      newsContainer.innerHTML = `
+        <div class="loading">
+          Aktuell sind keine News vorhanden.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    newsContainer.innerHTML = "";
+
+
+    news.forEach(item => {
+
+      const date = new Date(item.created_at)
+        .toLocaleDateString(
+          "de-DE",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+          }
+        );
+
+
+      const card = document.createElement("article");
+
+      card.className = "news-card";
+
+
+      card.innerHTML = `
+
+        ${
+          item.image_url
+            ? `
+              <img
+                src="${item.image_url}"
+                alt="${escapeHTML(item.title)}"
+              >
+            `
+            : ""
+        }
+
+        <div class="news-content">
+
+          <span class="news-date">
+            ${date}
+          </span>
+
+          <h2>
+            ${escapeHTML(item.title)}
+          </h2>
+
+          <p>
+            ${escapeHTML(item.text)}
+          </p>
+
+        </div>
+      `;
+
+
+      newsContainer.appendChild(card);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    newsContainer.innerHTML = `
+      <div class="loading">
+        News konnten nicht geladen werden.
+      </div>
+    `;
+
+  }
+
+}
+
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+
+loadNews();
+
+</script>
+
 
 </body>
 </html>
