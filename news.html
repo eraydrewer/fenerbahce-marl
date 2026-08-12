@@ -392,13 +392,18 @@ async function loadNews() {
 
         ${
           item.image_url
-            ? `
-              <img
-                src="${item.image_url}"
-                alt="${escapeHTML(item.title)}"
-              >
-            `
-            : ""
+  ? `
+      <img
+        src="${item.image_url}"
+        alt="${escapeHTML(item.title)}"
+        style="
+          object-position:
+          ${item.image_position_x ?? 50}%
+          ${item.image_position_y ?? 50}%;
+        "
+      >
+    `
+  : ""
         }
 
         <div class="news-content">
