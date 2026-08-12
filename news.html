@@ -53,8 +53,27 @@
       color: #ffd800;
     }
 
+    .vorstand-login-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -12px;
+  color: white;
+}
 
-    /* KOPFBEREICH */
+.vorstand-login-link svg {
+  width: 25px;
+  height: 25px;
+  display: block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.vorstand-login-link:hover svg {
+  transform: scale(1.1);
+  color: #ffd800;
+}
+
+ /* KOPFBEREICH */
 
     .news-hero {
       background: #071c4a;
@@ -287,6 +306,43 @@
       Kontakt
     </a>
 
+    <a href="vorstand-login.html"
+   class="vorstand-login-link"
+   id="vorstandLoginLink"
+   title="Vorstand Login">
+
+  <svg
+    viewBox="0 0 24 24"
+    aria-label="Vorstand Login"
+  >
+    <path
+      d="M10 17l5-5-5-5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <path
+      d="M15 12H3"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+
+</a>
+
   </nav>
 
 </header>
@@ -456,6 +512,73 @@ function escapeHTML(text) {
 
 
 loadNews();
+
+    const vorstandLoginLink =
+  document.getElementById("vorstandLoginLink");
+
+
+async function updateVorstandLogin() {
+
+  const token =
+    sessionStorage.getItem("vorstandToken");
+
+  if (!token) {
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem("vorstandToken");
+
+      return;
+    }
+
+
+    vorstandLoginLink.innerHTML = "Abmelden";
+
+    vorstandLoginLink.removeAttribute("href");
+
+    vorstandLoginLink.title = "Abmelden";
+
+    vorstandLoginLink.style.cursor = "pointer";
+
+
+    vorstandLoginLink.addEventListener(
+      "click",
+      function() {
+
+        sessionStorage.removeItem(
+          "vorstandToken"
+        );
+
+        window.location.reload();
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+updateVorstandLogin();
 
 </script>
 
