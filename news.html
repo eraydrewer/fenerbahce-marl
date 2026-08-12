@@ -100,22 +100,26 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+
+  /* weiter nach links */
+  margin-left: -120px;
+
+  /* mehr Platz nach rechts */
+  width: calc(100% + 240px);
 }
 
 .news-card {
   width: 100%;
   background: white;
-
   display: grid;
 
-  /* Bild wird größer */
-  grid-template-columns: 50% 50%;
+  /* Bild behält ungefähr seine jetzige Größe,
+     zusätzliche Breite geht an die Textseite */
+  grid-template-columns: 725px 1fr;
 
   min-height: 350px;
-
   border-radius: 0;
   overflow: hidden;
-
   box-shadow: 0 2px 12px rgba(0,0,0,.08);
 }
 
