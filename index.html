@@ -395,6 +395,7 @@
 
   <a href="vorstand-login.html"
    class="vorstand-login-link"
+   id="vorstandLoginLink"
    title="Vorstand Login">
 
   <svg
@@ -668,6 +669,71 @@ function escapeHomeHTML(text) {
 }
 
 loadHomeNews();
+
+    const vorstandLoginLink =
+  document.getElementById("vorstandLoginLink");
+
+async function updateVorstandLogin() {
+
+  const token =
+    sessionStorage.getItem("vorstandToken");
+
+  if (!token) {
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      NEWS_API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem("vorstandToken");
+
+      return;
+    }
+
+    // Angemeldet:
+    // Login-Symbol wird zu "Abmelden"
+
+    vorstandLoginLink.innerHTML = "Abmelden";
+
+    vorstandLoginLink.removeAttribute("href");
+
+    vorstandLoginLink.title = "Abmelden";
+
+    vorstandLoginLink.style.cursor = "pointer";
+
+    vorstandLoginLink.addEventListener(
+      "click",
+      function() {
+
+        sessionStorage.removeItem(
+          "vorstandToken"
+        );
+
+        window.location.href =
+          "index.html";
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+updateVorstandLogin();
 
 </script>
 
