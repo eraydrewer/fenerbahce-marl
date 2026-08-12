@@ -106,15 +106,39 @@
       border-color: #071c4a;
     }
 
-    .image-preview {
-      width: 100%;
-      height: 200px;
-      background: #eee;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: none;
-      object-fit: cover;
-    }
+    .image-position-box {
+  width: 100%;
+  height: 240px;
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  display: none;
+  position: relative;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.image-position-box:active {
+  cursor: grabbing;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  display: block;
+  pointer-events: none;
+}
+
+.image-position-help {
+  display: none;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
 
     .publish-btn {
       width: 100%;
@@ -257,11 +281,23 @@
         >
 
 
-        <img
-          id="imagePreview"
-          class="image-preview"
-          alt="Vorschau"
-        >
+        <div
+  class="image-position-box"
+  id="imagePositionBox"
+>
+  <img
+    id="imagePreview"
+    class="image-preview"
+    alt="Vorschau"
+  >
+</div>
+
+<div
+  class="image-position-help"
+  id="imagePositionHelp"
+>
+  Bild mit der Maus verschieben, bis der gewünschte Ausschnitt sichtbar ist.
+</div>
 
 
         <label for="text">
@@ -324,11 +360,21 @@ const titleInput = document.getElementById("title");
 const textInput = document.getElementById("text");
 const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
+const imagePositionBox = document.getElementById("imagePositionBox");
+const imagePositionHelp = document.getElementById("imagePositionHelp");
 const newsList = document.getElementById("newsList");
 const logoutButton = document.getElementById("logoutButton");
 
 let editingNewsId = null;
 let currentImageUrl = null;
+let imagePositionX = 50;
+let imagePositionY = 50;
+
+let isDraggingImage = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragStartPositionX = 50;
+let dragStartPositionY = 50;
 
 
 /* =========================================
@@ -373,7 +419,7 @@ async function checkLogin() {
 
 
 /* =========================================
-   BILD VORSCHAU
+   BILD VORSCHAU + POSITIONIEREN
 ========================================= */
 
 imageInput.addEventListener("change", function() {
@@ -389,13 +435,114 @@ imageInput.addEventListener("change", function() {
   reader.onload = function(event) {
 
     imagePreview.src = event.target.result;
-    imagePreview.style.display = "block";
+
+    imagePositionX = 50;
+    imagePositionY = 50;
+
+    updateImagePosition();
+
+    imagePositionBox.style.display = "block";
+    imagePositionHelp.style.display = "block";
 
   };
 
   reader.readAsDataURL(file);
 
 });
+
+
+function updateImagePosition() {
+
+  imagePreview.style.objectPosition =
+    imagePositionX + "% " + imagePositionY + "%";
+
+}
+
+
+imagePositionBox.addEventListener(
+  "pointerdown",
+  function(event) {
+
+    isDraggingImage = true;
+
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+
+    dragStartPositionX = imagePositionX;
+    dragStartPositionY = imagePositionY;
+
+    imagePositionBox.setPointerCapture(
+      event.pointerId
+    );
+
+  }
+);
+
+
+imagePositionBox.addEventListener(
+  "pointermove",
+  function(event) {
+
+    if (!isDraggingImage) {
+      return;
+    }
+
+    const rect =
+      imagePositionBox.getBoundingClientRect();
+
+    const moveX =
+      event.clientX - dragStartX;
+
+    const moveY =
+      event.clientY - dragStartY;
+
+
+    imagePositionX =
+      dragStartPositionX -
+      (moveX / rect.width) * 100;
+
+    imagePositionY =
+      dragStartPositionY -
+      (moveY / rect.height) * 100;
+
+
+    imagePositionX =
+      Math.max(
+        0,
+        Math.min(100, imagePositionX)
+      );
+
+    imagePositionY =
+      Math.max(
+        0,
+        Math.min(100, imagePositionY)
+      );
+
+
+    updateImagePosition();
+
+  }
+);
+
+
+imagePositionBox.addEventListener(
+  "pointerup",
+  function() {
+
+    isDraggingImage = false;
+
+  }
+);
+
+
+imagePositionBox.addEventListener(
+  "pointercancel",
+  function() {
+
+    isDraggingImage = false;
+
+  }
+);
 
 
 /* =========================================
@@ -491,10 +638,12 @@ newsForm.addEventListener("submit", async function(event) {
           },
 
           body: JSON.stringify({
-            title: title,
-            text: text,
-            image_url: imageUrl
-          })
+  title: title,
+  text: text,
+  image_url: imageUrl,
+  image_position_x: imagePositionX,
+  image_position_y: imagePositionY
+})
         }
       );
 
@@ -526,10 +675,12 @@ newsForm.addEventListener("submit", async function(event) {
           },
 
           body: JSON.stringify({
-            title: title,
-            text: text,
-            image_url: imageUrl
-          })
+  title: title,
+  text: text,
+  image_url: imageUrl,
+  image_position_x: imagePositionX,
+  image_position_y: imagePositionY
+})
         }
       );
 
@@ -726,10 +877,20 @@ async function editNews(id) {
 
     if (item.image_url) {
 
-      imagePreview.src = item.image_url;
-      imagePreview.style.display = "block";
+  imagePreview.src = item.image_url;
 
-    }
+  imagePositionX =
+    item.image_position_x ?? 50;
+
+  imagePositionY =
+    item.image_position_y ?? 50;
+
+  updateImagePosition();
+
+  imagePositionBox.style.display = "block";
+  imagePositionHelp.style.display = "block";
+
+}
 
 
     imageInput.required = false;
@@ -820,7 +981,14 @@ function resetForm() {
   currentImageUrl = null;
 
   imagePreview.src = "";
-  imagePreview.style.display = "none";
+
+imagePositionBox.style.display = "none";
+imagePositionHelp.style.display = "none";
+
+imagePositionX = 50;
+imagePositionY = 50;
+
+updateImagePosition();
 
   imageInput.required = true;
 
