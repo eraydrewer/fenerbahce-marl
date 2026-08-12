@@ -393,7 +393,7 @@ nav a:hover {
 
 const API_URL = "https://fenerbahce-marl-backend.onrender.com";
 
-const token = localStorage.getItem("vorstandToken");
+const token = sessionStorage.getItem("vorstandToken");
 
 const newsForm = document.getElementById("newsForm");
 const titleInput = document.getElementById("title");
@@ -1059,7 +1059,7 @@ function escapeHTML(text) {
 
 logoutButton.addEventListener("click", function() {
 
-  localStorage.removeItem("vorstandToken");
+  sessionStorage.removeItem("vorstandToken");
 
   window.location.href =
     "vorstand-login.html";
