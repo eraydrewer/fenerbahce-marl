@@ -34,6 +34,29 @@
       font-weight: bold;
     }
 
+    .header-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #ffd800;
+}
+
     .logout-btn {
       background: #ffd800;
       color: #071c4a;
@@ -231,9 +254,25 @@
     Fenerbahçe Marl – Vorstand
   </div>
 
-  <button class="logout-btn" id="logoutButton">
-    Abmelden
-  </button>
+  <div class="header-right">
+
+    <nav>
+      <a href="index.html">Startseite</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="news.html">News</a>
+      <a href="index.html#sponsoren">Sponsoren</a>
+      <a href="index.html#vorstand">Vorstand</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </nav>
+
+    <button
+      class="logout-btn"
+      id="logoutButton"
+    >
+      Abmelden
+    </button>
+
+  </div>
 
 </header>
 
