@@ -467,6 +467,86 @@
       margin: 15px auto 25px;
     }
 
+    /* SPONSOREN SLIDER */
+
+.sponsor-slider-section {
+  width: 100%;
+  background: white;
+  border-top: 1px solid #e5e5e5;
+  padding: 25px 55px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sponsor-slider {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.sponsor-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.sponsor-slide {
+  flex: 0 0 240px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-slide img {
+  width: 100%;
+  max-width: 220px;
+  max-height: 95px;
+  object-fit: contain;
+  display: block;
+}
+
+.sponsor-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  border: none;
+  background: white;
+  color: #555;
+  font-size: 42px;
+  cursor: pointer;
+  width: 45px;
+  height: 70px;
+}
+
+.sponsor-arrow-left {
+  left: 5px;
+}
+
+.sponsor-arrow-right {
+  right: 5px;
+}
+
+.sponsor-arrow:hover {
+  color: #071c4a;
+}
+
+@media(max-width: 700px) {
+
+  .sponsor-slider-section {
+    padding: 20px 45px;
+  }
+
+  .sponsor-slide {
+    flex: 0 0 180px;
+  }
+
+}
+
 
     /* FOOTER */
 
@@ -743,6 +823,96 @@
 
 </section>
 
+  <section class="sponsor-slider-section">
+
+  <button
+    class="sponsor-arrow sponsor-arrow-left"
+    id="sponsorPrev"
+    type="button"
+    aria-label="Vorherige Sponsoren"
+  >
+    ‹
+  </button>
+
+  <div class="sponsor-slider" id="sponsorSlider">
+
+    <div class="sponsor-slide">
+      <img src="akca-galabau.png" alt="AKCA GaLaBau">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="automobile-marl.jpg" alt="Automobile Marl">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="ayca.jpg" alt="Ayca">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="cankaya.png" alt="Cankaya">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="ceylan.png" alt="Ceylan">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="elmoba.png" alt="Elmoba">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="ermis-fleisch.jpg" alt="Ermiş Fleischerei">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="ib-autohaus-marl.png" alt="IB Autohaus Marl">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="mes-autoglas-banner.jpg" alt="MES Autoglas">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="mr-kebap-werbung.jpg" alt="Mr. Kebap">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="msalkan.png" alt="MS Alkan">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="sezer-doener.png" alt="Sezer Döner">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="star-tankstelle-banner.png" alt="Star Tankstelle">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="taha-cabuk-neu.png" alt="Taha Cabuk">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="vestfinanz.png" alt="Vestfinanz">
+    </div>
+
+    <div class="sponsor-slide">
+      <img src="vodafone-marl.png" alt="Vodafone Marl">
+    </div>
+
+  </div>
+
+  <button
+    class="sponsor-arrow sponsor-arrow-right"
+    id="sponsorNext"
+    type="button"
+    aria-label="Nächste Sponsoren"
+  >
+    ›
+  </button>
+
+</section>
+
 <footer>
   © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
 </footer>
@@ -994,6 +1164,33 @@ logoutMenuItem.addEventListener("click", function() {
 
 
 updateProfileMenu();
+
+    const sponsorSlider =
+  document.getElementById("sponsorSlider");
+
+const sponsorPrev =
+  document.getElementById("sponsorPrev");
+
+const sponsorNext =
+  document.getElementById("sponsorNext");
+
+sponsorPrev.addEventListener("click", function() {
+
+  sponsorSlider.scrollBy({
+    left: -550,
+    behavior: "smooth"
+  });
+
+});
+
+sponsorNext.addEventListener("click", function() {
+
+  sponsorSlider.scrollBy({
+    left: 550,
+    behavior: "smooth"
+  });
+
+});
 
 </script>
 
