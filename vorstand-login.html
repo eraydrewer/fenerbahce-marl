@@ -27,7 +27,7 @@
   padding: 18px 7%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
 .club-name {
@@ -35,7 +35,23 @@
   font-weight: bold;
 }
 
+    .club-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.club-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  display: block;
+}
+
 nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 30px;
@@ -171,9 +187,19 @@ nav a:hover {
 
 <header>
 
+  <div class="club-brand">
+
+  <img
+    src="logo.png"
+    alt="Fenerbahçe Marl Logo"
+    class="club-logo"
+  >
+
   <div class="club-name">
     Fenerbahçe Marl
   </div>
+
+</div>
 
   <nav>
     <a href="index.html">Startseite</a>
