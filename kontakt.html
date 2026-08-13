@@ -681,8 +681,96 @@ logoutMenuItem.addEventListener(
   }
 );
 
+  const contactForm =
+  document.getElementById("contactForm");
 
-updateProfileMenu();
+contactForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    const sendButton =
+      contactForm.querySelector(".send-button");
+
+    const originalText =
+      sendButton.textContent;
+
+    sendButton.disabled = true;
+    sendButton.textContent = "WIRD GESENDET...";
+
+
+    try {
+
+      const response = await fetch(
+        API_URL + "/api/contact",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            name:
+              document.getElementById("name").value.trim(),
+
+            email:
+              document.getElementById("email").value.trim(),
+
+            subject:
+              document.getElementById("subject").value.trim(),
+
+            message:
+              document.getElementById("message").value.trim()
+          })
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        alert(
+          data.error ||
+          "Nachricht konnte nicht gesendet werden."
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Nachricht wurde erfolgreich gesendet."
+      );
+
+      contactForm.reset();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Verbindung zum Server fehlgeschlagen."
+      );
+
+
+    } finally {
+
+      sendButton.disabled = false;
+      sendButton.textContent = originalText;
+
+    }
+
+  }
+);
+  
+  updateProfileMenu();
 
 </script>
 
