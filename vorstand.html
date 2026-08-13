@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vorstand | Fenerbahçe Marl</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+
+    /* HEADER */
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .club-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .club-logo {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .club-name {
+      font-size: 25px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .main-nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: #ffd800;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+
+    /* INSTAGRAM */
+
+    .instagram-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+    }
+
+    .instagram-link svg {
+      width: 25px;
+      height: 25px;
+      display: block;
+    }
+
+
+    /* PROFIL */
+
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-button svg {
+      width: 27px;
+      height: 27px;
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      width: 190px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.18);
+      overflow: hidden;
+      display: none;
+      z-index: 9999;
+    }
+
+    .profile-dropdown.open {
+      display: block;
+    }
+
+    .profile-dropdown a,
+    .profile-dropdown button {
+      width: 100%;
+      display: block;
+      padding: 13px 16px;
+      background: white;
+      border: none;
+      color: #071c4a;
+      text-align: left;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+      background: #f5f5f5;
+    }
+
+    #logoutMenuItem {
+      color: #c62828;
+      border-top: 1px solid #eee;
+    }
+
+
+    /* VORSTAND */
+
+    .vorstand-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 70px 25px 90px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #071c4a;
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .yellow-line {
+      width: 60px;
+      height: 5px;
+      background: #ffd800;
+      margin: 0 auto 20px;
+    }
+
+    .section-description {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 50px;
+      color: #666;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .vorstand-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .vorstand-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 22px rgba(0,0,0,.08);
+      border: 1px solid #e7e7e7;
+      text-align: center;
+    }
+
+    .vorstand-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      background: #ddd;
+    }
+
+    .vorstand-info {
+      padding: 24px 20px 28px;
+    }
+
+    .vorstand-info h3 {
+      color: #071c4a;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .vorstand-role {
+      color: #d4b600;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+      background: #051536;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+
+    /* HANDY */
+
+    @media(max-width: 900px) {
+
+      .vorstand-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .main-nav {
+        position: static;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .header-right {
+        margin-left: 0;
+      }
+
+    }
+
+    @media(max-width: 600px) {
+
+      .vorstand-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 31px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+  <div class="club-brand">
+
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl Logo"
+      class="club-logo"
+    >
+
+    <div class="club-name">
+      Fenerbahçe Marl
+    </div>
+
+  </div>
+
+
+  <nav class="main-nav">
+
+    <a href="index.html">
+      Startseite
+    </a>
+
+    <a href="mannschaften.html">
+      Mannschaften
+    </a>
+
+    <a href="news.html">
+      News
+    </a>
+
+    <a href="sponsoren.html">
+      Sponsoren
+    </a>
+
+    <a href="vorstand.html" class="active">
+      Vorstand
+    </a>
+
+    <a href="index.html#kontakt">
+      Kontakt
+    </a>
+
+  </nav>
+
+
+  <div class="header-right">
+
+    <a
+      href="https://www.instagram.com/fbm.ev/"
+      class="instagram-link"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Instagram"
+    >
+
+      <svg viewBox="0 0 24 24">
+
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1"
+          fill="currentColor"
+        />
+
+      </svg>
+
+    </a>
+
+
+    <div class="profile-menu">
+
+      <button
+        type="button"
+        class="profile-button"
+        id="profileButton"
+        title="Vorstand"
+      >
+
+        <svg viewBox="0 0 24 24">
+
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+          <circle
+            cx="12"
+            cy="8"
+            r="3.2"
+            fill="currentColor"
+          />
+
+          <path
+            d="M6.5 19v-2.2c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3V19"
+            fill="currentColor"
+          />
+
+        </svg>
+
+      </button>
+
+
+      <div
+        class="profile-dropdown"
+        id="profileDropdown"
+      >
+
+        <a
+          href="vorstand-login.html"
+          id="loginMenuItem"
+        >
+          Anmelden
+        </a>
+
+        <a
+          href="vorstand-dashboard.html"
+          id="newsMenuItem"
+        >
+          News veröffentlichen
+        </a>
+
+        <button
+          type="button"
+          id="logoutMenuItem"
+        >
+          Abmelden
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<section class="vorstand-section">
+
+  <h1 class="section-title">
+    Unser Vorstand
+  </h1>
+
+  <div class="yellow-line"></div>
+
+  <p class="section-description">
+    Der Vorstand von Fenerbahçe Marl steht für Engagement,
+    Verantwortung und die gemeinsame Weiterentwicklung unseres Vereins.
+  </p>
+
+
+  <div class="vorstand-grid">
+
+
+    <div class="vorstand-card">
+
+      <img
+        src="vorstand1.jpg"
+        alt="1. Vorsitzender"
+      >
+
+      <div class="vorstand-info">
+
+        <h3>
+          Name folgt
+        </h3>
+
+        <div class="vorstand-role">
+          1. Vorsitzender
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="vorstand-card">
+
+      <img
+        src="vorstand2.jpg"
+        alt="2. Vorsitzender"
+      >
+
+      <div class="vorstand-info">
+
+        <h3>
+          Name folgt
+        </h3>
+
+        <div class="vorstand-role">
+          2. Vorsitzender
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="vorstand-card">
+
+      <img
+        src="vorstand3.jpg"
+        alt="Vorstand"
+      >
+
+      <div class="vorstand-info">
+
+        <h3>
+          Name folgt
+        </h3>
+
+        <div class="vorstand-role">
+          Vorstand
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
+
+</footer>
+
+
+<script>
+
+const API_URL =
+  "https://fenerbahce-marl-backend.onrender.com";
+
+
+const profileButton =
+  document.getElementById("profileButton");
+
+const profileDropdown =
+  document.getElementById("profileDropdown");
+
+const loginMenuItem =
+  document.getElementById("loginMenuItem");
+
+const newsMenuItem =
+  document.getElementById("newsMenuItem");
+
+const logoutMenuItem =
+  document.getElementById("logoutMenuItem");
+
+
+profileButton.addEventListener(
+  "click",
+  function(event) {
+
+    event.stopPropagation();
+
+    profileDropdown.classList.toggle("open");
+
+  }
+);
+
+
+document.addEventListener(
+  "click",
+  function() {
+
+    profileDropdown.classList.remove("open");
+
+  }
+);
+
+
+profileDropdown.addEventListener(
+  "click",
+  function(event) {
+
+    event.stopPropagation();
+
+  }
+);
+
+
+async function updateProfileMenu() {
+
+  const token =
+    sessionStorage.getItem("vorstandToken");
+
+
+  if (!token) {
+
+    loginMenuItem.style.display = "block";
+    newsMenuItem.style.display = "none";
+    logoutMenuItem.style.display = "none";
+
+    return;
+
+  }
+
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization:
+            "Bearer " + token
+        }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem(
+        "vorstandToken"
+      );
+
+      loginMenuItem.style.display =
+        "block";
+
+      newsMenuItem.style.display =
+        "none";
+
+      logoutMenuItem.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    loginMenuItem.style.display =
+      "none";
+
+    newsMenuItem.style.display =
+      "block";
+
+    logoutMenuItem.style.display =
+      "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+logoutMenuItem.addEventListener(
+  "click",
+  function() {
+
+    sessionStorage.removeItem(
+      "vorstandToken"
+    );
+
+    profileDropdown.classList.remove(
+      "open"
+    );
+
+    updateProfileMenu();
+
+  }
+);
+
+
+updateProfileMenu();
+
+</script>
+
+
+</body>
+
+</html>
