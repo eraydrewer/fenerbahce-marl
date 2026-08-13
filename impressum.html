@@ -69,59 +69,81 @@
 
     /* IMPRESSUM */
 
-    .impressum-section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 70px 25px 90px;
-    }
+.impressum-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 55px 25px 90px;
+}
 
-    .impressum-section h1 {
-      color: #071c4a;
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
+.impressum-title {
+  text-align: center;
+  color: #071c4a;
+  font-size: 36px;
+  text-transform: uppercase;
+  margin-bottom: 70px;
+}
 
-    .yellow-line {
-      width: 60px;
-      height: 5px;
-      background: #ffd800;
-      margin-bottom: 40px;
-    }
+.impressum-layout {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 70px;
+  align-items: center;
+}
 
-    .impressum-box {
-      background: white;
-      padding: 45px;
-      border-radius: 12px;
-      border: 1px solid #e5e5e5;
-      box-shadow: 0 6px 22px rgba(0,0,0,.07);
-    }
+.impressum-logo-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .impressum-box h2 {
-      color: #071c4a;
-      font-size: 22px;
-      margin-top: 30px;
-      margin-bottom: 12px;
-    }
+.impressum-logo {
+  width: 330px;
+  height: 330px;
+  object-fit: contain;
+  display: block;
+}
 
-    .impressum-box h2:first-child {
-      margin-top: 0;
-    }
+.impressum-content {
+  color: #333;
+}
 
-    .impressum-box p {
-      color: #555;
-      font-size: 16px;
-      line-height: 1.8;
-    }
+.impressum-content p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
 
-    .impressum-box a {
-      color: #071c4a;
-      text-decoration: none;
-      font-weight: 600;
-    }
+.impressum-content strong {
+  color: #071c4a;
+}
 
-    .impressum-box a:hover {
-      text-decoration: underline;
-    }
+.impressum-content h2 {
+  color: #071c4a;
+  font-size: 25px;
+  margin: 30px 0 12px;
+}
+
+@media(max-width: 800px) {
+
+  .impressum-title {
+    margin-bottom: 40px;
+  }
+
+  .impressum-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .impressum-logo {
+    width: 230px;
+    height: 230px;
+  }
+
+  .impressum-content {
+    text-align: center;
+  }
+
+}
 
 
     /* FOOTER */
@@ -235,52 +257,45 @@
 
 <main class="impressum-section">
 
-  <h1>Impressum</h1>
-
-  <div class="yellow-line"></div>
-
-
-  <div class="impressum-box">
-
-    <h2>Angaben gemäß § 5 DDG</h2>
-
-    <p>
-      Fenerbahçe Marl<br>
-      Bachackerweg 195–197<br>
-      45772 Marl
-    </p>
+  <h1 class="impressum-title">
+    Impressum
+  </h1>
 
 
-    <h2>Vertreten durch</h2>
+  <div class="impressum-layout">
 
-    <p>
-      [Vertretungsberechtigten Vorstand hier eintragen]
-    </p>
+    <div class="impressum-logo-area">
 
+      <img
+        src="logo.png"
+        alt="Fenerbahce Marl e.V. Wappen"
+        class="impressum-logo"
+      >
 
-    <h2>Kontakt</h2>
-
-    <p>
-      E-Mail:
-      <a href="mailto:vorstand@fenerbahce-marl.de">
-        vorstand@fenerbahce-marl.de
-      </a>
-    </p>
+    </div>
 
 
-    <h2>Vereinsregister</h2>
+    <div class="impressum-content">
 
-    <p>
-      Registergericht: [Registergericht eintragen]<br>
-      Registernummer: [VR-Nummer eintragen]
-    </p>
+      <p>
+        Fenerbahce Marl e.V.<br>
+        Bachackerweg 195<br>
+        45772 Marl
+      </p>
 
 
-    <h2>Verantwortlich für den Inhalt</h2>
+      <p>
+        Vereinsregister: VR 1121<br>
+        Registergericht: Gelsenkirchen
+      </p>
 
-    <p>
-      [Name und Anschrift der verantwortlichen Person eintragen]
-    </p>
+
+      <p>
+        <strong>Geschäftsführer:</strong><br>
+        Ertugrul Salbas
+      </p>
+
+    </div>
 
   </div>
 
