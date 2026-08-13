@@ -815,15 +815,19 @@ async function loadHomeNews() {
 
   } catch (error) {
 
-    console.error(error);
+  console.error(error);
 
-    homeNewsContainer.innerHTML = `
-      <div style="color:#777;">
-        News konnten nicht geladen werden.
-      </div>
-    `;
+  homeNewsContainer.innerHTML = `
+    <div style="color:#777;">
+      News werden geladen...
+    </div>
+  `;
 
-  }
+  setTimeout(() => {
+    loadHomeNews();
+  }, 5000);
+
+}
 
 }
 
