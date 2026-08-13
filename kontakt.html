@@ -1,1 +1,692 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kontakt | Fenerbahçe Marl</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+
+    /* HEADER */
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .club-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .club-logo {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .club-name {
+      font-size: 25px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .main-nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: #ffd800;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+
+    /* INSTAGRAM */
+
+    .instagram-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+    }
+
+    .instagram-link svg {
+      width: 25px;
+      height: 25px;
+      display: block;
+    }
+
+
+    /* PROFIL */
+
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-button svg {
+      width: 27px;
+      height: 27px;
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      width: 190px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.18);
+      overflow: hidden;
+      display: none;
+      z-index: 9999;
+    }
+
+    .profile-dropdown.open {
+      display: block;
+    }
+
+    .profile-dropdown a,
+    .profile-dropdown button {
+      width: 100%;
+      display: block;
+      padding: 13px 16px;
+      background: white;
+      border: none;
+      color: #071c4a;
+      text-align: left;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+      background: #f5f5f5;
+    }
+
+    #logoutMenuItem {
+      color: #c62828;
+      border-top: 1px solid #eee;
+    }
+
+
+    /* KONTAKT */
+
+    .contact-section {
+      max-width: 1050px;
+      margin: auto;
+      padding: 70px 25px 90px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #071c4a;
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .yellow-line {
+      width: 60px;
+      height: 5px;
+      background: #ffd800;
+      margin: 0 auto 45px;
+    }
+
+    .contact-box {
+      background: white;
+      max-width: 760px;
+      margin: auto;
+      padding: 45px;
+      border-radius: 14px;
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .contact-box h2 {
+      color: #071c4a;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .contact-box p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      display: block;
+      color: #071c4a;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      padding: 14px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #071c4a;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .send-button {
+      width: 100%;
+      background: #071c4a;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .send-button:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+      background: #051536;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+
+    /* HANDY */
+
+    @media(max-width: 900px) {
+
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .main-nav {
+        position: static;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .header-right {
+        margin-left: 0;
+      }
+
+    }
+
+    @media(max-width: 600px) {
+
+      .section-title {
+        font-size: 31px;
+      }
+
+      .contact-box {
+        padding: 30px 22px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+  <div class="club-brand">
+
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl Logo"
+      class="club-logo"
+    >
+
+    <div class="club-name">
+      Fenerbahçe Marl
+    </div>
+
+  </div>
+
+
+  <nav class="main-nav">
+
+    <a href="index.html">Startseite</a>
+
+    <a href="mannschaften.html">Mannschaften</a>
+
+    <a href="news.html">News</a>
+
+    <a href="sponsoren.html">Sponsoren</a>
+
+    <a href="vorstand.html">Vorstand</a>
+
+    <a href="kontakt.html" class="active">Kontakt</a>
+
+  </nav>
+
+
+  <div class="header-right">
+
+    <a
+      href="https://www.instagram.com/fbm.ev/"
+      class="instagram-link"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Instagram"
+    >
+
+      <svg viewBox="0 0 24 24">
+
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1"
+          fill="currentColor"
+        />
+
+      </svg>
+
+    </a>
+
+
+    <div class="profile-menu">
+
+      <button
+        type="button"
+        class="profile-button"
+        id="profileButton"
+        title="Vorstand"
+      >
+
+        <svg viewBox="0 0 24 24">
+
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+
+          <circle
+            cx="12"
+            cy="8"
+            r="3.2"
+            fill="currentColor"
+          />
+
+          <path
+            d="M6.5 19v-2.2c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3V19"
+            fill="currentColor"
+          />
+
+        </svg>
+
+      </button>
+
+
+      <div
+        class="profile-dropdown"
+        id="profileDropdown"
+      >
+
+        <a
+          href="vorstand-login.html"
+          id="loginMenuItem"
+        >
+          Anmelden
+        </a>
+
+        <a
+          href="vorstand-dashboard.html"
+          id="newsMenuItem"
+        >
+          News veröffentlichen
+        </a>
+
+        <button
+          type="button"
+          id="logoutMenuItem"
+        >
+          Abmelden
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<section class="contact-section">
+
+  <h1 class="section-title">
+    Kontakt
+  </h1>
+
+  <div class="yellow-line"></div>
+
+
+  <div class="contact-box">
+
+    <h2>
+      Schreiben Sie uns
+    </h2>
+
+    <p>
+      Sie haben Fragen zu unserem Verein, möchten Sponsor werden
+      oder haben ein anderes Anliegen? Senden Sie uns gerne eine Nachricht.
+    </p>
+
+
+    <form id="contactForm">
+
+      <div class="form-row">
+
+        <div>
+          <label for="name">Name</label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+          >
+        </div>
+
+
+        <div>
+          <label for="email">E-Mail</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+          >
+        </div>
+
+      </div>
+
+
+      <label for="subject">Betreff</label>
+
+      <input
+        type="text"
+        id="subject"
+        name="subject"
+        required
+      >
+
+
+      <label for="message">Nachricht</label>
+
+      <textarea
+        id="message"
+        name="message"
+        required
+      ></textarea>
+
+
+      <button
+        type="submit"
+        class="send-button"
+      >
+        NACHRICHT SENDEN
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
+
+</footer>
+
+
+<script>
+
+const API_URL =
+  "https://fenerbahce-marl-backend.onrender.com";
+
+
+const profileButton =
+  document.getElementById("profileButton");
+
+const profileDropdown =
+  document.getElementById("profileDropdown");
+
+const loginMenuItem =
+  document.getElementById("loginMenuItem");
+
+const newsMenuItem =
+  document.getElementById("newsMenuItem");
+
+const logoutMenuItem =
+  document.getElementById("logoutMenuItem");
+
+
+profileButton.addEventListener(
+  "click",
+  function(event) {
+
+    event.stopPropagation();
+
+    profileDropdown.classList.toggle("open");
+
+  }
+);
+
+
+document.addEventListener(
+  "click",
+  function() {
+
+    profileDropdown.classList.remove("open");
+
+  }
+);
+
+
+profileDropdown.addEventListener(
+  "click",
+  function(event) {
+
+    event.stopPropagation();
+
+  }
+);
+
+
+async function updateProfileMenu() {
+
+  const token =
+    sessionStorage.getItem("vorstandToken");
+
+  if (!token) {
+
+    loginMenuItem.style.display = "block";
+    newsMenuItem.style.display = "none";
+    logoutMenuItem.style.display = "none";
+
+    return;
+
+  }
+
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem("vorstandToken");
+
+      loginMenuItem.style.display = "block";
+      newsMenuItem.style.display = "none";
+      logoutMenuItem.style.display = "none";
+
+      return;
+
+    }
+
+
+    loginMenuItem.style.display = "none";
+    newsMenuItem.style.display = "block";
+    logoutMenuItem.style.display = "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+logoutMenuItem.addEventListener(
+  "click",
+  function() {
+
+    sessionStorage.removeItem("vorstandToken");
+
+    window.location.href = "index.html";
+
+  }
+);
+
+
+updateProfileMenu();
+
+</script>
+
+
+</body>
+
+</html>
