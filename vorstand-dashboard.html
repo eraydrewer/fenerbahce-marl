@@ -21,26 +21,42 @@
     }
 
     header {
-      background: #071c4a;
-      color: white;
-      padding: 18px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  background: #071c4a;
+  color: white;
+  padding: 18px 7%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
     .club-name {
       font-size: 24px;
       font-weight: bold;
     }
 
-    .header-right {
+    .club-brand {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 12px;
+}
+
+.club-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  display: block;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 25px;
@@ -250,9 +266,19 @@ nav a:hover {
 
 <header>
 
+  <div class="club-brand">
+
+  <img
+    src="logo.png"
+    alt="Fenerbahçe Marl Logo"
+    class="club-logo"
+  >
+
   <div class="club-name">
     Fenerbahçe Marl – Vorstand
   </div>
+
+</div>
 
   <div class="header-right">
 
