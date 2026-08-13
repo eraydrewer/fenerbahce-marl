@@ -1,1 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Impressum | Fenerbahçe Marl</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+
+    /* HEADER */
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .club-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .club-logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .main-nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover {
+      color: #ffd800;
+    }
+
+
+    /* IMPRESSUM */
+
+    .impressum-section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 25px 90px;
+    }
+
+    .impressum-section h1 {
+      color: #071c4a;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .yellow-line {
+      width: 60px;
+      height: 5px;
+      background: #ffd800;
+      margin-bottom: 40px;
+    }
+
+    .impressum-box {
+      background: white;
+      padding: 45px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 6px 22px rgba(0,0,0,.07);
+    }
+
+    .impressum-box h2 {
+      color: #071c4a;
+      font-size: 22px;
+      margin-top: 30px;
+      margin-bottom: 12px;
+    }
+
+    .impressum-box h2:first-child {
+      margin-top: 0;
+    }
+
+    .impressum-box p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .impressum-box a {
+      color: #071c4a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .impressum-box a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+      background: #071c4a;
+      color: white;
+      min-height: 150px;
+      padding: 30px 7%;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-link:hover {
+      color: #ffd800;
+    }
+
+    .footer-copy {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+
+    /* HANDY */
+
+    @media(max-width: 800px) {
+
+      header {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .main-nav {
+        position: static;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .impressum-box {
+        padding: 30px 22px;
+      }
+
+      footer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .footer-copy {
+        position: static;
+        transform: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <a href="index.html" class="club-logo-link">
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl Logo"
+      class="club-logo"
+    >
+  </a>
+
+
+  <nav class="main-nav">
+
+    <a href="index.html">Startseite</a>
+    <a href="mannschaften.html">Mannschaften</a>
+    <a href="news.html">News</a>
+    <a href="sponsoren.html">Sponsoren</a>
+    <a href="vorstand.html">Vorstand</a>
+    <a href="kontakt.html">Kontakt</a>
+
+  </nav>
+
+</header>
+
+
+<main class="impressum-section">
+
+  <h1>Impressum</h1>
+
+  <div class="yellow-line"></div>
+
+
+  <div class="impressum-box">
+
+    <h2>Angaben gemäß § 5 DDG</h2>
+
+    <p>
+      Fenerbahçe Marl<br>
+      Bachackerweg 195–197<br>
+      45772 Marl
+    </p>
+
+
+    <h2>Vertreten durch</h2>
+
+    <p>
+      [Vertretungsberechtigten Vorstand hier eintragen]
+    </p>
+
+
+    <h2>Kontakt</h2>
+
+    <p>
+      E-Mail:
+      <a href="mailto:vorstand@fenerbahce-marl.de">
+        vorstand@fenerbahce-marl.de
+      </a>
+    </p>
+
+
+    <h2>Vereinsregister</h2>
+
+    <p>
+      Registergericht: [Registergericht eintragen]<br>
+      Registernummer: [VR-Nummer eintragen]
+    </p>
+
+
+    <h2>Verantwortlich für den Inhalt</h2>
+
+    <p>
+      [Name und Anschrift der verantwortlichen Person eintragen]
+    </p>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <div class="footer-left">
+
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl"
+      class="footer-logo"
+    >
+
+    <a href="impressum.html" class="footer-link">
+      Impressum
+    </a>
+
+  </div>
+
+  <div class="footer-copy">
+    © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
+  </div>
+
+</footer>
+
+
+</body>
+</html>
