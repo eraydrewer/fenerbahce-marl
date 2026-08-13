@@ -1146,7 +1146,11 @@ function escapeHomeHTML(text) {
 
 }
 
-loadHomeNews();
+window.addEventListener("load", function () {
+  setTimeout(() => {
+    loadHomeNews();
+  }, 1000);
+});
 
     const profileButton =
   document.getElementById("profileButton");
