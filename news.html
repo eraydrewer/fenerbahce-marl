@@ -625,15 +625,19 @@ async function loadNews() {
 
   } catch (error) {
 
-    console.error(error);
+  console.error(error);
 
-    newsContainer.innerHTML = `
-      <div class="loading">
-        News konnten nicht geladen werden.
-      </div>
-    `;
+  newsContainer.innerHTML = `
+    <div class="loading">
+      News werden geladen...
+    </div>
+  `;
 
-  }
+  setTimeout(() => {
+    loadNews();
+  }, 5000);
+
+}
 
 }
 
