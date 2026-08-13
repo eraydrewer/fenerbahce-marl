@@ -90,6 +90,77 @@
   color: #ffd800;
 }
 
+    /* PROFIL MENÜ */
+
+.profile-menu {
+  position: relative;
+}
+
+.profile-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.profile-button svg {
+  width: 27px;
+  height: 27px;
+  display: block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.profile-button:hover svg {
+  transform: scale(1.12);
+  color: #ffd800;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 190px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+  overflow: hidden;
+  display: none;
+  z-index: 9999;
+}
+
+.profile-dropdown.open {
+  display: block;
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  width: 100%;
+  display: block;
+  padding: 13px 16px;
+  background: white;
+  border: none;
+  color: #071c4a;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #f5f5f5;
+}
+
+#logoutMenuItem {
+  color: #c62828;
+  border-top: 1px solid #eee;
+}
+
     /* TITELBEREICH */
     .page-header {
       background: #173d7e;
@@ -345,39 +416,72 @@
 
     </a>
 
-    <a href="vorstand-login.html"
-       class="vorstand-login-link"
-       id="vorstandLoginLink"
-       title="Vorstand Login">
+    <div class="profile-menu">
 
-      <svg viewBox="0 0 24 24">
-        <path
-          d="M10 17l5-5-5-5"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+  <button
+    type="button"
+    class="profile-button"
+    id="profileButton"
+    title="Vorstand"
+  >
 
-        <path
-          d="M15 12H3"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
+    <svg viewBox="0 0 24 24" aria-hidden="true">
 
-        <path
-          d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-      </svg>
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      />
 
+      <circle
+        cx="12"
+        cy="8"
+        r="3.2"
+        fill="currentColor"
+      />
+
+      <path
+        d="M6.5 19v-2.2c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3V19"
+        fill="currentColor"
+      />
+
+    </svg>
+
+  </button>
+
+
+  <div
+    class="profile-dropdown"
+    id="profileDropdown"
+  >
+
+    <a
+      href="vorstand-login.html"
+      id="loginMenuItem"
+    >
+      Anmelden
     </a>
+
+    <a
+      href="vorstand-dashboard.html"
+      id="newsMenuItem"
+    >
+      News veröffentlichen
+    </a>
+
+    <button
+      type="button"
+      id="logoutMenuItem"
+    >
+      Abmelden
+    </button>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -507,17 +611,60 @@
 const VORSTAND_API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
 
-const vorstandLoginLink =
-  document.getElementById("vorstandLoginLink");
+const profileButton =
+  document.getElementById("profileButton");
 
-async function updateVorstandLogin() {
+const profileDropdown =
+  document.getElementById("profileDropdown");
+
+const loginMenuItem =
+  document.getElementById("loginMenuItem");
+
+const newsMenuItem =
+  document.getElementById("newsMenuItem");
+
+const logoutMenuItem =
+  document.getElementById("logoutMenuItem");
+
+
+profileButton.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+  profileDropdown.classList.toggle("open");
+
+});
+
+
+document.addEventListener("click", function() {
+
+  profileDropdown.classList.remove("open");
+
+});
+
+
+profileDropdown.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+});
+
+
+async function updateProfileMenu() {
 
   const token =
     sessionStorage.getItem("vorstandToken");
 
+
   if (!token) {
+
+    loginMenuItem.style.display = "block";
+    newsMenuItem.style.display = "none";
+    logoutMenuItem.style.display = "none";
+
     return;
   }
+
 
   try {
 
@@ -530,33 +677,45 @@ async function updateVorstandLogin() {
       }
     );
 
+
     if (!response.ok) {
+
       sessionStorage.removeItem("vorstandToken");
+
+      loginMenuItem.style.display = "block";
+      newsMenuItem.style.display = "none";
+      logoutMenuItem.style.display = "none";
+
       return;
     }
 
-    vorstandLoginLink.innerHTML = "Abmelden";
-    vorstandLoginLink.removeAttribute("href");
-    vorstandLoginLink.title = "Abmelden";
-    vorstandLoginLink.style.cursor = "pointer";
 
-    vorstandLoginLink.addEventListener(
-      "click",
-      function() {
+    loginMenuItem.style.display = "none";
+    newsMenuItem.style.display = "block";
+    logoutMenuItem.style.display = "block";
 
-        sessionStorage.removeItem("vorstandToken");
-
-        window.location.reload();
-
-      }
-    );
 
   } catch (error) {
+
     console.error(error);
+
   }
+
 }
 
-updateVorstandLogin();
+
+logoutMenuItem.addEventListener("click", function() {
+
+  sessionStorage.removeItem("vorstandToken");
+
+  profileDropdown.classList.remove("open");
+
+  updateProfileMenu();
+
+});
+
+
+updateProfileMenu();
 </script>
 
 </body>
