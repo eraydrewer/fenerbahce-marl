@@ -72,6 +72,23 @@
   color: #ffd800;
 }
 
+    .main-nav a {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: #ffd800;
+  border-radius: 3px;
+}
+
 .header-right {
   margin-left: auto;
   display: flex;
@@ -387,7 +404,7 @@
 
   <nav class="main-nav">
     <a href="index.html">Startseite</a>
-    <a href="mannschaften.html">Mannschaften</a>
+    <a href="mannschaften.html" class="active">Mannschaften</a>
     <a href="news.html">News</a>
     <a href="sponsoren.html">Sponsoren</a>
     <a href="vorstand.html">Vorstand</a>
