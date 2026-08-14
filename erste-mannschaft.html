@@ -490,7 +490,7 @@
 .player-shirt {
   width: 48px;
   height: 56px;
-  background: #071c4a;
+  background: #111;
   color: white;
   font-weight: 700;
   font-size: 22px;
@@ -505,26 +505,6 @@
 .player-card-wide .player-shirt {
   margin: 0;
   flex-shrink: 0;
-}
-
-.player-shirt::before,
-.player-shirt::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  width: 9px;
-  height: 8px;
-  background: #ffd800;
-}
-
-.player-shirt::before {
-  left: 7px;
-  transform: skewX(-20deg);
-}
-
-.player-shirt::after {
-  right: 7px;
-  transform: skewX(20deg);
 }
 
 .player-info strong {
@@ -882,16 +862,16 @@ footer {
   <div class="squad-group">
     <h3 class="squad-title">Torwart</h3>
 
-    <div class="squad-grid squad-grid-single">
-      <div class="player-card player-card-wide">
-        <div class="player-shirt">1</div>
+    <div class="squad-grid">
+  <div class="player-card">
+    <div class="player-shirt">1</div>
 
-        <div class="player-info">
-          <strong>Serkan Kalayci</strong>
-          <span>Torwart</span>
-        </div>
-      </div>
+    <div class="player-info">
+      <strong>Serkan Kalayci</strong>
+      <span>Torwart</span>
     </div>
+  </div>
+</div>
   </div>
 
 
