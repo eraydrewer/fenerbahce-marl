@@ -91,6 +91,82 @@
   border-radius: 3px;
 }
 
+    /* MANNSCHAFTEN DROPDOWN */
+
+.team-menu {
+  position: relative;
+}
+
+.team-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.menu-arrow {
+  font-size: 9px;
+  transition: transform 0.2s ease;
+}
+
+.team-menu:hover .menu-arrow {
+  transform: rotate(180deg);
+}
+
+.team-submenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  width: 205px;
+  background: #071c4a;
+  border-top: 3px solid #ffd800;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+  z-index: 5000;
+}
+
+.team-submenu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -15px;
+  height: 15px;
+}
+
+.team-menu:hover .team-submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.team-submenu a {
+  display: block;
+  padding: 14px 18px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-submenu a:last-child {
+  border-bottom: none;
+}
+
+.team-submenu a:hover {
+  background: #173d7e;
+  color: #ffd800;
+}
+
 .header-right {
   margin-left: auto;
   display: flex;
@@ -452,7 +528,33 @@ footer {
 
   <nav class="main-nav">
     <a href="index.html">Startseite</a>
-    <a href="mannschaften.html">Mannschaften</a>
+    <div class="team-menu">
+
+  <a
+    href="erste-mannschaft.html"
+    class="team-menu-link"
+  >
+    Mannschaften
+    <span class="menu-arrow">▼</span>
+  </a>
+
+  <div class="team-submenu">
+
+    <a href="erste-mannschaft.html">
+      1. Mannschaft
+    </a>
+
+    <a href="zweite-mannschaft.html">
+      2. Mannschaft
+    </a>
+
+    <a href="dritte-mannschaft.html">
+      3. Mannschaft
+    </a>
+
+  </div>
+
+</div>
     <a href="news.html" class="active">News</a>
     <a href="sponsoren.html">Sponsoren</a>
     <a href="vorstand.html">Vorstand</a>
