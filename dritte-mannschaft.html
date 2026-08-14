@@ -849,140 +849,17 @@ footer {
   <div class="single-team-line"></div>
 
   <div class="single-team-photo">
-    <img
-      src="team.jpg"
-      alt="3. Mannschaft Fenerbahçe Marl"
-    >
-  </div>
-
-  <div class="team-content">
-
-  <div class="squad-group">
-    <h3 class="squad-title">Torwart</h3>
-
-    <div class="squad-grid">
-  <div class="player-card">
-    <div class="player-shirt">1</div>
-
-    <div class="player-info">
-      <strong>Serkan Kalayci</strong>
-      <span>Torwart</span>
-    </div>
-  </div>
-</div>
-  </div>
-
-
-  <div class="squad-group">
-    <h3 class="squad-title">Abwehr</h3>
-
-    <div class="squad-grid">
-      <div class="player-card">
-        <div class="player-shirt">4</div>
-        <div class="player-info">
-          <strong>Umutcan Kalayci</strong>
-          <span>Innenverteidiger</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">5</div>
-        <div class="player-info">
-          <strong>Duhan Yildirim</strong>
-          <span>Innenverteidiger</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">2</div>
-        <div class="player-info">
-          <strong>Spielername 4</strong>
-          <span>Außenverteidiger</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">3</div>
-        <div class="player-info">
-          <strong>Spielername 5</strong>
-          <span>Außenverteidiger</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="squad-group">
-    <h3 class="squad-title">Mittelfeld</h3>
-
-    <div class="squad-grid">
-      <div class="player-card">
-        <div class="player-shirt">6</div>
-        <div class="player-info">
-          <strong>Spielername 6</strong>
-          <span>Zentrales Mittelfeld</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">8</div>
-        <div class="player-info">
-          <strong>Spielername 7</strong>
-          <span>Zentrales Mittelfeld</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">10</div>
-        <div class="player-info">
-          <strong>Spielername 8</strong>
-          <span>Offensives Mittelfeld</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">7</div>
-        <div class="player-info">
-          <strong>Spielername 9</strong>
-          <span>Zentrales Mittelfeld</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="squad-group">
-    <h3 class="squad-title">Sturm</h3>
-
-    <div class="squad-grid">
-      <div class="player-card">
-        <div class="player-shirt">9</div>
-        <div class="player-info">
-          <strong>Spielername 10</strong>
-          <span>Sturm</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">11</div>
-        <div class="player-info">
-          <strong>Spielername 11</strong>
-          <span>Sturm</span>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-shirt">19</div>
-        <div class="player-info">
-          <strong>Spielername 12</strong>
-          <span>Sturm</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <img
+    id="teamImage"
+    src="team.jpg"
+    alt="3. Mannschaft Fenerbahçe Marl"
+  >
 </div>
 
+<div
+  class="team-content"
+  id="teamContent"
+></div>
 </main>
 
 <footer>
@@ -1016,6 +893,176 @@ footer {
 <script>
 const VORSTAND_API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
+
+  const TEAM_SLUG = "dritte-mannschaft";
+
+const teamImage =
+  document.getElementById("teamImage");
+
+const teamContent =
+  document.getElementById("teamContent");
+
+
+async function loadTeamData() {
+
+  try {
+
+    const response = await fetch(
+      VORSTAND_API_URL +
+      "/api/teams/" +
+      TEAM_SLUG,
+      {
+        cache: "no-store"
+      }
+    );
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        "Mannschaft konnte nicht geladen werden."
+      );
+
+    }
+
+
+    /* MANNSCHAFTSBILD */
+
+    if (data.image_url) {
+
+      teamImage.src =
+        data.image_url;
+
+    }
+
+
+    /* SPIELER */
+
+    teamContent.innerHTML = "";
+
+
+    const groups = [
+      "Torwart",
+      "Abwehr",
+      "Mittelfeld",
+      "Sturm"
+    ];
+
+
+    groups.forEach(group => {
+
+      const players =
+        data.players.filter(
+          player =>
+            player.position_group === group
+        );
+
+
+      if (players.length === 0) {
+        return;
+      }
+
+
+      const groupElement =
+        document.createElement("div");
+
+      groupElement.className =
+        "squad-group";
+
+
+      groupElement.innerHTML = `
+        <h3 class="squad-title">
+          ${escapeTeamHtml(group)}
+        </h3>
+
+        <div class="squad-grid">
+
+          ${players.map(player => `
+
+            <div class="player-card">
+
+              <div class="player-shirt">
+                ${escapeTeamHtml(
+                  player.shirt_number || ""
+                )}
+              </div>
+
+              <div class="player-info">
+
+                <strong>
+                  ${escapeTeamHtml(
+                    player.name || ""
+                  )}
+                </strong>
+
+              </div>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+      `;
+
+
+      teamContent.appendChild(
+        groupElement
+      );
+
+    });
+
+
+    if (!data.players.length) {
+
+      teamContent.innerHTML = `
+        <div style="
+          text-align:center;
+          color:#777;
+          padding:30px;
+        ">
+          Noch keine Spieler eingetragen.
+        </div>
+      `;
+
+    }
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    teamContent.innerHTML = `
+      <div style="
+        text-align:center;
+        color:#777;
+        padding:30px;
+      ">
+        Mannschaft konnte nicht geladen werden.
+      </div>
+    `;
+
+  }
+
+}
+
+
+function escapeTeamHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+loadTeamData();
 
 const profileButton =
   document.getElementById("profileButton");
