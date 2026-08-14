@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>2. Mannschaft | Fenerbahçe Marl</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+    /* HEADER */
+    header {
+  background: #071c4a;
+  color: white;
+  padding: 18px 7%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+    .club-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.club-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+}
+
+.club-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.main-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.main-nav a:hover {
+  color: #ffd800;
+}
+
+    .main-nav a {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: #ffd800;
+  border-radius: 3px;
+}
+
+    /* MANNSCHAFTEN DROPDOWN */
+
+.team-menu {
+  position: relative;
+}
+
+.team-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.menu-arrow {
+  font-size: 9px;
+  transition: transform 0.2s ease;
+}
+
+.team-menu:hover .menu-arrow {
+  transform: rotate(180deg);
+}
+
+.team-submenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+
+  width: 205px;
+
+  background: #071c4a;
+  border-top: 3px solid #ffd800;
+  border-radius: 0 0 8px 8px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+  z-index: 5000;
+}
+
+/* unsichtbare Verbindung zwischen Menü und Dropdown */
+.team-submenu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -15px;
+  height: 15px;
+}
+
+.team-menu:hover .team-submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.team-submenu a {
+  display: block;
+  padding: 14px 18px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-submenu a:last-child {
+  border-bottom: none;
+}
+
+.team-submenu a:hover {
+  background: #173d7e;
+  color: #ffd800;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.instagram-link,
+.vorstand-login-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.instagram-link svg,
+.vorstand-login-link svg {
+  width: 25px;
+  height: 25px;
+  display: block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.instagram-link:hover svg,
+.vorstand-login-link:hover svg {
+  transform: scale(1.12);
+  color: #ffd800;
+}
+
+    /* PROFIL MENÜ */
+
+.profile-menu {
+  position: relative;
+}
+
+.profile-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.profile-button svg {
+  width: 27px;
+  height: 27px;
+  display: block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.profile-button:hover svg {
+  transform: scale(1.12);
+  color: #ffd800;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 190px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+  overflow: hidden;
+  display: none;
+  z-index: 9999;
+}
+
+.profile-dropdown.open {
+  display: block;
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  width: 100%;
+  display: block;
+  padding: 13px 16px;
+  background: white;
+  border: none;
+  color: #071c4a;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #f5f5f5;
+}
+
+#logoutMenuItem {
+  color: #c62828;
+  border-top: 1px solid #eee;
+}
+
+    /* TITELBEREICH */
+    .page-header {
+      background: #173d7e;
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .page-header h1 {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 17px;
+      color: #e5e8ef;
+    }
+
+    /* MANNSCHAFTS-NAVIGATION */
+    .team-navigation {
+      background: white;
+      padding: 25px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.06);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .team-navigation a {
+      background: #071c4a;
+      color: white;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .team-navigation a:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+    /* MANNSCHAFT */
+    .team-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 75px 25px;
+      scroll-margin-top: 95px;
+    }
+
+    .team-title {
+      text-align: center;
+      color: #071c4a;
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .yellow-line {
+      width: 60px;
+      height: 5px;
+      background: #ffd800;
+      margin: 0 auto 40px;
+      border-radius: 10px;
+    }
+
+    /* MANNSCHAFTSFOTO */
+    .team-photo {
+      width: 100%;
+      height: 520px;
+      background: #d9dce2;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.10);
+      overflow: hidden;
+    }
+
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* SPIELERLISTE */
+    .player-list {
+      background: white;
+      margin-top: 30px;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .player-list h3 {
+      text-align: center;
+      color: #071c4a;
+      font-size: 25px;
+      margin-bottom: 25px;
+    }
+
+    .names {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .names span {
+      background: #f4f5f7;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      color: #071c4a;
+    }
+
+    /* EINZELNE MANNSCHAFT */
+
+.single-team-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 25px 80px;
+}
+
+.single-team-page h1 {
+  text-align: center;
+  color: #071c4a;
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.single-team-line {
+  width: 60px;
+  height: 4px;
+  background: #ffd800;
+  margin: 0 auto 40px;
+  border-radius: 10px;
+}
+
+.single-team-photo {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.single-team-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.team-content {
+  margin-top: 60px;
+}
+
+.team-content h2 {
+  text-align: center;
+  color: #071c4a;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+    .squad-group {
+  margin-top: 38px;
+}
+
+.squad-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #071c4a;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.squad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.squad-grid-single {
+  grid-template-columns: 1fr;
+}
+
+.player-card {
+  background: white;
+  border: 1px solid #e8ecf3;
+  border-radius: 12px;
+  padding: 16px 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.player-card-wide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  text-align: left;
+  padding: 18px 20px;
+}
+
+.player-shirt {
+  width: 48px;
+  height: 56px;
+  background: #111;
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  position: relative;
+  clip-path: polygon(22% 8%, 35% 0, 65% 0, 78% 8%, 100% 22%, 88% 36%, 88% 100%, 12% 100%, 12% 36%, 0 22%);
+}
+
+.player-card-wide .player-shirt {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.player-info strong {
+  display: block;
+  color: #071c4a;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.player-info span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #6a7485;
+  line-height: 1.35;
+}
+
+    /* FOOTER */
+
+footer {
+  background: #071c4a;
+  color: white;
+  min-height: 105px;
+  padding: 14px 7%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-logo {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  display: block;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.footer-link:hover {
+  color: #ffd800;
+  border-color: #ffd800;
+}
+
+.footer-copy {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media(max-width: 700px) {
+
+  footer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .footer-copy {
+    position: static;
+    transform: none;
+  }
+
+}
+
+    @media(max-width: 900px) {
+      header {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .page-header h1 {
+        font-size: 38px;
+      }
+
+      .team-photo {
+        height: 350px;
+      }
+
+      .names {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .squad-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+    }
+
+    @media(max-width: 600px) {
+      .team-navigation {
+        flex-direction: column;
+        position: static;
+      }
+
+      .team-navigation a {
+        text-align: center;
+      }
+
+      nav a {
+        font-size: 14px;
+      }
+
+      .page-header {
+        padding: 55px 15px;
+      }
+
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .team-title {
+        font-size: 30px;
+      }
+
+      .team-photo {
+        height: 260px;
+      }
+
+      .player-list {
+        padding: 20px;
+      }
+
+      .names {
+        grid-template-columns: 1fr;
+      }
+
+      .squad-grid {
+  grid-template-columns: 1fr;
+}
+
+.player-card-wide {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.player-card-wide .player-shirt {
+  margin-bottom: 10px;
+}
+      
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="club-brand">
+
+  <a href="index.html" class="club-logo-link">
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl Logo"
+      class="club-logo"
+    >
+  </a>
+
+</div>
+
+  <nav class="main-nav">
+    <a href="index.html">Startseite</a>
+    <div class="team-menu">
+
+  <a href="mannschaften.html" class="active team-menu-link">
+    Mannschaften
+    <span class="menu-arrow">▼</span>
+  </a>
+
+  <div class="team-submenu">
+
+    <a href="erste-mannschaft.html">
+      1. Mannschaft
+    </a>
+
+    <a href="zweite-mannschaft.html">
+      2. Mannschaft
+    </a>
+
+    <a href="dritte-mannschaft.html">
+      3. Mannschaft
+    </a>
+
+  </div>
+
+</div>
+    <a href="news.html">News</a>
+    <a href="sponsoren.html">Sponsoren</a>
+    <a href="vorstand.html">Vorstand</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+
+  <div class="header-right">
+
+    <a href="https://www.instagram.com/fbm.ev/"
+       class="instagram-link"
+       target="_blank"
+       rel="noopener noreferrer"
+       title="Instagram">
+
+      <svg viewBox="0 0 24 24">
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1"
+          fill="currentColor"
+        />
+      </svg>
+
+    </a>
+
+    <div class="profile-menu">
+
+  <button
+    type="button"
+    class="profile-button"
+    id="profileButton"
+    title="Vorstand"
+  >
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+
+      <circle
+        cx="12"
+        cy="8"
+        r="3.2"
+        fill="currentColor"
+      />
+
+      <path
+        d="M6.5 19v-2.2c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3V19"
+        fill="currentColor"
+      />
+
+    </svg>
+
+  </button>
+
+
+  <div
+    class="profile-dropdown"
+    id="profileDropdown"
+  >
+
+    <a
+      href="vorstand-login.html"
+      id="loginMenuItem"
+    >
+      Anmelden
+    </a>
+
+    <a
+      href="vorstand-dashboard.html"
+      id="newsMenuItem"
+    >
+      News veröffentlichen
+    </a>
+
+    <button
+      type="button"
+      id="logoutMenuItem"
+    >
+      Abmelden
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+</header>
+
+<main class="single-team-page">
+
+  <h1>2. Mannschaft</h1>
+
+  <div class="single-team-line"></div>
+
+  <div class="single-team-photo">
+    <img
+      src="team.jpg"
+      alt="1. Mannschaft Fenerbahçe Marl"
+    >
+  </div>
+
+  <div class="team-content">
+
+  <div class="squad-group">
+    <h3 class="squad-title">Torwart</h3>
+
+    <div class="squad-grid">
+  <div class="player-card">
+    <div class="player-shirt">1</div>
+
+    <div class="player-info">
+      <strong>Serkan Kalayci</strong>
+      <span>Torwart</span>
+    </div>
+  </div>
+</div>
+  </div>
+
+
+  <div class="squad-group">
+    <h3 class="squad-title">Abwehr</h3>
+
+    <div class="squad-grid">
+      <div class="player-card">
+        <div class="player-shirt">4</div>
+        <div class="player-info">
+          <strong>Umutcan Kalayci</strong>
+          <span>Innenverteidiger</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">5</div>
+        <div class="player-info">
+          <strong>Duhan Yildirim</strong>
+          <span>Innenverteidiger</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">2</div>
+        <div class="player-info">
+          <strong>Spielername 4</strong>
+          <span>Außenverteidiger</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">3</div>
+        <div class="player-info">
+          <strong>Spielername 5</strong>
+          <span>Außenverteidiger</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="squad-group">
+    <h3 class="squad-title">Mittelfeld</h3>
+
+    <div class="squad-grid">
+      <div class="player-card">
+        <div class="player-shirt">6</div>
+        <div class="player-info">
+          <strong>Spielername 6</strong>
+          <span>Zentrales Mittelfeld</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">8</div>
+        <div class="player-info">
+          <strong>Spielername 7</strong>
+          <span>Zentrales Mittelfeld</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">10</div>
+        <div class="player-info">
+          <strong>Spielername 8</strong>
+          <span>Offensives Mittelfeld</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">7</div>
+        <div class="player-info">
+          <strong>Spielername 9</strong>
+          <span>Zentrales Mittelfeld</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="squad-group">
+    <h3 class="squad-title">Sturm</h3>
+
+    <div class="squad-grid">
+      <div class="player-card">
+        <div class="player-shirt">9</div>
+        <div class="player-info">
+          <strong>Spielername 10</strong>
+          <span>Sturm</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">11</div>
+        <div class="player-info">
+          <strong>Spielername 11</strong>
+          <span>Sturm</span>
+        </div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-shirt">19</div>
+        <div class="player-info">
+          <strong>Spielername 12</strong>
+          <span>Sturm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-left">
+
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl"
+      class="footer-logo"
+    >
+
+    <div class="footer-links">
+
+      <a href="impressum.html" class="footer-link">
+        Impressum
+      </a>
+
+      <a href="datenschutz.html" class="footer-link">
+        Datenschutz
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-copy">
+    © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
+  </div>
+
+</footer>
+<script>
+const VORSTAND_API_URL =
+  "https://fenerbahce-marl-backend.onrender.com";
+
+const profileButton =
+  document.getElementById("profileButton");
+
+const profileDropdown =
+  document.getElementById("profileDropdown");
+
+const loginMenuItem =
+  document.getElementById("loginMenuItem");
+
+const newsMenuItem =
+  document.getElementById("newsMenuItem");
+
+const logoutMenuItem =
+  document.getElementById("logoutMenuItem");
+
+
+profileButton.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+  profileDropdown.classList.toggle("open");
+
+});
+
+
+document.addEventListener("click", function() {
+
+  profileDropdown.classList.remove("open");
+
+});
+
+
+profileDropdown.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+});
+
+
+async function updateProfileMenu() {
+
+  const token =
+    sessionStorage.getItem("vorstandToken");
+
+
+  if (!token) {
+
+    loginMenuItem.style.display = "block";
+    newsMenuItem.style.display = "none";
+    logoutMenuItem.style.display = "none";
+
+    return;
+  }
+
+
+  try {
+
+    const response = await fetch(
+      VORSTAND_API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem("vorstandToken");
+
+      loginMenuItem.style.display = "block";
+      newsMenuItem.style.display = "none";
+      logoutMenuItem.style.display = "none";
+
+      return;
+    }
+
+
+    loginMenuItem.style.display = "none";
+    newsMenuItem.style.display = "block";
+    logoutMenuItem.style.display = "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+logoutMenuItem.addEventListener("click", function() {
+
+  sessionStorage.removeItem("vorstandToken");
+
+  profileDropdown.classList.remove("open");
+
+  updateProfileMenu();
+
+});
+
+
+updateProfileMenu();
+</script>
+
+</body>
+</html>
