@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Mannschaften | Fenerbahçe Marl</title>
+  <title>1. Mannschaft | Fenerbahçe Marl</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -400,6 +400,53 @@
       color: #071c4a;
     }
 
+    /* EINZELNE MANNSCHAFT */
+
+.single-team-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 25px 80px;
+}
+
+.single-team-page h1 {
+  text-align: center;
+  color: #071c4a;
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.single-team-line {
+  width: 60px;
+  height: 4px;
+  background: #ffd800;
+  margin: 0 auto 40px;
+  border-radius: 10px;
+}
+
+.single-team-photo {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.single-team-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.team-content {
+  margin-top: 60px;
+}
+
+.team-content h2 {
+  text-align: center;
+  color: #071c4a;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
     /* FOOTER */
 
 footer {
@@ -700,29 +747,22 @@ footer {
 
 </header>
 
-<section class="page-header">
-  <h1>Unsere Mannschaften</h1>
-  <p>Die Mannschaften von Fenerbahçe Marl</p>
-</section>
+<main class="single-team-page">
 
-<div class="team-navigation">
-  <a href="#erste">1. Mannschaft</a>
-  <a href="#zweite">2. Mannschaft</a>
-  <a href="#dritte">3. Mannschaft</a>
-</div>
+  <h1>1. Mannschaft</h1>
 
-<!-- 1. MANNSCHAFT -->
-<section class="team-section" id="erste">
+  <div class="single-team-line"></div>
 
-  <h2 class="team-title">1. Mannschaft</h2>
-  <div class="yellow-line"></div>
-
-  <div class="team-photo">
-    Mannschaftsfoto 1. Mannschaft
+  <div class="single-team-photo">
+    <img
+      src="team.jpg"
+      alt="1. Mannschaft Fenerbahçe Marl"
+    >
   </div>
 
-  <div class="player-list">
-    <h3>Spieler</h3>
+  <div class="team-content">
+
+    <h2>Kader</h2>
 
     <div class="names">
       <span>Spielername 1</span>
@@ -742,82 +782,12 @@ footer {
       <span>Spielername 15</span>
       <span>Spielername 16</span>
     </div>
+
   </div>
 
-</section>
-
-<!-- 2. MANNSCHAFT -->
-<section class="team-section" id="zweite">
-
-  <h2 class="team-title">2. Mannschaft</h2>
-  <div class="yellow-line"></div>
-
-  <div class="team-photo">
-    Mannschaftsfoto 2. Mannschaft
-  </div>
-
-  <div class="player-list">
-    <h3>Spieler</h3>
-
-    <div class="names">
-      <span>Spielername 1</span>
-      <span>Spielername 2</span>
-      <span>Spielername 3</span>
-      <span>Spielername 4</span>
-      <span>Spielername 5</span>
-      <span>Spielername 6</span>
-      <span>Spielername 7</span>
-      <span>Spielername 8</span>
-      <span>Spielername 9</span>
-      <span>Spielername 10</span>
-      <span>Spielername 11</span>
-      <span>Spielername 12</span>
-      <span>Spielername 13</span>
-      <span>Spielername 14</span>
-      <span>Spielername 15</span>
-      <span>Spielername 16</span>
-    </div>
-  </div>
-
-</section>
-
-<!-- 3. MANNSCHAFT -->
-<section class="team-section" id="dritte">
-
-  <h2 class="team-title">3. Mannschaft</h2>
-  <div class="yellow-line"></div>
-
-  <div class="team-photo">
-    Mannschaftsfoto 3. Mannschaft
-  </div>
-
-  <div class="player-list">
-    <h3>Spieler</h3>
-
-    <div class="names">
-      <span>Spielername 1</span>
-      <span>Spielername 2</span>
-      <span>Spielername 3</span>
-      <span>Spielername 4</span>
-      <span>Spielername 5</span>
-      <span>Spielername 6</span>
-      <span>Spielername 7</span>
-      <span>Spielername 8</span>
-      <span>Spielername 9</span>
-      <span>Spielername 10</span>
-      <span>Spielername 11</span>
-      <span>Spielername 12</span>
-      <span>Spielername 13</span>
-      <span>Spielername 14</span>
-      <span>Spielername 15</span>
-      <span>Spielername 16</span>
-    </div>
-  </div>
-
-</section>
+</main>
 
 <footer>
-
   <div class="footer-left">
 
     <img
