@@ -6,6 +6,8 @@
 
   <title>Mannschaften | Fenerbahçe Marl</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -312,11 +314,13 @@
       color: #071c4a;
     }
 
-    footer {
+    /* FOOTER */
+
+footer {
   background: #071c4a;
   color: white;
-  min-height: 150px;
-  padding: 30px 7%;
+  min-height: 105px;
+  padding: 14px 7%;
   position: relative;
   display: flex;
   align-items: center;
@@ -326,35 +330,49 @@
 .footer-left {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
 }
 
 .footer-logo {
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
   display: block;
 }
 
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 .footer-link {
-  color: white;
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: 28px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .footer-link:hover {
   color: #ffd800;
+  border-color: #ffd800;
 }
 
 .footer-copy {
   position: absolute;
   left: 50%;
+  bottom: 8px;
   transform: translateX(-50%);
   white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 @media(max-width: 700px) {
@@ -362,7 +380,7 @@
   footer {
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
   }
 
   .footer-copy {
@@ -699,9 +717,17 @@
       class="footer-logo"
     >
 
-    <a href="impressum.html" class="footer-link">
-      Impressum
-    </a>
+    <div class="footer-links">
+
+      <a href="impressum.html" class="footer-link">
+        Impressum
+      </a>
+
+      <a href="datenschutz.html" class="footer-link">
+        Datenschutz
+      </a>
+
+    </div>
 
   </div>
 
@@ -710,7 +736,6 @@
   </div>
 
 </footer>
-
 <script>
 const VORSTAND_API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
