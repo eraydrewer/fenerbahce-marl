@@ -185,7 +185,7 @@
     .players-header,
     .player-row {
       display: grid;
-      grid-template-columns: 90px 1.5fr 170px 1.5fr 50px;
+      grid-template-columns: 90px 1.5fr 170px 50px;
       gap: 12px;
       align-items: center;
     }
@@ -378,12 +378,11 @@
     <h2>Spieler</h2>
 
     <div class="players-header">
-      <div>Nr.</div>
-      <div>Name</div>
-      <div>Bereich</div>
-      <div>Position</div>
-      <div></div>
-    </div>
+  <div>Nr.</div>
+  <div>Name</div>
+  <div>Position</div>
+  <div></div>
+</div>
 
     <div id="playersContainer"></div>
 
@@ -609,27 +608,27 @@ function createPlayerRow(player = {}) {
 
     <select class="position-group">
 
-      <option value="">
-        Bereich wählen
-      </option>
+  <option value="">
+    Position wählen
+  </option>
 
-      <option value="Torwart">
-        Torwart
-      </option>
+  <option value="Torwart">
+    Torwart
+  </option>
 
-      <option value="Abwehr">
-        Abwehr
-      </option>
+  <option value="Abwehr">
+    Abwehr
+  </option>
 
-      <option value="Mittelfeld">
-        Mittelfeld
-      </option>
+  <option value="Mittelfeld">
+    Mittelfeld
+  </option>
 
-      <option value="Sturm">
-        Sturm
-      </option>
+  <option value="Sturm">
+    Sturm
+  </option>
 
-    </select>
+</select>
 
     <input
       type="text"
@@ -729,19 +728,13 @@ document
                   .trim(),
 
               position_group:
-                row
-                  .querySelector(
-                    ".position-group"
-                  )
-                  .value,
+  row
+    .querySelector(
+      ".position-group"
+    )
+    .value,
 
-              position:
-                row
-                  .querySelector(
-                    ".player-position"
-                  )
-                  .value
-                  .trim()
+position: ""
 
             };
 
