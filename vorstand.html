@@ -629,18 +629,25 @@ footer {
         </a>
 
         <a
-          href="vorstand-dashboard.html"
-          id="newsMenuItem"
-        >
-          News veröffentlichen
-        </a>
+  href="vorstand-dashboard.html"
+  id="newsMenuItem"
+>
+  News veröffentlichen
+</a>
 
-        <button
-          type="button"
-          id="logoutMenuItem"
-        >
-          Abmelden
-        </button>
+<a
+  href="team-verwalten.html"
+  id="teamMenuItem"
+>
+  Team verwalten
+</a>
+
+<button
+  type="button"
+  id="logoutMenuItem"
+>
+  Abmelden
+</button>
 
       </div>
 
@@ -800,6 +807,9 @@ const loginMenuItem =
 const newsMenuItem =
   document.getElementById("newsMenuItem");
 
+const teamMenuItem =
+  document.getElementById("teamMenuItem");
+
 const logoutMenuItem =
   document.getElementById("logoutMenuItem");
 
@@ -844,13 +854,14 @@ async function updateProfileMenu() {
 
   if (!token) {
 
-    loginMenuItem.style.display = "block";
-    newsMenuItem.style.display = "none";
-    logoutMenuItem.style.display = "none";
+  loginMenuItem.style.display = "block";
+  newsMenuItem.style.display = "none";
+  teamMenuItem.style.display = "none";
+  logoutMenuItem.style.display = "none";
 
-    return;
+  return;
 
-  }
+}
 
 
   try {
@@ -873,13 +884,16 @@ async function updateProfileMenu() {
       );
 
       loginMenuItem.style.display =
-        "block";
+  "block";
 
-      newsMenuItem.style.display =
-        "none";
+newsMenuItem.style.display =
+  "none";
 
-      logoutMenuItem.style.display =
-        "none";
+teamMenuItem.style.display =
+  "none";
+
+logoutMenuItem.style.display =
+  "none";
 
       return;
 
@@ -887,14 +901,16 @@ async function updateProfileMenu() {
 
 
     loginMenuItem.style.display =
-      "none";
+  "none";
 
-    newsMenuItem.style.display =
-      "block";
+newsMenuItem.style.display =
+  "block";
 
-    logoutMenuItem.style.display =
-      "block";
+teamMenuItem.style.display =
+  "block";
 
+logoutMenuItem.style.display =
+  "block";
 
   } catch (error) {
 
