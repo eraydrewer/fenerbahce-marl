@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Team verwalten | Fenerbahçe Marl</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f5f7;
+      color: #111;
+    }
+
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .club-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .club-logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #ffd800;
+    }
+
+    .header-right {
+      margin-left: auto;
+    }
+
+    .logout-btn {
+      background: #ffd800;
+      color: #071c4a;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 25px 80px;
+    }
+
+    .dashboard h1 {
+      color: #071c4a;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 35px;
+    }
+
+    .team-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .team-tab {
+      border: 2px solid #071c4a;
+      background: white;
+      color: #071c4a;
+      padding: 12px 22px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .team-tab.active {
+      background: #071c4a;
+      color: white;
+    }
+
+    .box {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 25px rgba(0,0,0,.08);
+      margin-bottom: 30px;
+    }
+
+    .box h2 {
+      color: #071c4a;
+      margin-bottom: 25px;
+    }
+
+    .team-image-preview {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #eee;
+      margin-bottom: 20px;
+    }
+
+    .team-image-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    input,
+    select {
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      padding: 11px;
+      font-size: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #071c4a;
+    }
+
+    .image-input {
+      display: block;
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 15px;
+    }
+
+    .upload-btn,
+    .save-btn,
+    .add-btn {
+      background: #071c4a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .upload-btn:hover,
+    .save-btn:hover,
+    .add-btn:hover {
+      background: #ffd800;
+      color: #071c4a;
+    }
+
+    .players-header,
+    .player-row {
+      display: grid;
+      grid-template-columns: 90px 1.5fr 170px 1.5fr 50px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .players-header {
+      font-weight: bold;
+      color: #071c4a;
+      margin-bottom: 10px;
+      padding: 0 5px;
+    }
+
+    .player-row {
+      padding: 12px;
+      background: #f7f8fa;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .player-row input,
+    .player-row select {
+      width: 100%;
+    }
+
+    .delete-player {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #c62828;
+      color: white;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .player-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .save-btn {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .status {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      min-height: 20px;
+    }
+
+    @media(max-width: 850px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        position: static;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .header-right {
+        margin-left: 0;
+      }
+
+      .players-header {
+        display: none;
+      }
+
+      .player-row {
+        grid-template-columns: 1fr;
+      }
+
+      .delete-player {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <a href="index.html" class="club-logo-link">
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl"
+      class="club-logo"
+    >
+  </a>
+
+  <nav>
+    <a href="index.html">Startseite</a>
+    <a href="vorstand-dashboard.html">News verwalten</a>
+    <a href="team-verwalten.html">Team verwalten</a>
+  </nav>
+
+  <div class="header-right">
+    <button
+      class="logout-btn"
+      id="logoutButton"
+    >
+      Abmelden
+    </button>
+  </div>
+
+</header>
+
+
+<main class="dashboard">
+
+  <h1>Team verwalten</h1>
+
+  <p class="subtitle">
+    Mannschaftsbilder, Spieler, Rückennummern und Positionen bearbeiten.
+  </p>
+
+
+  <div class="team-tabs">
+
+    <button
+      class="team-tab active"
+      data-team="erste-mannschaft"
+    >
+      1. Mannschaft
+    </button>
+
+    <button
+      class="team-tab"
+      data-team="zweite-mannschaft"
+    >
+      2. Mannschaft
+    </button>
+
+    <button
+      class="team-tab"
+      data-team="dritte-mannschaft"
+    >
+      3. Mannschaft
+    </button>
+
+  </div>
+
+
+  <div class="box">
+
+    <h2 id="teamTitle">
+      1. Mannschaft – Mannschaftsbild
+    </h2>
+
+    <div class="team-image-preview">
+      <img
+        id="teamImagePreview"
+        src="team.jpg"
+        alt="Mannschaftsbild"
+      >
+    </div>
+
+    <input
+      type="file"
+      id="teamImageInput"
+      class="image-input"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <button
+      type="button"
+      class="upload-btn"
+      id="uploadImageButton"
+    >
+      Mannschaftsbild speichern
+    </button>
+
+    <div
+      class="status"
+      id="imageStatus"
+    ></div>
+
+  </div>
+
+
+  <div class="box">
+
+    <h2>Spieler</h2>
+
+    <div class="players-header">
+      <div>Nr.</div>
+      <div>Name</div>
+      <div>Bereich</div>
+      <div>Position</div>
+      <div></div>
+    </div>
+
+    <div id="playersContainer"></div>
+
+
+    <div class="player-buttons">
+
+      <button
+        type="button"
+        class="add-btn"
+        id="addPlayerButton"
+      >
+        + Spieler hinzufügen
+      </button>
+
+      <button
+        type="button"
+        class="save-btn"
+        id="savePlayersButton"
+      >
+        Änderungen speichern
+      </button>
+
+    </div>
+
+    <div
+      class="status"
+      id="playerStatus"
+    ></div>
+
+  </div>
+
+</main>
+
+
+<script>
+
+const API_URL =
+  "https://fenerbahce-marl-backend.onrender.com";
+
+const token =
+  sessionStorage.getItem("vorstandToken");
+
+let currentTeam =
+  "erste-mannschaft";
+
+const playersContainer =
+  document.getElementById("playersContainer");
+
+const teamImagePreview =
+  document.getElementById("teamImagePreview");
+
+const teamImageInput =
+  document.getElementById("teamImageInput");
+
+const teamTitle =
+  document.getElementById("teamTitle");
+
+const imageStatus =
+  document.getElementById("imageStatus");
+
+const playerStatus =
+  document.getElementById("playerStatus");
+
+
+/* =========================================
+   LOGIN PRÜFEN
+========================================= */
+
+async function checkLogin() {
+
+  if (!token) {
+
+    window.location.href =
+      "vorstand-login.html";
+
+    return;
+
+  }
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/auth/check",
+      {
+        headers: {
+          Authorization:
+            "Bearer " + token
+        }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      sessionStorage.removeItem(
+        "vorstandToken"
+      );
+
+      window.location.href =
+        "vorstand-login.html";
+
+      return;
+
+    }
+
+
+    loadTeam();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Verbindung zum Server fehlgeschlagen."
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   MANNSCHAFT LADEN
+========================================= */
+
+async function loadTeam() {
+
+  playerStatus.textContent =
+    "Mannschaft wird geladen...";
+
+  try {
+
+    const response = await fetch(
+      API_URL +
+      "/api/teams/" +
+      currentTeam
+    );
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        "Mannschaft konnte nicht geladen werden."
+      );
+
+    }
+
+
+    teamTitle.textContent =
+      data.name + " – Mannschaftsbild";
+
+
+    if (data.image_url) {
+
+      teamImagePreview.src =
+        data.image_url;
+
+    } else {
+
+      teamImagePreview.src =
+        "team.jpg";
+
+    }
+
+
+    playersContainer.innerHTML = "";
+
+
+    data.players.forEach(player => {
+
+      createPlayerRow(player);
+
+    });
+
+
+    playerStatus.textContent = "";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    playerStatus.textContent =
+      error.message;
+
+  }
+
+}
+
+
+/* =========================================
+   SPIELERZEILE
+========================================= */
+
+function createPlayerRow(player = {}) {
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "player-row";
+
+
+  row.innerHTML = `
+    <input
+      type="text"
+      class="shirt-number"
+      placeholder="Nr."
+      value="${escapeHtml(player.shirt_number || "")}"
+    >
+
+    <input
+      type="text"
+      class="player-name"
+      placeholder="Spielername"
+      value="${escapeHtml(player.name || "")}"
+    >
+
+    <select class="position-group">
+
+      <option value="">
+        Bereich wählen
+      </option>
+
+      <option value="Torwart">
+        Torwart
+      </option>
+
+      <option value="Abwehr">
+        Abwehr
+      </option>
+
+      <option value="Mittelfeld">
+        Mittelfeld
+      </option>
+
+      <option value="Sturm">
+        Sturm
+      </option>
+
+    </select>
+
+    <input
+      type="text"
+      class="player-position"
+      placeholder="z.B. Innenverteidiger"
+      value="${escapeHtml(player.position || "")}"
+    >
+
+    <button
+      type="button"
+      class="delete-player"
+      title="Spieler löschen"
+    >
+      ×
+    </button>
+  `;
+
+
+  const select =
+    row.querySelector(
+      ".position-group"
+    );
+
+  select.value =
+    player.position_group || "";
+
+
+  row
+    .querySelector(".delete-player")
+    .addEventListener(
+      "click",
+      function() {
+
+        row.remove();
+
+      }
+    );
+
+
+  playersContainer.appendChild(row);
+
+}
+
+
+/* =========================================
+   SPIELER HINZUFÜGEN
+========================================= */
+
+document
+  .getElementById("addPlayerButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      createPlayerRow();
+
+    }
+  );
+
+
+/* =========================================
+   SPIELER SPEICHERN
+========================================= */
+
+document
+  .getElementById("savePlayersButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const rows =
+        document.querySelectorAll(
+          ".player-row"
+        );
+
+
+      const players =
+        Array.from(rows)
+          .map(row => {
+
+            return {
+
+              shirt_number:
+                row
+                  .querySelector(
+                    ".shirt-number"
+                  )
+                  .value
+                  .trim(),
+
+              name:
+                row
+                  .querySelector(
+                    ".player-name"
+                  )
+                  .value
+                  .trim(),
+
+              position_group:
+                row
+                  .querySelector(
+                    ".position-group"
+                  )
+                  .value,
+
+              position:
+                row
+                  .querySelector(
+                    ".player-position"
+                  )
+                  .value
+                  .trim()
+
+            };
+
+          })
+          .filter(player =>
+            player.name
+          );
+
+
+      playerStatus.textContent =
+        "Wird gespeichert...";
+
+
+      try {
+
+        const response = await fetch(
+          API_URL +
+          "/api/teams/" +
+          currentTeam +
+          "/players",
+          {
+            method: "PUT",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                "Bearer " + token
+            },
+
+            body: JSON.stringify({
+              players: players
+            })
+          }
+        );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Spieler konnten nicht gespeichert werden."
+          );
+
+        }
+
+
+        playerStatus.textContent =
+          "Änderungen wurden gespeichert.";
+
+
+        loadTeam();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        playerStatus.textContent =
+          error.message;
+
+      }
+
+    }
+  );
+
+
+/* =========================================
+   MANNSCHAFTSBILD VORSCHAU
+========================================= */
+
+teamImageInput.addEventListener(
+  "change",
+  function() {
+
+    const file =
+      this.files[0];
+
+    if (!file) {
+      return;
+    }
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      function(event) {
+
+        teamImagePreview.src =
+          event.target.result;
+
+      };
+
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* =========================================
+   MANNSCHAFTSBILD SPEICHERN
+========================================= */
+
+document
+  .getElementById("uploadImageButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const file =
+        teamImageInput.files[0];
+
+
+      if (!file) {
+
+        imageStatus.textContent =
+          "Bitte zuerst ein Bild auswählen.";
+
+        return;
+
+      }
+
+
+      imageStatus.textContent =
+        "Bild wird hochgeladen...";
+
+
+      try {
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "image",
+          file
+        );
+
+
+        const response =
+          await fetch(
+            API_URL +
+            "/api/teams/" +
+            currentTeam +
+            "/image",
+            {
+              method: "POST",
+
+              headers: {
+                Authorization:
+                  "Bearer " + token
+              },
+
+              body: formData
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Bild konnte nicht gespeichert werden."
+          );
+
+        }
+
+
+        teamImagePreview.src =
+          data.image_url;
+
+
+        teamImageInput.value = "";
+
+
+        imageStatus.textContent =
+          "Mannschaftsbild wurde gespeichert.";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        imageStatus.textContent =
+          error.message;
+
+      }
+
+    }
+  );
+
+
+/* =========================================
+   MANNSCHAFT WECHSELN
+========================================= */
+
+document
+  .querySelectorAll(".team-tab")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      function() {
+
+        currentTeam =
+          this.dataset.team;
+
+
+        document
+          .querySelectorAll(".team-tab")
+          .forEach(tab => {
+
+            tab.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        this.classList.add(
+          "active"
+        );
+
+
+        teamImageInput.value = "";
+
+        imageStatus.textContent = "";
+
+        playerStatus.textContent = "";
+
+
+        loadTeam();
+
+      }
+    );
+
+  });
+
+
+/* =========================================
+   ABMELDEN
+========================================= */
+
+document
+  .getElementById("logoutButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      sessionStorage.removeItem(
+        "vorstandToken"
+      );
+
+      window.location.href =
+        "index.html";
+
+    }
+  );
+
+
+/* =========================================
+   HTML SICHER AUSGEBEN
+========================================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+checkLogin();
+
+</script>
+
+</body>
+</html>
