@@ -840,18 +840,27 @@ footer {
   }
 
   .team-submenu {
-    position: static;
-    width: 100%;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    box-shadow: none;
-    border: none;
-    border-radius: 0;
-    background: #0b2a65;
-    margin: 0;
-  }
+  display: none;
+  position: static;
+  width: 100%;
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: #0b2a65;
+  margin: 0;
+}
+
+.team-menu.mobile-open .team-submenu {
+  display: block;
+}
+
+.team-menu.mobile-open .menu-arrow {
+  transform: rotate(180deg);
+}
 
   .team-submenu a {
     padding: 12px 20px;
@@ -1562,6 +1571,18 @@ const mainNav = document.querySelector(".main-nav");
 
 mobileMenuButton.addEventListener("click", function () {
   mainNav.classList.toggle("open");
+});
+
+    const mobileTeamMenu = document.querySelector(".team-menu");
+const mobileTeamMenuLink = document.querySelector(".team-menu-link");
+
+mobileTeamMenuLink.addEventListener("click", function(event) {
+
+  if (window.innerWidth <= 800) {
+    event.preventDefault();
+    mobileTeamMenu.classList.toggle("mobile-open");
+  }
+
 });
 
 </script>
