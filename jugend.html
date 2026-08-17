@@ -1,1 +1,1012 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jugend | Fenerbahçe Marl</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    /* HEADER */
+    header {
+      background: #071c4a;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .club-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .club-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .club-logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .main-nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .main-nav a:hover {
+      color: #ffd800;
+    }
+
+    .main-nav a.active {
+      color: #ffd800;
+    }
+
+    .main-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 3px;
+      background: #ffd800;
+      border-radius: 3px;
+    }
+
+    /* MANNSCHAFTEN DROPDOWN */
+    .team-menu {
+      position: relative;
+    }
+
+    .team-menu-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .menu-arrow {
+      font-size: 9px;
+      transition: transform 0.2s ease;
+    }
+
+    .team-menu:hover .menu-arrow {
+      transform: rotate(180deg);
+    }
+
+    .team-submenu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-5px);
+      width: 205px;
+      background: #071c4a;
+      border-top: 3px solid #ffd800;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+      z-index: 5000;
+    }
+
+    .team-submenu::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -15px;
+      height: 15px;
+    }
+
+    .team-menu:hover .team-submenu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .team-submenu a {
+      display: block;
+      padding: 14px 18px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .team-submenu a:last-child {
+      border-bottom: none;
+    }
+
+    .team-submenu a:hover {
+      background: #173d7e;
+      color: #ffd800;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .instagram-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+    }
+
+    .instagram-link svg {
+      width: 25px;
+      height: 25px;
+      display: block;
+      transition: transform .2s ease, color .2s ease;
+    }
+
+    .instagram-link:hover svg {
+      transform: scale(1.12);
+      color: #ffd800;
+    }
+
+    /* PROFIL MENÜ */
+    .profile-menu {
+      position: relative;
+    }
+
+    .profile-button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .profile-button svg {
+      width: 27px;
+      height: 27px;
+      display: block;
+      transition: transform .2s ease, color .2s ease;
+    }
+
+    .profile-button:hover svg {
+      transform: scale(1.12);
+      color: #ffd800;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      width: 190px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.18);
+      overflow: hidden;
+      display: none;
+      z-index: 9999;
+    }
+
+    .profile-dropdown.open {
+      display: block;
+    }
+
+    .profile-dropdown a,
+    .profile-dropdown button {
+      width: 100%;
+      display: block;
+      padding: 13px 16px;
+      background: white;
+      border: none;
+      color: #071c4a;
+      text-align: left;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+      background: #f5f5f5;
+    }
+
+    #logoutMenuItem {
+      color: #c62828;
+      border-top: 1px solid #eee;
+    }
+
+    /* HERO */
+    .youth-hero {
+      min-height: 500px;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(255,216,0,.09), transparent 30%),
+        linear-gradient(115deg, rgba(7,28,74,.98), rgba(5,19,48,.96));
+      position: relative;
+      overflow: hidden;
+      color: white;
+    }
+
+    .youth-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: .6;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1450px;
+      min-height: 500px;
+      margin: 0 auto;
+      padding: 58px 7%;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 70px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+    }
+
+    .hero-title {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(60px, 6vw, 94px);
+      line-height: .92;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      display: block;
+      color: #ffd800;
+    }
+
+    .hero-line {
+      width: 55px;
+      height: 4px;
+      background: #ffd800;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero-text {
+      max-width: 570px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.87);
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      min-height: 350px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #f3f4f7, #dedfe3);
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 16px 38px rgba(0,0,0,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-placeholder::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 2px dashed #b9bdc7;
+      border-radius: 10px;
+    }
+
+    .image-placeholder-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #a3a7b0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .image-placeholder-content svg {
+      width: 90px;
+      height: 90px;
+    }
+
+    .image-placeholder-content strong {
+      font-family: "Montserrat", sans-serif;
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
+
+    /* JUGENDMANNSCHAFTEN */
+    .youth-content {
+      background: #fff;
+      padding: 58px 7% 68px;
+    }
+
+    .youth-content-inner {
+      max-width: 1450px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 50px;
+      align-items: stretch;
+    }
+
+    .section-heading {
+      font-family: "Montserrat", sans-serif;
+      color: #071c4a;
+      font-size: 29px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 11px;
+    }
+
+    .section-line {
+      width: 42px;
+      height: 4px;
+      background: #ffd800;
+      margin-bottom: 28px;
+    }
+
+    .team-cards {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(105px, 1fr));
+      gap: 14px;
+    }
+
+    .youth-team-card {
+      min-height: 190px;
+      background: #fff;
+      border: 1px solid #e1e4ea;
+      border-radius: 8px;
+      box-shadow: 0 5px 16px rgba(7,28,74,.07);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px 10px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .youth-team-card:hover {
+      transform: translateY(-4px);
+      border-color: #ffd800;
+      box-shadow: 0 9px 24px rgba(7,28,74,.12);
+    }
+
+    .shirt-icon {
+      width: 48px;
+      height: 42px;
+      margin-bottom: 14px;
+      color: #071c4a;
+    }
+
+    .team-code {
+      font-family: "Bebas Neue", sans-serif;
+      color: #071c4a;
+      font-size: 45px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .team-label {
+      font-family: "Montserrat", sans-serif;
+      color: #071c4a;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    /* KONTAKT */
+    .youth-contact {
+      background: linear-gradient(145deg, #071c4a, #0b2a65);
+      border-radius: 12px;
+      padding: 28px 28px 26px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(7,28,74,.18);
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 300px;
+    }
+
+    .contact-title {
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+      margin-bottom: 8px;
+    }
+
+    .contact-title-line {
+      width: 44px;
+      height: 3px;
+      background: #ffd800;
+      margin: 0 auto 19px;
+    }
+
+    .contact-photo {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid #ffd800;
+      background: #f0f1f4;
+      margin: 0 auto 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .contact-photo-fallback {
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      color: #071c4a;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .contact-name {
+      font-family: "Montserrat", sans-serif;
+      color: #ffd800;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .contact-email {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 14px;
+      line-height: 1.4;
+      word-break: break-word;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      margin-bottom: 20px;
+    }
+
+    .contact-email svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: #ffd800;
+    }
+
+    .contact-email:hover {
+      color: #ffd800;
+    }
+
+    .contact-button {
+      display: block;
+      width: 100%;
+      background: #ffd800;
+      color: #071c4a;
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 15px 18px;
+      border-radius: 7px;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .contact-button:hover {
+      background: #ffe23d;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #071c4a;
+      color: white;
+      min-height: 105px;
+      padding: 14px 7%;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .footer-link {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .3px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255,255,255,.45);
+    }
+
+    .footer-link:hover {
+      color: #ffd800;
+      border-color: #ffd800;
+    }
+
+    .footer-copy {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1180px) {
+      .main-nav {
+        gap: 18px;
+      }
+
+      .hero-inner {
+        gap: 38px;
+      }
+
+      .youth-content-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .youth-contact {
+        max-width: 520px;
+        width: 100%;
+        justify-self: center;
+      }
+    }
+
+    @media(max-width: 900px) {
+      header {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .main-nav {
+        position: static;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .header-right {
+        margin-left: 0;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 50px;
+        padding-bottom: 50px;
+      }
+
+      .hero-copy {
+        max-width: 100%;
+      }
+
+      .hero-image-placeholder {
+        min-height: 280px;
+      }
+
+      .team-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media(max-width: 620px) {
+      .youth-hero,
+      .hero-inner {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .hero-title {
+        font-size: 58px;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      .youth-content {
+        padding: 45px 20px 55px;
+      }
+
+      .section-heading {
+        font-size: 23px;
+      }
+
+      .team-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      footer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .footer-copy {
+        position: static;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="club-brand">
+    <a href="index.html" class="club-logo-link">
+      <img src="logo.png" alt="Fenerbahçe Marl Logo" class="club-logo">
+    </a>
+  </div>
+
+  <nav class="main-nav">
+    <a href="index.html">Startseite</a>
+
+    <div class="team-menu">
+      <a href="erste-mannschaft.html" class="team-menu-link">
+        Mannschaften
+        <span class="menu-arrow">▼</span>
+      </a>
+
+      <div class="team-submenu">
+        <a href="erste-mannschaft.html">1. Mannschaft</a>
+        <a href="zweite-mannschaft.html">2. Mannschaft</a>
+        <a href="dritte-mannschaft.html">3. Mannschaft</a>
+      </div>
+    </div>
+
+    <a href="jugend.html" class="active">Jugend</a>
+    <a href="news.html">News</a>
+    <a href="sponsoren.html">Sponsoren</a>
+    <a href="vorstand.html">Vorstand</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+
+  <div class="header-right">
+    <a
+      href="https://www.instagram.com/fbm.ev/"
+      class="instagram-link"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Instagram"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+      </svg>
+    </a>
+
+    <div class="profile-menu">
+      <button type="button" class="profile-button" id="profileButton" title="Vorstand">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="8" r="3.2" fill="currentColor"/>
+          <path d="M6.5 19v-2.2c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3V19" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <div class="profile-dropdown" id="profileDropdown">
+        <a href="vorstand-login.html" id="loginMenuItem">Anmelden</a>
+        <a href="vorstand-dashboard.html" id="newsMenuItem">News veröffentlichen</a>
+        <a href="team-verwalten.html" id="teamMenuItem">Team verwalten</a>
+        <button type="button" id="logoutMenuItem">Abmelden</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="youth-hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          Werde Teil
+          <span>unserer Jugend</span>
+        </h1>
+
+        <div class="hero-line"></div>
+
+        <div class="hero-subtitle">JSG mit Lenkerbeck</div>
+
+        <p class="hero-text">
+          Bei uns steht die Entwicklung junger Talente im Mittelpunkt.
+          Teamgeist, Fairplay und der Spaß am Fußball – dafür stehen wir.
+        </p>
+      </div>
+
+      <div class="hero-image-placeholder" aria-label="Jugendbild folgt">
+        <div class="image-placeholder-content">
+          <svg viewBox="0 0 100 82" aria-hidden="true">
+            <rect x="8" y="8" width="84" height="66" rx="8" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="70" cy="27" r="9" fill="currentColor"/>
+            <path d="M17 65L39 42L53 56L63 47L84 65Z" fill="currentColor"/>
+          </svg>
+          <strong>BILD FOLGT</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="youth-content">
+    <div class="youth-content-inner">
+      <div class="teams-area">
+        <h2 class="section-heading">Unsere Jugendmannschaften</h2>
+        <div class="section-line"></div>
+
+        <div class="team-cards">
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">G</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">F</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">E1</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">E2</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">D1</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+
+          <div class="youth-team-card">
+            <svg class="shirt-icon" viewBox="0 0 64 56"><path d="M18 5l8-4h12l8 4 13 8-8 13-7-4v29H20V22l-7 4-8-13 13-8z" fill="currentColor"/></svg>
+            <div class="team-code">D2</div>
+            <div class="team-label">Jugendmannschaft</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="youth-contact">
+        <h2 class="contact-title">Kontakt Jugendbereich</h2>
+        <div class="contact-title-line"></div>
+
+        <div class="contact-photo">
+          <img
+            src="erhan-keskin.jpg"
+            alt="Erhan Keskin"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <span class="contact-photo-fallback">EK</span>
+        </div>
+
+        <div class="contact-name">Erhan Keskin</div>
+
+        <a class="contact-email" href="mailto:Jugend@fenerbahce-marl.de">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.5" y="4.5" width="19" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Jugend@fenerbahce-marl.de
+        </a>
+
+        <a
+          class="contact-button"
+          href="mailto:Jugend@fenerbahce-marl.de?subject=Anfrage%20Jugend%20Fenerbah%C3%A7e%20Marl"
+        >
+          Jetzt anfragen →
+        </a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Fenerbahçe Marl" class="footer-logo">
+
+    <div class="footer-links">
+      <a href="impressum.html" class="footer-link">Impressum</a>
+      <a href="datenschutz.html" class="footer-link">Datenschutz</a>
+    </div>
+  </div>
+
+  <div class="footer-copy">
+    © 2026 Fenerbahçe Marl – Alle Rechte vorbehalten
+  </div>
+</footer>
+
+<script>
+  const NEWS_API_URL = "https://fenerbahce-marl-backend.onrender.com";
+
+  const profileButton = document.getElementById("profileButton");
+  const profileDropdown = document.getElementById("profileDropdown");
+  const loginMenuItem = document.getElementById("loginMenuItem");
+  const newsMenuItem = document.getElementById("newsMenuItem");
+  const teamMenuItem = document.getElementById("teamMenuItem");
+  const logoutMenuItem = document.getElementById("logoutMenuItem");
+
+  profileButton.addEventListener("click", function(event) {
+    event.stopPropagation();
+    profileDropdown.classList.toggle("open");
+  });
+
+  document.addEventListener("click", function() {
+    profileDropdown.classList.remove("open");
+  });
+
+  profileDropdown.addEventListener("click", function(event) {
+    event.stopPropagation();
+  });
+
+  async function updateProfileMenu() {
+    const token = sessionStorage.getItem("vorstandToken");
+
+    if (!token) {
+      loginMenuItem.style.display = "block";
+      newsMenuItem.style.display = "none";
+      teamMenuItem.style.display = "none";
+      logoutMenuItem.style.display = "none";
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        NEWS_API_URL + "/api/auth/check",
+        {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        }
+      );
+
+      if (!response.ok) {
+        sessionStorage.removeItem("vorstandToken");
+        loginMenuItem.style.display = "block";
+        newsMenuItem.style.display = "none";
+        teamMenuItem.style.display = "none";
+        logoutMenuItem.style.display = "none";
+        return;
+      }
+
+      loginMenuItem.style.display = "none";
+      newsMenuItem.style.display = "block";
+      teamMenuItem.style.display = "block";
+      logoutMenuItem.style.display = "block";
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  logoutMenuItem.addEventListener("click", function() {
+    sessionStorage.removeItem("vorstandToken");
+    profileDropdown.classList.remove("open");
+    updateProfileMenu();
+  });
+
+  updateProfileMenu();
+</script>
+
+</body>
+</html>
