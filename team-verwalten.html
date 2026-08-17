@@ -373,35 +373,211 @@
       min-height: 20px;
     }
 
+    .mobile-menu-button {
+  display: none;
+  width: 36px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+}
+
     @media(max-width: 850px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
 
-      nav {
-        position: static;
-        transform: none;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+  header {
+    padding: 12px 18px;
+    flex-direction: row;
+    gap: 0;
+    min-height: 74px;
+    z-index: 5000;
+  }
 
-      .header-right {
-        margin-left: 0;
-      }
+  .club-logo {
+    width: 50px;
+    height: 50px;
+  }
 
-      .players-header {
-        display: none;
-      }
+  .club-logo-link {
+    order: 1;
+  }
 
-      .player-row {
-        grid-template-columns: 1fr;
-      }
+  .header-right {
+    order: 2;
+    margin-left: auto;
+  }
 
-      .delete-player {
-        width: 100%;
-      }
-    }
+  .mobile-menu-button {
+    display: flex;
+    order: 3;
+    margin-left: 15px;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 74px;
+    left: 0;
+    transform: none;
+    width: 100%;
+    background: #071c4a;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 18px 20px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 20px rgba(0,0,0,.18);
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav > a,
+  .team-menu-link {
+    width: 100%;
+    padding: 14px 5px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .team-menu {
+    width: 100%;
+  }
+
+  .team-menu-link {
+    justify-content: space-between;
+  }
+
+  .team-submenu {
+    display: none;
+    position: static;
+    left: auto;
+    width: 100%;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    border: none;
+    border-radius: 0;
+    background: #0b2a65;
+  }
+
+  .team-menu.mobile-open .team-submenu {
+    display: block;
+  }
+
+  .team-menu.mobile-open .menu-arrow {
+    transform: rotate(180deg);
+  }
+
+  .team-submenu a {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 14px;
+    color: white;
+  }
+
+
+  /* TEAM VERWALTEN HANDY */
+
+  .dashboard {
+    padding: 40px 18px 60px;
+  }
+
+  .dashboard h1 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  .team-tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .team-tab {
+    width: 100%;
+    padding: 13px 15px;
+  }
+
+  .box {
+    padding: 22px 18px;
+    margin-bottom: 22px;
+  }
+
+  .box h2 {
+    font-size: 21px;
+    line-height: 1.35;
+    margin-bottom: 20px;
+  }
+
+  .team-image-preview {
+    max-width: 100%;
+  }
+
+  .image-input {
+    max-width: 100%;
+  }
+
+  .upload-btn,
+  .save-btn,
+  .add-btn {
+    width: 100%;
+    padding: 14px 16px;
+  }
+
+  .players-header {
+    display: none;
+  }
+
+  .player-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 15px;
+    margin-bottom: 14px;
+  }
+
+  .player-row input,
+  .player-row select {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .delete-player {
+    width: 100%;
+    height: 44px;
+  }
+
+  .player-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-btn {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+}
   </style>
 </head>
 
@@ -417,6 +593,17 @@
     >
   </a>
 
+<button
+  class="mobile-menu-button"
+  id="mobileMenuButton"
+  type="button"
+  aria-label="Menü öffnen"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+  
   <nav>
 
     <a href="index.html">
@@ -450,6 +637,10 @@
       </div>
 
     </div>
+
+    <a href="jugend.html">
+  Jugend
+</a>
 
     <a href="news.html">
       News
@@ -1321,6 +1512,32 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 
 }
+
+  const mobileMenuButton =
+  document.getElementById("mobileMenuButton");
+
+const mainNav =
+  document.querySelector("nav");
+
+mobileMenuButton.addEventListener("click", function() {
+  mainNav.classList.toggle("open");
+});
+
+
+const mobileTeamMenu =
+  document.querySelector(".team-menu");
+
+const mobileTeamMenuLink =
+  document.querySelector(".team-menu-link");
+
+mobileTeamMenuLink.addEventListener("click", function(event) {
+
+  if (window.innerWidth <= 850) {
+    event.preventDefault();
+    mobileTeamMenu.classList.toggle("mobile-open");
+  }
+
+});
 
 
 checkLogin();
