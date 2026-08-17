@@ -584,6 +584,27 @@ footer {
   color: rgba(255, 255, 255, 0.55);
 }
 
+    .mobile-menu-button {
+  display: none;
+  width: 36px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+}
+
 @media(max-width: 700px) {
 
   footer {
@@ -601,15 +622,114 @@ footer {
 
     @media(max-width: 900px) {
       header {
-        flex-direction: column;
-        gap: 18px;
-      }
+  padding: 12px 18px;
+  flex-direction: row;
+  gap: 0;
+  min-height: 74px;
+  z-index: 5000;
+}
 
-      nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-      }
+.club-logo {
+  width: 50px;
+  height: 50px;
+}
+
+.club-brand {
+  order: 1;
+}
+
+.header-right {
+  order: 2;
+  margin-left: auto;
+  gap: 14px;
+}
+
+.mobile-menu-button {
+  display: flex;
+  order: 3;
+  margin-left: 15px;
+}
+
+.main-nav {
+  display: none;
+  position: absolute;
+  top: 74px;
+  left: 0;
+  transform: none;
+  width: 100%;
+  background: #071c4a;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 10px 18px 20px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+}
+
+.main-nav.open {
+  display: flex;
+}
+
+.main-nav > a,
+.team-menu-link {
+  width: 100%;
+  padding: 14px 5px;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.main-nav a.active::after {
+  display: none;
+}
+
+.team-menu {
+  width: 100%;
+}
+
+.team-menu-link {
+  justify-content: space-between;
+}
+
+.team-submenu {
+  display: none;
+  position: static;
+  left: auto;
+  width: 100%;
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  background: #0b2a65;
+  margin: 0;
+}
+
+.team-menu.mobile-open .team-submenu,
+.team-menu:hover .team-submenu {
+  display: block;
+  position: static;
+  left: auto;
+  transform: none;
+  width: 100%;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.team-menu.mobile-open .menu-arrow {
+  transform: rotate(180deg);
+}
+
+.team-submenu a {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14px;
+  color: white;
+  text-align: left;
+}
 
       .page-header h1 {
         font-size: 38px;
@@ -699,6 +819,17 @@ footer {
   </a>
 
 </div>
+
+  <button
+  class="mobile-menu-button"
+  id="mobileMenuButton"
+  type="button"
+  aria-label="Menü öffnen"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
   <nav class="main-nav">
     <a href="index.html">Startseite</a>
@@ -1184,6 +1315,33 @@ logoutMenuItem.addEventListener("click", function() {
 
 
 updateProfileMenu();
+
+const mobileMenuButton =
+  document.getElementById("mobileMenuButton");
+
+const mainNav =
+  document.querySelector(".main-nav");
+
+mobileMenuButton.addEventListener("click", function() {
+  mainNav.classList.toggle("open");
+});
+
+
+const mobileTeamMenu =
+  document.querySelector(".team-menu");
+
+const mobileTeamMenuLink =
+  document.querySelector(".team-menu-link");
+
+mobileTeamMenuLink.addEventListener("click", function(event) {
+
+  if (window.innerWidth <= 900) {
+    event.preventDefault();
+    mobileTeamMenu.classList.toggle("mobile-open");
+  }
+
+});
+  
 </script>
 
 </body>
