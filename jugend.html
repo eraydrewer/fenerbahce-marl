@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,800;0,900;1,800;1,900&family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -293,26 +293,30 @@
       margin: 0 auto;
       padding: 58px 7%;
       display: grid;
-      grid-template-columns: 1fr 1.05fr;
-      gap: 70px;
+      grid-template-columns: 1.15fr .85fr;
+gap: 55px;
       align-items: center;
       position: relative;
       z-index: 2;
     }
 
     .hero-copy {
-      max-width: 650px;
-    }
-
+  max-width: 760px;
+}
     .hero-title {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: clamp(60px, 6vw, 94px);
-      line-height: .92;
-      font-weight: 400;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
+  font-family: "Barlow Condensed", sans-serif;
+
+  font-size: clamp(68px, 6.4vw, 106px);
+  line-height: .84;
+
+  font-weight: 900;
+  font-style: italic;
+
+  letter-spacing: -1px;
+  text-transform: uppercase;
+
+  margin-bottom: 26px;
+}
 
     .hero-title span {
       display: block;
@@ -812,6 +816,12 @@
       .hero-copy {
         max-width: 100%;
       }
+
+      .hero-title {
+  font-size: clamp(52px, 15vw, 72px);
+  line-height: .86;
+  letter-spacing: -.5px;
+}
 
       .hero-image-placeholder {
         min-height: 280px;
