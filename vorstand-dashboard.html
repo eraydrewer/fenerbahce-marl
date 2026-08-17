@@ -423,15 +423,193 @@ nav a:hover {
       padding: 40px 10px;
     }
 
-    @media(max-width: 900px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
+    .mobile-menu-button {
+  display: none;
+  width: 36px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px;
+}
 
-      header {
-        padding: 15px 20px;
-      }
-    }
+.mobile-menu-button span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+}
+
+    @media(max-width: 900px) {
+
+  header {
+    padding: 12px 18px;
+    flex-direction: row;
+    gap: 0;
+    min-height: 74px;
+    z-index: 5000;
+  }
+
+  .club-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .club-brand {
+    order: 1;
+  }
+
+  .header-right {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    order: 3;
+    margin-left: 15px;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 74px;
+    left: 0;
+    transform: none;
+    width: 100%;
+    background: #071c4a;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 18px 20px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 20px rgba(0,0,0,.18);
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav > a,
+  .team-menu-link {
+    width: 100%;
+    padding: 14px 5px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .team-menu {
+    width: 100%;
+  }
+
+  .team-menu-link {
+    justify-content: space-between;
+  }
+
+  .team-submenu {
+    display: none;
+    position: static;
+    left: auto;
+    width: 100%;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: #0b2a65;
+    margin: 0;
+  }
+
+  .team-menu.mobile-open .team-submenu {
+    display: block;
+  }
+
+  .team-menu.mobile-open .menu-arrow {
+    transform: rotate(180deg);
+  }
+
+  .team-submenu a {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 14px;
+    color: white;
+  }
+
+
+  /* NEWS VERWALTEN HANDY */
+
+  .dashboard {
+    padding: 40px 18px 60px;
+  }
+
+  .dashboard h1 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .box {
+    padding: 22px 18px;
+    min-width: 0;
+  }
+
+  .box h2 {
+    font-size: 21px;
+    line-height: 1.35;
+    margin-bottom: 20px;
+  }
+
+  input,
+  textarea {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 160px;
+  }
+
+  .image-position-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .publish-btn {
+    min-height: 48px;
+  }
+
+  .news-item {
+    padding: 16px;
+  }
+
+  .news-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+    padding: 11px 13px;
+  }
+
+}
   </style>
 </head>
 
@@ -451,7 +629,17 @@ nav a:hover {
 
   </div>
 
-
+<button
+  class="mobile-menu-button"
+  id="mobileMenuButton"
+  type="button"
+  aria-label="Menü öffnen"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+  
   <nav>
 
     <a href="index.html">
@@ -485,6 +673,10 @@ nav a:hover {
       </div>
 
     </div>
+
+    <a href="jugend.html">
+  Jugend
+</a>
 
     <a href="news.html">
       News
@@ -672,7 +864,7 @@ nav a:hover {
   class="image-position-help"
   id="imagePositionHelp"
 >
-  Bild mit der Maus verschieben, bis der gewünschte Ausschnitt sichtbar ist.
+  Bild mit dem Finger oder der Maus verschieben, bis der gewünschte Ausschnitt sichtbar ist.
 </div>
 
 
@@ -1441,6 +1633,32 @@ logoutMenuItem.addEventListener(
 
   }
 );
+
+  const mobileMenuButton =
+  document.getElementById("mobileMenuButton");
+
+const mainNav =
+  document.querySelector("nav");
+
+mobileMenuButton.addEventListener("click", function() {
+  mainNav.classList.toggle("open");
+});
+
+
+const mobileTeamMenu =
+  document.querySelector(".team-menu");
+
+const mobileTeamMenuLink =
+  document.querySelector(".team-menu-link");
+
+mobileTeamMenuLink.addEventListener("click", function(event) {
+
+  if (window.innerWidth <= 900) {
+    event.preventDefault();
+    mobileTeamMenu.classList.toggle("mobile-open");
+  }
+
+});
 
 
 /* =========================================
