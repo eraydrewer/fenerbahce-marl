@@ -404,7 +404,7 @@
     /* EINZELNE MANNSCHAFT */
 
 .single-team-page {
-  max-width: 1100px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 70px 25px 80px;
 }
@@ -437,36 +437,77 @@
   display: block;
 }
 
-    /* FUSSBALL.DE SPIELE + TABELLE */
+    /* MANNSCHAFTSBILD + FUSSBALL.DE */
 
-.team-widgets {
+.team-overview {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-top: 45px;
+  grid-template-columns:
+    minmax(300px, 1fr)
+    minmax(520px, 1.55fr)
+    minmax(300px, 1fr);
+
+  gap: 24px;
+  align-items: start;
 }
 
 .team-widget-box {
   background: white;
   border-radius: 12px;
-  padding: 25px;
+  padding: 22px 18px;
   box-shadow: 0 6px 22px rgba(0,0,0,.08);
   min-width: 0;
 }
 
 .team-widget-title {
   color: #071c4a;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 800;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   text-transform: uppercase;
 }
 
-@media(max-width: 900px) {
-  .team-widgets {
+.team-photo-center {
+  width: 100%;
+  height: 430px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+}
+
+.team-photo-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* TABLET / HANDY */
+
+@media(max-width: 1100px) {
+
+  .team-overview {
     grid-template-columns: 1fr;
-    gap: 22px;
   }
+
+  .team-photo-center {
+    order: 1;
+    height: auto;
+  }
+
+  .team-photo-center img {
+    height: auto;
+  }
+
+  .matches-box {
+    order: 2;
+  }
+
+  .table-box {
+    order: 3;
+  }
+
+}
 
   .team-widget-box {
     padding: 20px 15px;
@@ -1031,19 +1072,11 @@ footer {
 
   <h1>1. Mannschaft</h1>
 
-  <div class="single-team-line"></div>
+<div class="single-team-line"></div>
 
-  <div class="single-team-photo">
-  <img
-    id="teamImage"
-    src="team.jpg"
-    alt="1. Mannschaft Fenerbahçe Marl"
-  >
-</div>
+<div class="team-overview">
 
-  <div class="team-widgets">
-
-  <div class="team-widget-box">
+  <div class="team-widget-box matches-box">
 
     <h2 class="team-widget-title">
       Nächste Spiele
@@ -1058,8 +1091,17 @@ footer {
 
   </div>
 
+  <div class="team-photo-center">
 
-  <div class="team-widget-box">
+    <img
+      id="teamImage"
+      src="team.jpg"
+      alt="1. Mannschaft Fenerbahçe Marl"
+    >
+
+  </div>
+
+  <div class="team-widget-box table-box">
 
     <h2 class="team-widget-title">
       Tabelle
@@ -1076,7 +1118,8 @@ footer {
 
 </div>
 
-  <div
+
+<div
   class="team-content"
   id="teamContent"
 ></div>
