@@ -1057,6 +1057,30 @@ footer {
     padding: 0;
   }
 
+      .news-card:first-child {
+  grid-template-columns: 1fr;
+  min-height: 0;
+}
+
+.news-card:first-child img,
+.news-card:first-child .news-image {
+  height: 240px !important;
+  min-height: 240px;
+}
+
+.news-card:first-child .news-content {
+  padding: 22px 18px 25px;
+}
+
+.news-card:first-child h3 {
+  font-size: 21px;
+}
+
+.news-card:first-child::after {
+  border-left-width: 42px;
+  border-bottom-width: 42px;
+}
+
       /* REIHENFOLGE STARTSEITE HANDY */
 
 .home-grid .home-box:nth-child(1) {
