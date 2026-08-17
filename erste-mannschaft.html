@@ -437,6 +437,42 @@
   display: block;
 }
 
+    /* FUSSBALL.DE SPIELE + TABELLE */
+
+.team-widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 45px;
+}
+
+.team-widget-box {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.08);
+  min-width: 0;
+}
+
+.team-widget-title {
+  color: #071c4a;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+@media(max-width: 900px) {
+  .team-widgets {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .team-widget-box {
+    padding: 20px 15px;
+  }
+}
+
 .team-content {
   margin-top: 60px;
 }
@@ -803,6 +839,13 @@ footer {
       
     }
   </style>
+
+<script
+  defer
+  type="text/javascript"
+  src="https://www.fussball.de/widgets.js">
+</script>  
+
 </head>
 
 <body>
@@ -996,6 +1039,41 @@ footer {
     src="team.jpg"
     alt="1. Mannschaft Fenerbahçe Marl"
   >
+</div>
+
+  <div class="team-widgets">
+
+  <div class="team-widget-box">
+
+    <h2 class="team-widget-title">
+      Nächste Spiele
+    </h2>
+
+    <div
+      class="fussballde_widget"
+      data-id="c2c69853-cee2-418b-9c1a-6bd3a2399056"
+      data-type="team-matches"
+      style="width:100%">
+    </div>
+
+  </div>
+
+
+  <div class="team-widget-box">
+
+    <h2 class="team-widget-title">
+      Tabelle
+    </h2>
+
+    <div
+      class="fussballde_widget"
+      data-id="d8e89ccf-4ee4-4637-aec3-6cbb5253a16b"
+      data-type="table"
+      style="width:100%">
+    </div>
+
+  </div>
+
 </div>
 
   <div
