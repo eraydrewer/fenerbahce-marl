@@ -381,6 +381,27 @@
       letter-spacing: 1px;
     }
 
+    /* JSG WAPPEN */
+    .hero-crests {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      min-height: 350px;
+      padding: 10px;
+    }
+
+    .hero-crests::after {
+      display: none;
+    }
+
+    .jsg-crest-image {
+      width: 100%;
+      max-width: 620px;
+      height: 350px;
+      object-fit: contain;
+      display: block;
+    }
+
     /* JUGENDMANNSCHAFTEN */
     .youth-content {
       background: #fff;
@@ -822,7 +843,7 @@
 
         <div class="hero-line"></div>
 
-        <div class="hero-subtitle">Fernerbahce Marl | DJK Germania Lenkerbeck</div>
+        <div class="hero-subtitle">JSG mit Lenkerbeck</div>
 
         <p class="hero-text">
           Bei uns steht die Entwicklung junger Talente im Mittelpunkt.
@@ -830,15 +851,12 @@
         </p>
       </div>
 
-      <div class="hero-image-placeholder" aria-label="Jugendbild folgt">
-        <div class="image-placeholder-content">
-          <svg viewBox="0 0 100 82" aria-hidden="true">
-            <rect x="8" y="8" width="84" height="66" rx="8" fill="none" stroke="currentColor" stroke-width="6"/>
-            <circle cx="70" cy="27" r="9" fill="currentColor"/>
-            <path d="M17 65L39 42L53 56L63 47L84 65Z" fill="currentColor"/>
-          </svg>
-          <strong>BILD FOLGT</strong>
-        </div>
+      <div class="hero-image-placeholder hero-crests">
+        <img
+          src="jsg-wappen.svg"
+          alt="Fenerbahçe Marl und Germania Lenkerbeck"
+          class="jsg-crest-image"
+        >
       </div>
     </div>
   </section>
