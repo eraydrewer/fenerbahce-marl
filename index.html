@@ -854,8 +854,16 @@ footer {
   margin: 0;
 }
 
-.team-menu.mobile-open .team-submenu {
+.team-menu.mobile-open .team-submenu,
+.team-menu:hover .team-submenu {
   display: block;
+  position: static;
+  left: auto;
+  transform: none;
+  width: 100%;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .team-menu.mobile-open .menu-arrow {
@@ -863,9 +871,13 @@ footer {
 }
 
   .team-submenu a {
-    padding: 12px 20px;
-    font-size: 13px;
-  }
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14px;
+  color: white;
+  text-align: left;
+}
 
   .hero {
     height: 390px;
