@@ -930,6 +930,7 @@ footer {
   </style>
 
   <script
+  defer
   type="text/javascript"
   src="https://www.fussball.de/widgets.js">
 </script>
@@ -1318,6 +1319,17 @@ const NEWS_API_URL =
 const homeNewsContainer =
   document.getElementById("homeNewsContainer");
 
+    const HOME_NEWS_CACHE_KEY =
+  "fenerbahceMarlHomeNews";
+
+const cachedHomeNews =
+  localStorage.getItem(HOME_NEWS_CACHE_KEY);
+
+if (cachedHomeNews) {
+  homeNewsContainer.innerHTML =
+    cachedHomeNews;
+}
+
 async function loadHomeNews() {
 
   try {
@@ -1337,12 +1349,17 @@ async function loadHomeNews() {
     if (newestNews.length === 0) {
 
       homeNewsContainer.innerHTML = `
-        <div style="color:#777;">
-          Aktuell keine News vorhanden.
-        </div>
-      `;
+  <div style="color:#777;">
+    Aktuell keine News vorhanden.
+  </div>
+`;
 
-      return;
+localStorage.setItem(
+  HOME_NEWS_CACHE_KEY,
+  homeNewsContainer.innerHTML
+);
+
+return;
     }
 
     homeNewsContainer.innerHTML = "";
@@ -1422,9 +1439,16 @@ const previewText =
 
     });
 
+    localStorage.setItem(
+  HOME_NEWS_CACHE_KEY,
+  homeNewsContainer.innerHTML
+);
+
   } catch (error) {
 
   console.error(error);
+
+if (!localStorage.getItem(HOME_NEWS_CACHE_KEY)) {
 
   homeNewsContainer.innerHTML = `
     <div style="color:#777;">
@@ -1432,9 +1456,11 @@ const previewText =
     </div>
   `;
 
-  setTimeout(() => {
-    loadHomeNews();
-  }, 5000);
+}
+
+setTimeout(() => {
+  loadHomeNews();
+}, 5000);
 
 }
 
@@ -1450,11 +1476,7 @@ function escapeHomeHTML(text) {
 
 }
 
-window.addEventListener("load", function () {
-  setTimeout(() => {
-    loadHomeNews();
-  }, 1000);
-});
+loadHomeNews();
 
     const profileButton =
   document.getElementById("profileButton");
