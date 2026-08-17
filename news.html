@@ -338,21 +338,27 @@
 }
 
 .news-date {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 
-  /* GELBEN HINTERGRUND ENTFERNT */
-  background: transparent;
+  background: #071c4a;
+  color: white;
 
-  color: #071c4a;
+  padding: 8px 12px;
+  border-radius: 6px;
 
-  padding: 0;
-
-  /* DATUM GRÖSSER */
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 700;
 
   margin-top: 0;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+}
+
+.news-date svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
 }
 
 .news-card h2 {
@@ -370,6 +376,71 @@
   line-height: 1.8;
 
   margin: 0;
+}
+
+    /* TOP NEWS */
+
+.news-card.top-news {
+  position: relative;
+
+  grid-template-columns: 760px 1fr;
+
+  min-height: 390px;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 10px 30px rgba(7, 28, 74, 0.18);
+}
+
+.news-card.top-news img {
+  height: 390px;
+}
+
+.news-card.top-news .news-content {
+  background: #071c4a;
+
+  padding: 32px 60px 40px;
+
+  justify-content: center;
+}
+
+.news-card.top-news .news-date {
+  background: #ffd800;
+  color: #071c4a;
+
+  padding: 9px 13px;
+
+  margin-bottom: 20px;
+}
+
+.news-card.top-news h2 {
+  color: white;
+
+  font-size: 31px;
+  line-height: 1.3;
+
+  margin-bottom: 18px;
+}
+
+.news-card.top-news p {
+  color: rgba(255, 255, 255, 0.86);
+
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.news-card.top-news::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background: #ffd800;
 }
 
     .read-more {
@@ -658,6 +729,37 @@ footer {
     font-size: 15px;
     line-height: 1.7;
   }
+
+  /* TOP NEWS HANDY */
+
+.news-card.top-news {
+  grid-template-columns: 1fr;
+  min-height: 0;
+  border-radius: 12px;
+}
+
+.news-card.top-news img {
+  height: 260px;
+}
+
+.news-card.top-news .news-content {
+  padding: 26px 22px 32px;
+}
+
+.news-card.top-news .news-date {
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.news-card.top-news h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.news-card.top-news p {
+  font-size: 15px;
+  line-height: 1.7;
+}
 
 }
   </style>
@@ -952,7 +1054,10 @@ async function loadNews() {
 
       const card = document.createElement("article");
 
-      card.className = "news-card";
+      card.className =
+  item.is_top === true
+    ? "news-card top-news"
+    : "news-card";
 
 
       card.innerHTML = `
@@ -976,8 +1081,34 @@ async function loadNews() {
         <div class="news-content">
 
           <span class="news-date">
-            ${date}
-          </span>
+
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <rect
+      x="3"
+      y="5"
+      width="18"
+      height="16"
+      rx="2"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    />
+
+    <path
+      d="M8 3v4M16 3v4M3 10h18"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+
+  ${date}
+
+</span>
 
           <h2>
             ${escapeHTML(item.title)}
