@@ -354,6 +354,38 @@ nav a:hover {
   margin-bottom: 20px;
 }
 
+    .top-news-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #f7f9fc;
+  border: 1px solid #d9dee8;
+  border-radius: 8px;
+
+  padding: 14px 15px;
+  margin-bottom: 22px;
+}
+
+.top-news-option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+
+  flex: 0 0 auto;
+  cursor: pointer;
+
+  accent-color: #071c4a;
+}
+
+.top-news-option label {
+  margin: 0;
+  cursor: pointer;
+  color: #071c4a;
+  font-weight: bold;
+}
+
     .publish-btn {
       width: 100%;
       background: #071c4a;
@@ -879,8 +911,20 @@ nav a:hover {
           required
         ></textarea>
 
+<div class="top-news-option">
 
-        <button
+  <input
+    type="checkbox"
+    id="isTop"
+  >
+
+  <label for="isTop">
+    Als Top News anzeigen
+  </label>
+
+</div>
+        
+          <button
           type="submit"
           class="publish-btn"
         >
@@ -927,6 +971,7 @@ const token = sessionStorage.getItem("vorstandToken");
 const newsForm = document.getElementById("newsForm");
 const titleInput = document.getElementById("title");
 const textInput = document.getElementById("text");
+const isTopInput = document.getElementById("isTop");
 const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
 const imagePositionBox = document.getElementById("imagePositionBox");
@@ -1158,8 +1203,9 @@ newsForm.addEventListener("submit", async function(event) {
   event.preventDefault();
 
   const title = titleInput.value.trim();
-  const text = textInput.value.trim();
-  const file = imageInput.files[0];
+const text = textInput.value.trim();
+const isTop = isTopInput.checked;
+const file = imageInput.files[0];
 
   if (!title || !text) {
     alert("Bitte Überschrift und Text ausfüllen.");
@@ -1210,7 +1256,8 @@ newsForm.addEventListener("submit", async function(event) {
   text: text,
   image_url: imageUrl,
   image_position_x: imagePositionX,
-  image_position_y: imagePositionY
+  image_position_y: imagePositionY,
+  is_top: isTop
 })
         }
       );
@@ -1242,12 +1289,13 @@ newsForm.addEventListener("submit", async function(event) {
             Authorization: "Bearer " + token
           },
 
-          body: JSON.stringify({
+          bbody: JSON.stringify({
   title: title,
   text: text,
   image_url: imageUrl,
   image_position_x: imagePositionX,
-  image_position_y: imagePositionY
+  image_position_y: imagePositionY,
+  is_top: isTop
 })
         }
       );
@@ -1443,6 +1491,9 @@ async function editNews(id) {
     titleInput.value = item.title;
     textInput.value = item.text;
 
+    isTopInput.checked =
+  item.is_top === true;
+
 
     if (item.image_url) {
 
@@ -1545,6 +1596,7 @@ async function deleteNews(id) {
 function resetForm() {
 
   newsForm.reset();
+  isTopInput.checked = false;
 
   editingNewsId = null;
   currentImageUrl = null;
