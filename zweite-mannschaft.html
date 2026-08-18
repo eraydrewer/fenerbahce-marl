@@ -404,7 +404,7 @@
     /* EINZELNE MANNSCHAFT */
 
 .single-team-page {
-  max-width: 1100px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 70px 25px 80px;
 }
@@ -538,6 +538,81 @@
   font-size: 13px;
   color: #6a7485;
   line-height: 1.35;
+}
+
+    /* SPIELPLAN - BILD - TABELLE */
+
+.team-top-layout {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: start;
+}
+
+.team-middle-column {
+  min-width: 0;
+}
+
+.team-top-layout .single-team-photo {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.team-side-box {
+  background: white;
+  border: 1px solid #e8ecf3;
+  border-radius: 14px;
+  padding: 22px 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  min-height: 450px;
+}
+
+.team-side-title {
+  text-align: center;
+  color: #071c4a;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.team-content {
+  width: 100%;
+  max-width: none;
+  margin: 60px 0 0;
+}
+
+@media(max-width: 1200px) {
+
+  .team-top-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .team-middle-column {
+    order: 1;
+  }
+
+  .team-top-layout > .team-side-box:first-child {
+    order: 2;
+  }
+
+  .team-top-layout > .team-side-box:last-child {
+    order: 3;
+  }
+
+  .team-top-layout .single-team-photo {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .team-side-box {
+    min-height: 250px;
+  }
+
+  .team-content {
+    width: 100%;
+  }
 }
 
     /* FOOTER */
