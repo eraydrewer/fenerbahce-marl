@@ -1100,6 +1100,70 @@ async function loadTeam() {
 
 }
 
+  <!-- TRAINERTEAM BEARBEITEN -->
+<div class="box">
+
+  <h2>Trainerteam bearbeiten</h2>
+
+  <div class="trainer-edit-grid">
+
+    <div>
+      <label for="trainerNameInput">
+        Trainer
+      </label>
+
+      <input
+        type="text"
+        id="trainerNameInput"
+        placeholder="Name des Trainers"
+      >
+    </div>
+
+
+    <div>
+      <label for="coTrainerNameInput">
+        Co-Trainer
+      </label>
+
+      <input
+        type="text"
+        id="coTrainerNameInput"
+        placeholder="Name des Co-Trainers"
+      >
+    </div>
+
+
+    <div>
+      <label for="betreuerNameInput">
+        Betreuer
+      </label>
+
+      <input
+        type="text"
+        id="betreuerNameInput"
+        placeholder="Name des Betreuers"
+      >
+    </div>
+
+  </div>
+
+
+  <button
+    type="button"
+    class="save-btn"
+    id="saveTrainerTeamButton"
+    style="margin-top:20px;"
+  >
+    Trainerteam speichern
+  </button>
+
+
+  <div
+    class="status"
+    id="trainerTeamStatus"
+  ></div>
+
+</div>
 
 /* =========================================
    SPIELERZEILE
