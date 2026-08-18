@@ -621,8 +621,8 @@ gap: 55px;
   max-width: 1450px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 520px minmax(0, 1fr);
-  gap: 60px;
+  grid-template-columns: 430px minmax(0, 1fr);
+  gap: 70px;
   align-items: start;
 }
 
@@ -695,6 +695,7 @@ gap: 55px;
   font-size: 30px;
   font-weight: 800;
   text-transform: uppercase;
+  text-align: left;
   margin-bottom: 10px;
 }
 
@@ -702,10 +703,11 @@ gap: 55px;
   width: 45px;
   height: 4px;
   background: #ffd800;
-  margin-bottom: 30px;
+  margin: 0 0 30px 0;
 }
 
 .youth-matches-box {
+  width: 100%;
   background: white;
   border: 1px solid #e8ecf3;
   border-radius: 14px;
@@ -719,6 +721,7 @@ gap: 55px;
     grid-template-columns: 1fr;
     gap: 45px;
   }
+
 }
     /* FOOTER */
     footer {
@@ -1104,71 +1107,75 @@ gap: 55px;
         >
       </div>
     </div>
-  </section>
 
-  <section class="e1-details">
+    <section class="e1-details">
 
   <div class="e1-details-inner">
 
-    <h2 class="e1-heading">
-      Trainer
-    </h2>
 
-    <div class="e1-heading-line"></div>
+    <!-- TRAINER LINKS -->
+    <div class="trainer-column">
 
-    <div class="trainer-card">
+      <h2 class="e1-heading">
+        Trainer
+      </h2>
 
-      <div class="trainer-role">
-        Trainer E1-Jugend
-      </div>
+      <div class="e1-heading-line"></div>
 
-      <div class="trainer-name">
-        TRAINERNAME
-      </div>
+      <div class="trainer-card">
 
-      <div class="trainer-contact">
+        <div class="trainer-role">
+          Trainer E1-Jugend
+        </div>
 
-        <a href="tel:+490000000000">
-          📞 TELEFONNUMMER
-        </a>
+        <div class="trainer-name">
+          TRAINERNAME
+        </div>
 
-        <a href="mailto:trainer@fenerbahce-marl.de">
-          ✉️ E-MAIL-ADRESSE
-        </a>
+        <div class="trainer-contact">
+
+          <a href="tel:+490000000000">
+            📞 TELEFONNUMMER
+          </a>
+
+          <a href="mailto:trainer@fenerbahce-marl.de">
+            ✉️ E-MAIL-ADRESSE
+          </a>
+
+        </div>
 
       </div>
 
     </div>
 
-  </div>
 
-</section>
+    <!-- NÄCHSTE SPIELE RECHTS -->
+    <div class="matches-column">
 
-<section class="youth-matches">
+      <h2 class="youth-matches-title">
+        Nächste Spiele
+      </h2>
 
-  <div class="youth-matches-inner">
+      <div class="youth-matches-line"></div>
 
-    <h2 class="youth-matches-title">
-      Nächste Spiele
-    </h2>
+      <div class="youth-matches-box">
 
-    <div class="youth-matches-line"></div>
+        <div
+          class="fussballde_widget"
+          data-id="a4f2b1de-b8aa-4018-8dac-77804d9f2ac5"
+          data-type="team-matches"
+          style="width: 100%"
+        ></div>
 
-    <div class="youth-matches-box">
-
-      <div
-        class="fussballde_widget"
-        data-id="a4f2b1de-b8aa-4018-8dac-77804d9f2ac5"
-        data-type="team-matches"
-        style="width: 100%"
-      ></div>
+      </div>
 
     </div>
 
+
   </div>
 
 </section>
-
+  
 </main>
 
 <footer>
