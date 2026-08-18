@@ -1597,6 +1597,99 @@ mobileTeamMenuLink.addEventListener("click", function(event) {
 
 });
 
+  /* =========================================
+   SPONSOREN LADEN
+========================================= */
+
+async function loadSponsors() {
+
+  const sponsorList =
+    document.getElementById("sponsorList");
+
+  sponsorList.textContent =
+    "Sponsoren werden geladen...";
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/sponsors"
+    );
+
+    const sponsors =
+      await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        sponsors.error ||
+        "Sponsoren konnten nicht geladen werden."
+      );
+    }
+
+
+    if (sponsors.length === 0) {
+
+      sponsorList.textContent =
+        "Noch keine Sponsoren vorhanden.";
+
+      return;
+    }
+
+
+    sponsorList.innerHTML = "";
+
+
+    sponsors.forEach(sponsor => {
+
+      const item =
+        document.createElement("div");
+
+      item.style.display = "flex";
+      item.style.alignItems = "center";
+      item.style.gap = "20px";
+      item.style.padding = "15px";
+      item.style.marginBottom = "12px";
+      item.style.background = "#f7f8fa";
+      item.style.borderRadius = "8px";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src = sponsor.image_url;
+      image.alt = sponsor.name;
+
+      image.style.width = "100px";
+      image.style.height = "70px";
+      image.style.objectFit = "contain";
+
+
+      const name =
+        document.createElement("strong");
+
+      name.textContent =
+        sponsor.name;
+
+
+      item.appendChild(image);
+      item.appendChild(name);
+
+      sponsorList.appendChild(item);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    sponsorList.textContent =
+      error.message;
+
+  }
+
+}
+
 /* =========================================
    SPONSOR HINZUFÜGEN
 ========================================= */
@@ -1740,6 +1833,8 @@ sponsorTab.addEventListener("click", function() {
     });
 
   sponsorTab.classList.add("active");
+
+  loadSponsors();
 
 });
 
