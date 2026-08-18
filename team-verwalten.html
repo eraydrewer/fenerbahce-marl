@@ -1597,6 +1597,116 @@ mobileTeamMenuLink.addEventListener("click", function(event) {
 
 });
 
+/* =========================================
+   SPONSOR HINZUFÜGEN
+========================================= */
+
+document
+  .getElementById("addSponsorButton")
+  .addEventListener("click", async function() {
+
+    const sponsorName =
+      document
+        .getElementById("sponsorName")
+        .value
+        .trim();
+
+    const sponsorImage =
+      document
+        .getElementById("sponsorImage")
+        .files[0];
+
+    const sponsorStatus =
+      document.getElementById("sponsorStatus");
+
+
+    if (!sponsorName) {
+
+      sponsorStatus.textContent =
+        "Bitte Sponsorname eingeben.";
+
+      return;
+    }
+
+
+    if (!sponsorImage) {
+
+      sponsorStatus.textContent =
+        "Bitte Sponsor-Logo auswählen.";
+
+      return;
+    }
+
+
+    sponsorStatus.textContent =
+      "Sponsor wird gespeichert...";
+
+
+    try {
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "name",
+        sponsorName
+      );
+
+      formData.append(
+        "image",
+        sponsorImage
+      );
+
+
+      const response = await fetch(
+        API_URL + "/api/sponsors",
+        {
+          method: "POST",
+
+          headers: {
+            Authorization:
+              "Bearer " + token
+          },
+
+          body: formData
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Sponsor konnte nicht gespeichert werden."
+        );
+      }
+
+
+      sponsorStatus.textContent =
+        "Sponsor wurde hinzugefügt.";
+
+      document
+        .getElementById("sponsorName")
+        .value = "";
+
+      document
+        .getElementById("sponsorImage")
+        .value = "";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      sponsorStatus.textContent =
+        error.message;
+    }
+
+  });  
 
 checkLogin();
 
