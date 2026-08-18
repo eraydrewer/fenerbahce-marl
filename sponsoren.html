@@ -1057,6 +1057,88 @@
 const API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
 
+  /* =========================================
+   SPONSOREN AUS DATENBANK LADEN
+========================================= */
+
+async function loadSponsors() {
+
+  const sponsorGrid =
+    document.getElementById("sponsorGrid");
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/sponsors"
+    );
+
+    const sponsors =
+      await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        sponsors.error ||
+        "Sponsoren konnten nicht geladen werden."
+      );
+
+    }
+
+    sponsorGrid.innerHTML = "";
+
+    if (sponsors.length === 0) {
+
+      sponsorGrid.innerHTML =
+        "<p>Noch keine Sponsoren vorhanden.</p>";
+
+      return;
+
+    }
+
+    sponsors.forEach(sponsor => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "sponsor-card";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src = sponsor.image_url;
+      image.alt = sponsor.name;
+
+
+      if (
+        sponsor.name ===
+        "MSAlkan Betreuungsdienst"
+      ) {
+
+        image.classList.add(
+          "msalkan-big"
+        );
+
+      }
+
+
+      card.appendChild(image);
+
+      sponsorGrid.appendChild(card);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    sponsorGrid.innerHTML =
+      "<p>Sponsoren konnten nicht geladen werden.</p>";
+
+  }
+
+}
+
 
 const profileButton =
   document.getElementById("profileButton");
@@ -1211,8 +1293,9 @@ logoutMenuItem.addEventListener(
 
 
 updateProfileMenu();
+loadSponsors();
 
-  const mobileMenuButton =
+const mobileMenuButton =
   document.getElementById("mobileMenuButton");
 
 const mainNav =
