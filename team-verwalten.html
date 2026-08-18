@@ -1751,16 +1751,103 @@ async function loadSponsors() {
 
 
       const name =
-        document.createElement("strong");
+  document.createElement("strong");
 
-      name.textContent =
-        sponsor.name;
+name.textContent =
+  sponsor.name;
 
 
-      item.appendChild(image);
-      item.appendChild(name);
+/* LÖSCHEN BUTTON */
 
-      sponsorList.appendChild(item);
+const deleteButton =
+  document.createElement("button");
+
+deleteButton.textContent =
+  "Löschen";
+
+deleteButton.style.marginLeft = "auto";
+deleteButton.style.background = "#c62828";
+deleteButton.style.color = "white";
+deleteButton.style.border = "none";
+deleteButton.style.padding = "10px 18px";
+deleteButton.style.borderRadius = "6px";
+deleteButton.style.fontWeight = "bold";
+deleteButton.style.cursor = "pointer";
+
+
+deleteButton.addEventListener(
+  "click",
+  async function() {
+
+    const confirmed = confirm(
+      `"${sponsor.name}" wirklich löschen?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    try {
+
+      deleteButton.disabled = true;
+      deleteButton.textContent =
+        "Wird gelöscht...";
+
+
+      const response = await fetch(
+        API_URL +
+        "/api/sponsors/" +
+        sponsor.id,
+        {
+          method: "DELETE",
+
+          headers: {
+            Authorization:
+              "Bearer " + token
+          }
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Sponsor konnte nicht gelöscht werden."
+        );
+
+      }
+
+
+      await loadSponsors();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error.message);
+
+      deleteButton.disabled = false;
+      deleteButton.textContent =
+        "Löschen";
+
+    }
+
+  }
+);
+
+
+item.appendChild(image);
+item.appendChild(name);
+item.appendChild(deleteButton);
+
+sponsorList.appendChild(item);
 
     });
 
