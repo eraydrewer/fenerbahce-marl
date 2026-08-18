@@ -1600,6 +1600,60 @@ mobileTeamMenuLink.addEventListener("click", function(event) {
 
 checkLogin();
 
+  const teamSection =
+  document.getElementById("teamSection");
+
+const sponsorSection =
+  document.getElementById("sponsorSection");
+
+const sponsorTab =
+  document.querySelector(
+    '.team-tab[data-section="sponsoren"]'
+  );
+
+const teamTabs =
+  document.querySelectorAll(
+    ".team-tab[data-team]"
+  );
+
+
+/* SPONSOREN ÖFFNEN */
+sponsorTab.addEventListener("click", function() {
+
+  teamSection.style.display = "none";
+  sponsorSection.style.display = "block";
+
+  document
+    .querySelectorAll(".team-tab")
+    .forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+  sponsorTab.classList.add("active");
+
+});
+
+
+/* ZURÜCK ZU DEN MANNSCHAFTEN */
+teamTabs.forEach(tab => {
+
+  tab.addEventListener("click", function() {
+
+    sponsorSection.style.display = "none";
+    teamSection.style.display = "block";
+
+    document
+      .querySelectorAll(".team-tab")
+      .forEach(button => {
+        button.classList.remove("active");
+      });
+
+    tab.classList.add("active");
+
+  });
+
+});
+
 </script>
 
 </body>
