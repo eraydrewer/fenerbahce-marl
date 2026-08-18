@@ -404,7 +404,7 @@
     /* EINZELNE MANNSCHAFT */
 
 .single-team-page {
-  max-width: 1100px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 70px 25px 80px;
 }
@@ -416,12 +416,28 @@
   margin-bottom: 12px;
 }
 
+.single-team-page .hero-style-team-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(42px, 4vw, 58px);
+  line-height: 1;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #071c4a;
+  margin-bottom: 35px;
+  white-space: nowrap;
+}
+
+.single-team-page .hero-style-team-title span {
+  display: inline;
+  font-family: "Barlow Condensed", sans-serif;
+  color: #071c4a;
+}
+
 .single-team-line {
-  width: 60px;
-  height: 4px;
-  background: #ffd800;
-  margin: 0 auto 40px;
-  border-radius: 10px;
+  display: none;
 }
 
 .single-team-photo {
@@ -522,6 +538,81 @@
   font-size: 13px;
   color: #6a7485;
   line-height: 1.35;
+}
+
+    /* SPIELPLAN - BILD - TABELLE */
+
+.team-top-layout {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: start;
+}
+
+.team-middle-column {
+  min-width: 0;
+}
+
+.team-top-layout .single-team-photo {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.team-side-box {
+  background: white;
+  border: 1px solid #e8ecf3;
+  border-radius: 14px;
+  padding: 22px 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  min-height: 450px;
+}
+
+.team-side-title {
+  text-align: center;
+  color: #071c4a;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.team-content {
+  width: 100%;
+  max-width: none;
+  margin: 60px 0 0;
+}
+
+@media(max-width: 1200px) {
+
+  .team-top-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .team-middle-column {
+    order: 1;
+  }
+
+  .team-top-layout > .team-side-box:first-child {
+    order: 2;
+  }
+
+  .team-top-layout > .team-side-box:last-child {
+    order: 3;
+  }
+
+  .team-top-layout .single-team-photo {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .team-side-box {
+    min-height: 250px;
+  }
+
+  .team-content {
+    width: 100%;
+  }
 }
 
     /* FOOTER */
@@ -986,22 +1077,58 @@ footer {
 
 <main class="single-team-page">
 
-  <h1>3. Mannschaft</h1>
+  <h1 class="hero-style-team-title">
+  3.
+  <span>Mannschaft</span>
+</h1>
 
   <div class="single-team-line"></div>
 
-  <div class="single-team-photo">
-  <img
-    id="teamImage"
-    src="team.jpg"
-    alt="3. Mannschaft Fenerbahçe Marl"
-  >
-</div>
+<div class="team-top-layout">
 
-<div
-  class="team-content"
-  id="teamContent"
-></div>
+  <!-- SPIELPLAN LINKS -->
+  <div class="team-side-box">
+    <h2 class="team-side-title">Spielplan</h2>
+
+    <div
+      class="fussballde_widget"
+      data-id="c909683d-4dd5-4cd8-b2bd-05ba58e9a208"
+      data-type="team-matches"
+      style="width: 100%"
+    ></div>
+  </div>
+
+  <!-- MITTE: MANNSCHAFTSFOTO + SPIELER -->
+  <div class="team-middle-column">
+
+    <div class="single-team-photo">
+      <img
+        id="teamImage"
+        src="team.jpg"
+        alt="3. Mannschaft Fenerbahçe Marl"
+      >
+    </div>
+
+    <div
+      class="team-content"
+      id="teamContent"
+    ></div>
+
+  </div>
+
+  <!-- TABELLE RECHTS -->
+  <div class="team-side-box">
+    <h2 class="team-side-title">Tabelle</h2>
+
+    <div
+      class="fussballde_widget"
+      data-id="0333a9bd-952c-439f-84c8-8b6d8a2a0605"
+      data-type="table"
+      style="width: 100%"
+    ></div>
+  </div>
+
+</div>
 </main>
 
 <footer>
@@ -1032,6 +1159,12 @@ footer {
   </div>
 
 </footer>
+
+<script
+  type="text/javascript"
+  src="https://www.fussball.de/widgets.js">
+</script>
+
 <script>
 const VORSTAND_API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
