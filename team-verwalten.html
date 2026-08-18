@@ -1176,6 +1176,80 @@ trainerTeamStatus.textContent = "";
 }
 
   /* =========================================
+   TRAINERTEAM SPEICHERN
+========================================= */
+
+document
+  .getElementById("saveTrainerTeamButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      trainerTeamStatus.textContent =
+        "Wird gespeichert...";
+
+      try {
+
+        const response = await fetch(
+          API_URL +
+          "/api/teams/" +
+          currentTeam +
+          "/trainers",
+          {
+            method: "PUT",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                "Bearer " + token
+            },
+
+            body: JSON.stringify({
+              trainer_name:
+                trainerNameInput.value.trim(),
+
+              co_trainer_name:
+                coTrainerNameInput.value.trim(),
+
+              betreuer_name:
+                betreuerNameInput.value.trim()
+            })
+          }
+        );
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Trainerteam konnte nicht gespeichert werden."
+          );
+
+        }
+
+
+        trainerTeamStatus.textContent =
+          "Trainerteam wurde gespeichert.";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        trainerTeamStatus.textContent =
+          error.message;
+
+      }
+
+    }
+  );
+
+  /* =========================================
    SPIELERZEILE
 ========================================= */
 
