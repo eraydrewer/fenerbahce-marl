@@ -935,6 +935,10 @@ footer {
 .player-card-wide .player-shirt {
   margin-bottom: 10px;
 }
+
+      .trainer-grid {
+  grid-template-columns: 1fr;
+}
       
     }
   </style>
@@ -1153,6 +1157,49 @@ footer {
       >
     </div>
 
+    <!-- TRAINERTEAM -->
+<div class="trainer-team">
+
+  <h2 class="trainer-team-title">
+    Trainerteam
+  </h2>
+
+  <div class="trainer-grid">
+
+    <div class="trainer-card">
+      <span class="trainer-role">
+        Trainer
+      </span>
+
+      <strong id="trainerName">
+        Name eintragen
+      </strong>
+    </div>
+
+    <div class="trainer-card">
+      <span class="trainer-role">
+        Co-Trainer
+      </span>
+
+      <strong id="coTrainerName">
+        Name eintragen
+      </strong>
+    </div>
+
+    <div class="trainer-card">
+      <span class="trainer-role">
+        Betreuer
+      </span>
+
+      <strong id="betreuerName">
+        Name eintragen
+      </strong>
+    </div>
+
+  </div>
+
+</div>
+    
     <div
       class="team-content"
       id="teamContent"
@@ -1222,6 +1269,15 @@ const teamImage =
 const teamContent =
   document.getElementById("teamContent");
 
+  const trainerName =
+  document.getElementById("trainerName");
+
+const coTrainerName =
+  document.getElementById("coTrainerName");
+
+const betreuerName =
+  document.getElementById("betreuerName");
+
 
 async function loadTeamData() {
 
@@ -1249,6 +1305,17 @@ async function loadTeamData() {
     if (data.image_url) {
       teamImage.src = data.image_url;
     }
+
+    /* TRAINERTEAM */
+
+trainerName.textContent =
+  data.trainer_name || "Name eintragen";
+
+coTrainerName.textContent =
+  data.co_trainer_name || "Name eintragen";
+
+betreuerName.textContent =
+  data.betreuer_name || "Name eintragen";
 
 
     teamContent.innerHTML = "";
