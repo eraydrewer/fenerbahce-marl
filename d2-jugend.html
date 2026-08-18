@@ -620,6 +620,11 @@ gap: 55px;
 .e1-details-inner {
   max-width: 1450px;
   margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 430px minmax(0, 1fr);
+  gap: 70px;
+  align-items: start;
 }
 
 .e1-heading {
@@ -639,7 +644,7 @@ gap: 55px;
 }
 
 .trainer-card {
-  max-width: 520px;
+  max-width: none;
   background: #071c4a;
   border-radius: 12px;
   padding: 30px;
@@ -681,14 +686,8 @@ gap: 55px;
 
     /* NÄCHSTE SPIELE */
 
-.youth-matches {
-  background: #f5f5f5;
-  padding: 60px 7% 70px;
-}
-
-.youth-matches-inner {
-  max-width: 1000px;
-  margin: 0 auto;
+.matches-column {
+  min-width: 0;
 }
 
 .youth-matches-title {
@@ -697,7 +696,7 @@ gap: 55px;
   font-size: 30px;
   font-weight: 800;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
 }
 
@@ -705,15 +704,25 @@ gap: 55px;
   width: 45px;
   height: 4px;
   background: #ffd800;
-  margin: 0 auto 30px;
+  margin: 0 0 30px 0;
 }
 
 .youth-matches-box {
+  width: 100%;
   background: white;
   border: 1px solid #e8ecf3;
   border-radius: 14px;
   padding: 22px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+@media(max-width: 900px) {
+
+  .e1-details-inner {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
 }
 
     /* FOOTER */
