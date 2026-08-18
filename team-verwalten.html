@@ -1139,6 +1139,17 @@ async function loadTeam() {
 
     }
 
+    trainerNameInput.value =
+  data.trainer_name || "";
+
+coTrainerNameInput.value =
+  data.co_trainer_name || "";
+
+betreuerNameInput.value =
+  data.betreuer_name || "";
+
+trainerTeamStatus.textContent = "";
+
 
     playersContainer.innerHTML = "";
 
