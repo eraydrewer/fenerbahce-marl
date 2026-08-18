@@ -537,6 +537,10 @@
   align-items: start;
 }
 
+    .team-middle-column {
+  min-width: 0;
+}
+
 .team-top-layout .single-team-photo {
   width: 100%;
   max-width: none;
@@ -1075,7 +1079,9 @@ footer {
   </div>
 
 
-  <!-- MANNSCHAFTSFOTO MITTE -->
+  <!-- MITTE: MANNSCHAFTSFOTO + SPIELER -->
+<div class="team-middle-column">
+
   <div class="single-team-photo">
 
     <img
@@ -1085,6 +1091,13 @@ footer {
     >
 
   </div>
+
+  <div
+    class="team-content"
+    id="teamContent"
+  ></div>
+
+</div>
 
 
   <!-- TABELLE RECHTS -->
@@ -1105,13 +1118,7 @@ footer {
 
 </div>
 
-
-<!-- SPIELER UNTEN -->
-<div
-  class="team-content"
-  id="teamContent"
-></div>
-  </main>
+</main>
 
 <footer>
   <div class="footer-left">
