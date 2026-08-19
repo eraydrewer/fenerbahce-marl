@@ -2133,6 +2133,10 @@ document
    VORSTAND LADEN
 ========================================= */
 
+/* =========================================
+   VORSTAND LADEN / BEARBEITEN
+========================================= */
+
 async function loadBoardMembers() {
 
   const boardList =
@@ -2140,6 +2144,7 @@ async function loadBoardMembers() {
 
   boardList.textContent =
     "Vorstand wird geladen...";
+
 
   try {
 
@@ -2176,17 +2181,28 @@ async function loadBoardMembers() {
 
     members.forEach(member => {
 
+      /* GESAMTER EINTRAG */
+
       const item =
         document.createElement("div");
 
-
       item.style.display = "flex";
-      item.style.alignItems = "center";
-      item.style.gap = "18px";
-      item.style.padding = "15px";
-      item.style.marginBottom = "12px";
+      item.style.alignItems = "flex-start";
+      item.style.flexWrap = "wrap";
+      item.style.gap = "20px";
+      item.style.padding = "20px";
+      item.style.marginBottom = "18px";
       item.style.background = "#f7f8fa";
-      item.style.borderRadius = "8px";
+      item.style.borderRadius = "10px";
+      item.style.border = "1px solid #e5e5e5";
+
+
+      /* BILD */
+
+      const imageArea =
+        document.createElement("div");
+
+      imageArea.style.width = "140px";
 
 
       const image =
@@ -2199,69 +2215,412 @@ async function loadBoardMembers() {
       image.alt =
         member.name;
 
-      image.style.width = "80px";
-      image.style.height = "80px";
+      image.style.width = "120px";
+      image.style.height = "120px";
       image.style.objectFit = "cover";
       image.style.borderRadius = "8px";
+      image.style.display = "block";
+      image.style.marginBottom = "10px";
 
 
-      const information =
+      const imageInput =
+        document.createElement("input");
+
+      imageInput.type = "file";
+
+      imageInput.accept =
+        "image/jpeg,image/png,image/webp";
+
+      imageInput.style.width = "100%";
+
+
+      const imageButton =
+        document.createElement("button");
+
+      imageButton.type = "button";
+
+      imageButton.textContent =
+        "Bild ändern";
+
+      imageButton.style.marginTop = "10px";
+      imageButton.style.width = "100%";
+      imageButton.style.background = "#071c4a";
+      imageButton.style.color = "white";
+      imageButton.style.border = "none";
+      imageButton.style.padding = "10px";
+      imageButton.style.borderRadius = "6px";
+      imageButton.style.cursor = "pointer";
+      imageButton.style.fontWeight = "bold";
+
+
+      imageArea.appendChild(image);
+      imageArea.appendChild(imageInput);
+      imageArea.appendChild(imageButton);
+
+
+      /* EINGABEFELDER */
+
+      const fields =
         document.createElement("div");
 
-      information.style.display = "flex";
-      information.style.flexDirection = "column";
-      information.style.gap = "4px";
+      fields.style.flex = "1";
+      fields.style.minWidth = "240px";
 
 
-      const name =
-        document.createElement("strong");
+      const nameLabel =
+        document.createElement("label");
 
-      name.textContent =
-        member.name;
-
-
-      const role =
-        document.createElement("span");
-
-      role.textContent =
-        member.role;
+      nameLabel.textContent = "Name";
 
 
-      information.appendChild(name);
-      information.appendChild(role);
+      const nameInput =
+        document.createElement("input");
+
+      nameInput.type = "text";
+      nameInput.value =
+        member.name || "";
+
+      nameInput.style.display = "block";
+      nameInput.style.width = "100%";
+      nameInput.style.marginTop = "6px";
+      nameInput.style.marginBottom = "14px";
 
 
-      if (member.email) {
+      const roleLabel =
+        document.createElement("label");
 
-        const email =
-          document.createElement("span");
+      roleLabel.textContent = "Position";
 
-        email.textContent =
-          member.email;
 
-        email.style.fontSize = "14px";
-        email.style.color = "#666";
+      const roleInput =
+        document.createElement("input");
 
-        information.appendChild(email);
+      roleInput.type = "text";
+      roleInput.value =
+        member.role || "";
 
-      }
+      roleInput.style.display = "block";
+      roleInput.style.width = "100%";
+      roleInput.style.marginTop = "6px";
+      roleInput.style.marginBottom = "14px";
 
+
+      const emailLabel =
+        document.createElement("label");
+
+      emailLabel.textContent =
+        "E-Mail";
+
+
+      const emailInput =
+        document.createElement("input");
+
+      emailInput.type = "email";
+      emailInput.value =
+        member.email || "";
+
+      emailInput.placeholder =
+        "Optional";
+
+      emailInput.style.display = "block";
+      emailInput.style.width = "100%";
+      emailInput.style.marginTop = "6px";
+      emailInput.style.marginBottom = "16px";
+
+
+      /* BUTTON BEREICH */
+
+      const buttonArea =
+        document.createElement("div");
+
+      buttonArea.style.display = "flex";
+      buttonArea.style.flexWrap = "wrap";
+      buttonArea.style.gap = "10px";
+
+
+      /* SPEICHERN */
+
+      const saveButton =
+        document.createElement("button");
+
+      saveButton.type = "button";
+
+      saveButton.textContent =
+        "Änderungen speichern";
+
+      saveButton.style.background = "#071c4a";
+      saveButton.style.color = "white";
+      saveButton.style.border = "none";
+      saveButton.style.padding = "11px 18px";
+      saveButton.style.borderRadius = "6px";
+      saveButton.style.fontWeight = "bold";
+      saveButton.style.cursor = "pointer";
+
+
+      /* LÖSCHEN */
 
       const deleteButton =
         document.createElement("button");
 
       deleteButton.type = "button";
-      deleteButton.textContent = "Löschen";
 
-      deleteButton.style.marginLeft = "auto";
+      deleteButton.textContent =
+        "Löschen";
+
       deleteButton.style.background = "#c62828";
       deleteButton.style.color = "white";
       deleteButton.style.border = "none";
-      deleteButton.style.padding = "10px 18px";
+      deleteButton.style.padding = "11px 18px";
       deleteButton.style.borderRadius = "6px";
       deleteButton.style.fontWeight = "bold";
       deleteButton.style.cursor = "pointer";
 
+
+      /* STATUS */
+
+      const status =
+        document.createElement("div");
+
+      status.style.marginTop = "12px";
+      status.style.fontWeight = "600";
+
+
+      buttonArea.appendChild(saveButton);
+      buttonArea.appendChild(deleteButton);
+
+
+      fields.appendChild(nameLabel);
+      fields.appendChild(nameInput);
+
+      fields.appendChild(roleLabel);
+      fields.appendChild(roleInput);
+
+      fields.appendChild(emailLabel);
+      fields.appendChild(emailInput);
+
+      fields.appendChild(buttonArea);
+      fields.appendChild(status);
+
+
+      /* =====================================
+         NAME / POSITION / MAIL SPEICHERN
+      ===================================== */
+
+      saveButton.addEventListener(
+        "click",
+        async function() {
+
+          const newName =
+            nameInput.value.trim();
+
+          const newRole =
+            roleInput.value.trim();
+
+          const newEmail =
+            emailInput.value.trim();
+
+
+          if (!newName) {
+
+            status.textContent =
+              "Bitte Namen eingeben.";
+
+            return;
+
+          }
+
+
+          if (!newRole) {
+
+            status.textContent =
+              "Bitte Position eingeben.";
+
+            return;
+
+          }
+
+
+          status.textContent =
+            "Wird gespeichert...";
+
+          saveButton.disabled = true;
+
+
+          try {
+
+            const response =
+              await fetch(
+                API_URL +
+                "/api/board-members/" +
+                member.id,
+                {
+                  method: "PUT",
+
+                  headers: {
+
+                    "Content-Type":
+                      "application/json",
+
+                    Authorization:
+                      "Bearer " + token
+
+                  },
+
+                  body: JSON.stringify({
+
+                    name: newName,
+
+                    role: newRole,
+
+                    email: newEmail
+
+                  })
+
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.error ||
+                "Änderungen konnten nicht gespeichert werden."
+              );
+
+            }
+
+
+            status.textContent =
+              "Änderungen wurden gespeichert.";
+
+            saveButton.disabled = false;
+
+
+          } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+              error.message;
+
+            saveButton.disabled = false;
+
+          }
+
+        }
+      );
+
+
+      /* =====================================
+         BILD ÄNDERN
+      ===================================== */
+
+      imageButton.addEventListener(
+        "click",
+        async function() {
+
+          const file =
+            imageInput.files[0];
+
+
+          if (!file) {
+
+            status.textContent =
+              "Bitte zuerst ein neues Bild auswählen.";
+
+            return;
+
+          }
+
+
+          status.textContent =
+            "Bild wird hochgeladen...";
+
+          imageButton.disabled = true;
+
+
+          try {
+
+            const formData =
+              new FormData();
+
+            formData.append(
+              "image",
+              file
+            );
+
+
+            const response =
+              await fetch(
+                API_URL +
+                "/api/board-members/" +
+                member.id +
+                "/image",
+                {
+
+                  method: "POST",
+
+                  headers: {
+
+                    Authorization:
+                      "Bearer " + token
+
+                  },
+
+                  body: formData
+
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.error ||
+                "Bild konnte nicht gespeichert werden."
+              );
+
+            }
+
+
+            image.src =
+              data.member.image_url;
+
+            imageInput.value = "";
+
+
+            status.textContent =
+              "Bild wurde geändert.";
+
+            imageButton.disabled = false;
+
+
+          } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+              error.message;
+
+            imageButton.disabled = false;
+
+          }
+
+        }
+      );
+
+
+      /* =====================================
+         MITGLIED LÖSCHEN
+      ===================================== */
 
       deleteButton.addEventListener(
         "click",
@@ -2278,13 +2637,13 @@ async function loadBoardMembers() {
           }
 
 
+          status.textContent =
+            "Wird gelöscht...";
+
+          deleteButton.disabled = true;
+
+
           try {
-
-            deleteButton.disabled = true;
-
-            deleteButton.textContent =
-              "Wird gelöscht...";
-
 
             const response =
               await fetch(
@@ -2292,12 +2651,16 @@ async function loadBoardMembers() {
                 "/api/board-members/" +
                 member.id,
                 {
+
                   method: "DELETE",
 
                   headers: {
+
                     Authorization:
                       "Bearer " + token
+
                   }
+
                 }
               );
 
@@ -2323,12 +2686,10 @@ async function loadBoardMembers() {
 
             console.error(error);
 
-            alert(error.message);
+            status.textContent =
+              error.message;
 
             deleteButton.disabled = false;
-
-            deleteButton.textContent =
-              "Löschen";
 
           }
 
@@ -2336,9 +2697,8 @@ async function loadBoardMembers() {
       );
 
 
-      item.appendChild(image);
-      item.appendChild(information);
-      item.appendChild(deleteButton);
+      item.appendChild(imageArea);
+      item.appendChild(fields);
 
       boardList.appendChild(item);
 
@@ -2355,8 +2715,7 @@ async function loadBoardMembers() {
   }
 
 }
-
-
+  
 /* =========================================
    VORSTANDSMITGLIED HINZUFÜGEN
 ========================================= */
