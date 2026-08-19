@@ -364,78 +364,6 @@
     }
 
 
-    /* NÄCHSTES SPIEL */
-
-    .competition {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 25px;
-    }
-
-    .match-teams {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-align: center;
-      gap: 15px;
-    }
-
-    .team {
-      flex: 1;
-    }
-
-    .team-logo {
-      width: 70px;
-      height: 70px;
-      background: #f1f1f1;
-      border-radius: 50%;
-      margin: 0 auto 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: bold;
-      color: #071c4a;
-    }
-
-    .team-name {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .vs {
-      font-size: 22px;
-      font-weight: bold;
-      color: #071c4a;
-    }
-
-    .match-details {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
-      font-size: 13px;
-      line-height: 2;
-      color: #555;
-    }
-
-    .match-button {
-      display: block;
-      margin-top: 20px;
-      background: #071c4a;
-      color: white;
-      padding: 12px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .match-button:hover {
-      background: #ffd800;
-      color: #071c4a;
-    }
-
-
     /* NEWS STARTSEITE */
 
 .news-grid {
@@ -1158,39 +1086,42 @@ footer {
   display: none;
 }
 
-      /* REIHENFOLGE STARTSEITE HANDY */
+      /* REIHENFOLGE STARTSEITE HANDY: NEWS -> SPORTANLAGE -> VEREINSSPIELPLAN -> TABELLE */
 
 .home-grid .home-box:nth-child(2) {
   display: contents;
 }
 
-.home-grid .home-box:nth-child(2) > div:last-child {
+.home-grid .home-box:nth-child(2) > .box-title {
   order: 1;
-  margin: 25px 18px !important;
+  background: white;
+  margin: 0;
+  padding: 25px 18px 22px;
+}
+
+.home-grid .home-box:nth-child(2) > .news-grid {
+  order: 2;
+  background: white;
+  padding: 0 18px 25px;
+}
+
+.home-grid .home-box:nth-child(2) > div:last-child {
+  order: 3;
+  margin: 0 !important;
+  padding: 25px 18px !important;
+  border-top: 1px solid #ddd !important;
+  border-left: none !important;
+  border-radius: 0 !important;
 }
 
 .home-grid .home-box:nth-child(1) {
-  order: 2;
+  order: 4;
   border-top: 1px solid #ddd;
 }
 
 .home-grid .home-box:nth-child(3) {
-  order: 3;
-  border-top: 1px solid #ddd;
-}
-
-.home-grid .home-box:nth-child(2) > .box-title {
-  order: 4;
-  background: white;
-  margin: 0;
-  padding: 25px 18px 22px;
-  border-top: 1px solid #ddd;
-}
-
-.home-grid .home-box:nth-child(2) > .news-grid {
   order: 5;
-  background: white;
-  padding: 0 18px 25px;
+  border-top: 1px solid #ddd;
 }
 
   .home-box {
@@ -1424,18 +1355,18 @@ footer {
   <div class="home-grid">
 
 
-    <!-- LINKS: NÄCHSTES SPIEL -->
+    <!-- LINKS: VEREINSSPIELPLAN -->
 
 <div class="home-box">
 
   <h2 class="box-title">
-    NÄCHSTES SPIEL
+    VEREINSSPIELPLAN
   </h2>
 
   <div
     class="fussballde_widget"
-    data-id="c2c69853-cee2-418b-9c1a-6bd3a2399056"
-    data-type="team-matches"
+    data-id="59988cda-c16d-4084-87b9-47f78b6c8e1e"
+    data-type="club-matches"
     style="width:100%">
   </div>
 
@@ -1574,6 +1505,8 @@ footer {
   </div>
 
 </div>
+
+  </div>
 
 </section>
 
