@@ -280,40 +280,60 @@
 
 
 /* HERO */
-    
-    /* HERO */
 
-    .hero {
-  height: 600px;
-  background:
-    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.55)),
-    url("team.jpg") center/cover;
+.hero {
+  min-height: 280px;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 20px;
+  color: #071c4a;
+  padding: 38px 7%;
 }
 
-    .hero h1 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 72px;
+.hero-content {
+  width: 100%;
+  max-width: 1050px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.hero-logo {
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.hero-text {
+  min-width: 0;
+}
+
+.hero h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #071c4a;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
   font-weight: 400;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
+  color: #5f6673;
 }
-
-    .hero p {
-      font-size: 21px;
-    }
 
 
     /* SPIEL / NEWS / TABELLE */
 
     .home-info {
   width: 100%;
-  margin: -50px 0 0;
+  margin: 0;
   padding: 0;
   position: relative;
   z-index: 10;
@@ -1039,13 +1059,26 @@ footer {
 }
 
   .hero {
-    height: 390px;
-    padding: 20px;
+    min-height: 235px;
+    padding: 34px 22px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .hero-logo {
+    width: 92px;
+    height: 92px;
   }
 
   .hero h1 {
-    font-size: 46px;
-    line-height: 1;
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 9px;
   }
 
   .hero p {
@@ -1347,9 +1380,19 @@ footer {
 
 <section class="hero">
 
-  <div>
-    <h1>Fenerbahçe Marl</h1>
-    <p>Willkommen auf der offiziellen Vereinswebsite</p>
+  <div class="hero-content">
+
+    <img
+      src="logo.png"
+      alt="Fenerbahçe Marl Wappen"
+      class="hero-logo"
+    >
+
+    <div class="hero-text">
+      <h1>Willkommen bei Fenerbahçe Marl 1989</h1>
+      <p>Ein Team. Eine Familie.</p>
+    </div>
+
   </div>
 
 </section>
