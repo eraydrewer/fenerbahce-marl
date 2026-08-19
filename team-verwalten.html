@@ -2129,6 +2129,401 @@ document
 
   });  
 
+  /* =========================================
+   VORSTAND LADEN
+========================================= */
+
+async function loadBoardMembers() {
+
+  const boardList =
+    document.getElementById("boardList");
+
+  boardList.textContent =
+    "Vorstand wird geladen...";
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/board-members"
+    );
+
+    const members =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        members.error ||
+        "Vorstand konnte nicht geladen werden."
+      );
+
+    }
+
+
+    if (members.length === 0) {
+
+      boardList.textContent =
+        "Noch keine Vorstandsmitglieder vorhanden.";
+
+      return;
+
+    }
+
+
+    boardList.innerHTML = "";
+
+
+    members.forEach(member => {
+
+      const item =
+        document.createElement("div");
+
+
+      item.style.display = "flex";
+      item.style.alignItems = "center";
+      item.style.gap = "18px";
+      item.style.padding = "15px";
+      item.style.marginBottom = "12px";
+      item.style.background = "#f7f8fa";
+      item.style.borderRadius = "8px";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        member.image_url ||
+        "vorstand-placeholder.jpg";
+
+      image.alt =
+        member.name;
+
+      image.style.width = "80px";
+      image.style.height = "80px";
+      image.style.objectFit = "cover";
+      image.style.borderRadius = "8px";
+
+
+      const information =
+        document.createElement("div");
+
+      information.style.display = "flex";
+      information.style.flexDirection = "column";
+      information.style.gap = "4px";
+
+
+      const name =
+        document.createElement("strong");
+
+      name.textContent =
+        member.name;
+
+
+      const role =
+        document.createElement("span");
+
+      role.textContent =
+        member.role;
+
+
+      information.appendChild(name);
+      information.appendChild(role);
+
+
+      if (member.email) {
+
+        const email =
+          document.createElement("span");
+
+        email.textContent =
+          member.email;
+
+        email.style.fontSize = "14px";
+        email.style.color = "#666";
+
+        information.appendChild(email);
+
+      }
+
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.type = "button";
+      deleteButton.textContent = "Löschen";
+
+      deleteButton.style.marginLeft = "auto";
+      deleteButton.style.background = "#c62828";
+      deleteButton.style.color = "white";
+      deleteButton.style.border = "none";
+      deleteButton.style.padding = "10px 18px";
+      deleteButton.style.borderRadius = "6px";
+      deleteButton.style.fontWeight = "bold";
+      deleteButton.style.cursor = "pointer";
+
+
+      deleteButton.addEventListener(
+        "click",
+        async function() {
+
+          const confirmed =
+            confirm(
+              `"${member.name}" wirklich löschen?`
+            );
+
+
+          if (!confirmed) {
+            return;
+          }
+
+
+          try {
+
+            deleteButton.disabled = true;
+
+            deleteButton.textContent =
+              "Wird gelöscht...";
+
+
+            const response =
+              await fetch(
+                API_URL +
+                "/api/board-members/" +
+                member.id,
+                {
+                  method: "DELETE",
+
+                  headers: {
+                    Authorization:
+                      "Bearer " + token
+                  }
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.error ||
+                "Vorstandsmitglied konnte nicht gelöscht werden."
+              );
+
+            }
+
+
+            await loadBoardMembers();
+
+
+          } catch (error) {
+
+            console.error(error);
+
+            alert(error.message);
+
+            deleteButton.disabled = false;
+
+            deleteButton.textContent =
+              "Löschen";
+
+          }
+
+        }
+      );
+
+
+      item.appendChild(image);
+      item.appendChild(information);
+      item.appendChild(deleteButton);
+
+      boardList.appendChild(item);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    boardList.textContent =
+      error.message;
+
+  }
+
+}
+
+
+/* =========================================
+   VORSTANDSMITGLIED HINZUFÜGEN
+========================================= */
+
+document
+  .getElementById("addBoardMemberButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const boardName =
+        document
+          .getElementById("boardName")
+          .value
+          .trim();
+
+      const boardRole =
+        document
+          .getElementById("boardRole")
+          .value
+          .trim();
+
+      const boardEmail =
+        document
+          .getElementById("boardEmail")
+          .value
+          .trim();
+
+      const boardImage =
+        document
+          .getElementById("boardImage")
+          .files[0];
+
+      const boardStatus =
+        document.getElementById(
+          "boardStatus"
+        );
+
+
+      if (!boardName) {
+
+        boardStatus.textContent =
+          "Bitte Namen eingeben.";
+
+        return;
+
+      }
+
+
+      if (!boardRole) {
+
+        boardStatus.textContent =
+          "Bitte Position eingeben.";
+
+        return;
+
+      }
+
+
+      if (!boardImage) {
+
+        boardStatus.textContent =
+          "Bitte ein Bild auswählen.";
+
+        return;
+
+      }
+
+
+      boardStatus.textContent =
+        "Vorstandsmitglied wird gespeichert...";
+
+
+      try {
+
+        const formData =
+          new FormData();
+
+
+        formData.append(
+          "name",
+          boardName
+        );
+
+        formData.append(
+          "role",
+          boardRole
+        );
+
+        formData.append(
+          "email",
+          boardEmail
+        );
+
+        formData.append(
+          "image",
+          boardImage
+        );
+
+
+        const response =
+          await fetch(
+            API_URL +
+            "/api/board-members",
+            {
+              method: "POST",
+
+              headers: {
+                Authorization:
+                  "Bearer " + token
+              },
+
+              body: formData
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Vorstandsmitglied konnte nicht gespeichert werden."
+          );
+
+        }
+
+
+        boardStatus.textContent =
+          "Vorstandsmitglied wurde hinzugefügt.";
+
+
+        document
+          .getElementById("boardName")
+          .value = "";
+
+        document
+          .getElementById("boardRole")
+          .value = "";
+
+        document
+          .getElementById("boardEmail")
+          .value = "";
+
+        document
+          .getElementById("boardImage")
+          .value = "";
+
+
+        await loadBoardMembers();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        boardStatus.textContent =
+          error.message;
+
+      }
+
+    }
+  );
+
 checkLogin();
 
   const teamSection =
@@ -2158,10 +2553,14 @@ const teamTabs =
   );
 
 
-/* SPONSOREN ÖFFNEN */
+/* =========================================
+   SPONSOREN ÖFFNEN
+========================================= */
+
 sponsorTab.addEventListener("click", function() {
 
   teamSection.style.display = "none";
+  boardSection.style.display = "none";
   sponsorSection.style.display = "block";
 
   document
@@ -2177,12 +2576,39 @@ sponsorTab.addEventListener("click", function() {
 });
 
 
-/* ZURÜCK ZU DEN MANNSCHAFTEN */
+/* =========================================
+   VORSTAND ÖFFNEN
+========================================= */
+
+boardTab.addEventListener("click", function() {
+
+  teamSection.style.display = "none";
+  sponsorSection.style.display = "none";
+  boardSection.style.display = "block";
+
+  document
+    .querySelectorAll(".team-tab")
+    .forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+  boardTab.classList.add("active");
+
+  loadBoardMembers();
+
+});
+
+
+/* =========================================
+   ZURÜCK ZU DEN MANNSCHAFTEN
+========================================= */
+
 teamTabs.forEach(tab => {
 
   tab.addEventListener("click", function() {
 
     sponsorSection.style.display = "none";
+    boardSection.style.display = "none";
     teamSection.style.display = "block";
 
     document
