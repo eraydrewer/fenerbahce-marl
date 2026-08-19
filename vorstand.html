@@ -807,94 +807,11 @@ footer {
 
   <div class="yellow-line"></div>
 
-  <div class="vorstand-grid">
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Bünyamin Fidan">
-
-    <div class="vorstand-info">
-      <h3>Bünyamin Fidan</h3>
-      <div class="vorstand-role">Vorsitzender</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Sadi Akcacik">
-
-    <div class="vorstand-info">
-      <h3>Sadi Akcacik</h3>
-      <div class="vorstand-role">Stellv. Vorsitzender</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Ertugrul Salbas">
-
-    <div class="vorstand-info">
-      <h3>Ertugrul Salbas</h3>
-      <div class="vorstand-role">Geschäftsführer</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Yasir Arlat">
-
-    <div class="vorstand-info">
-      <h3>Yasir Arlat</h3>
-      <div class="vorstand-role">Kassenwart</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Fatih Ayküz">
-
-    <div class="vorstand-info">
-      <h3>Fatih Ayküz</h3>
-      <div class="vorstand-role">Vorstandsmitglied</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Muzaffer Akyüz">
-
-    <div class="vorstand-info">
-      <h3>Muzaffer Akyüz</h3>
-      <div class="vorstand-role">Vorstandsmitglied</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Sinan Dalli">
-
-    <div class="vorstand-info">
-      <h3>Sinan Dalli</h3>
-      <div class="vorstand-role">Vorstandsmitglied</div>
-    </div>
-  </div>
-
-
-  <div class="vorstand-card">
-    <img src="vorstand-placeholder.jpg" alt="Erhan Keskin">
-
-    <div class="vorstand-info">
-      <h3>Erhan Keskin</h3>
-      <div class="vorstand-role">Jugendleiter</div>
-
-      <a
-        href="mailto:jugend@fenerbahce-marl.de"
-        class="vorstand-email"
-      >
-        jugend@fenerbahce-marl.de
-      </a>
-    </div>
-  </div>
-
+  <div
+  class="vorstand-grid"
+  id="vorstandGrid"
+>
+  <p>Vorstand wird geladen...</p>
 </div>
 
 </section>
@@ -931,6 +848,127 @@ footer {
 </footer>
 
 <script>
+
+  /* =========================================
+   VORSTAND LADEN
+========================================= */
+
+async function loadBoardMembers() {
+
+  const vorstandGrid =
+    document.getElementById("vorstandGrid");
+
+  try {
+
+    const response = await fetch(
+      API_URL + "/api/board-members"
+    );
+
+    const members =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        members.error ||
+        "Vorstand konnte nicht geladen werden."
+      );
+
+    }
+
+
+    vorstandGrid.innerHTML = "";
+
+
+    members.forEach(member => {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "vorstand-card";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        member.image_url ||
+        "vorstand-placeholder.jpg";
+
+      image.alt =
+        member.name;
+
+
+      const info =
+        document.createElement("div");
+
+      info.className =
+        "vorstand-info";
+
+
+      const name =
+        document.createElement("h3");
+
+      name.textContent =
+        member.name;
+
+
+      const role =
+        document.createElement("div");
+
+      role.className =
+        "vorstand-role";
+
+      role.textContent =
+        member.role;
+
+
+      info.appendChild(name);
+      info.appendChild(role);
+
+
+      if (member.email) {
+
+        const email =
+          document.createElement("a");
+
+        email.href =
+          "mailto:" + member.email;
+
+        email.className =
+          "vorstand-email";
+
+        email.textContent =
+          member.email;
+
+        info.appendChild(email);
+
+      }
+
+
+      card.appendChild(image);
+      card.appendChild(info);
+
+      vorstandGrid.appendChild(card);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    vorstandGrid.innerHTML =
+      "<p>Vorstand konnte nicht geladen werden.</p>";
+
+  }
+
+}
+
+
+loadBoardMembers();
 
 const API_URL =
   "https://fenerbahce-marl-backend.onrender.com";
