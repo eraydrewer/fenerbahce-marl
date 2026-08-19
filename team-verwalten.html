@@ -2774,18 +2774,7 @@ document
 
       }
 
-
-      if (!boardImage) {
-
         boardStatus.textContent =
-          "Bitte ein Bild auswählen.";
-
-        return;
-
-      }
-
-
-      boardStatus.textContent =
         "Vorstandsmitglied wird gespeichert...";
 
 
@@ -2810,10 +2799,14 @@ document
           boardEmail
         );
 
-        formData.append(
-          "image",
-          boardImage
-        );
+        if (boardImage) {
+
+  formData.append(
+    "image",
+    boardImage
+  );
+
+}
 
 
         const response =
