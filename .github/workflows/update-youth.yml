@@ -69,7 +69,6 @@ jobs:
           for filename, trainer in trainers.items():
               update_trainer_page(filename, trainer)
 
-          # Bambini-Seite auf Basis der bestehenden G-Jugend-Seite erstellen.
           bambini = Path("g-jugend.html").read_text(encoding="utf-8")
           bambini = bambini.replace(
               "<title>G-Jugend | Fenerbahçe Marl</title>",
@@ -103,10 +102,8 @@ jobs:
           )
           Path("bambini-jugend.html").write_text(bambini, encoding="utf-8")
 
-          # Bambinis links vor der G-Jugend auf der Jugendübersicht ergänzen.
           overview_path = Path("jugend.html")
           overview = overview_path.read_text(encoding="utf-8")
-
           overview = overview.replace(
               "grid-template-columns: repeat(6, 1fr);",
               "grid-template-columns: repeat(7, 1fr);",
@@ -148,3 +145,5 @@ jobs:
             git commit -m "Add Bambinis and update youth trainers"
             git push
           fi
+
+# trigger: 2026-08-19
