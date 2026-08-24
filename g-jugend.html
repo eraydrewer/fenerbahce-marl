@@ -11,45 +11,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,800;0,900;1,800;1,900&family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:#f5f5f5; color:#111; font-family:Arial,sans-serif; }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #f5f5f5;
-      color: #111;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      background: #071c4a;
-      color: white;
-      padding: 18px 7%;
-      display: flex;
-      align-items: center;
-      position: relative;
-      z-index: 1000;
-    }
-
+    header { background:#071c4a; color:white; padding:18px 7%; display:flex; align-items:center; position:relative; z-index:1000; }
     .club-brand { display:flex; align-items:center; gap:12px; }
     .club-logo { width:60px; height:60px; object-fit:contain; display:block; }
     .club-logo-link { display:flex; align-items:center; text-decoration:none; }
     .main-nav { position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:30px; }
     .main-nav a { color:white; text-decoration:none; font-weight:600; white-space:nowrap; position:relative; padding-bottom:8px; }
-    .main-nav a:hover, .main-nav a.active { color:#ffd800; }
+    .main-nav a:hover,.main-nav a.active { color:#ffd800; }
     .main-nav a.active::after { content:""; position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:30px; height:3px; background:#ffd800; border-radius:3px; }
 
     .team-menu { position:relative; }
     .team-menu-link { display:flex; align-items:center; gap:7px; }
     .menu-arrow { font-size:9px; transition:transform .2s ease; }
     .team-menu:hover .menu-arrow { transform:rotate(180deg); }
-    .team-submenu { position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(-5px); width:205px; background:#071c4a; border-top:3px solid #ffd800; border-radius:0 0 8px 8px; box-shadow:0 10px 25px rgba(0,0,0,.25); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s ease, transform .2s ease, visibility .2s ease; z-index:5000; }
+    .team-submenu { position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(-5px); width:205px; background:#071c4a; border-top:3px solid #ffd800; border-radius:0 0 8px 8px; box-shadow:0 10px 25px rgba(0,0,0,.25); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s ease,transform .2s ease,visibility .2s ease; z-index:5000; }
     .team-submenu::before { content:""; position:absolute; left:0; right:0; top:-15px; height:15px; }
     .team-menu:hover .team-submenu { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
     .team-submenu a { display:block; padding:14px 18px; color:white; text-decoration:none; font-size:14px; font-weight:500; border-bottom:1px solid rgba(255,255,255,.1); }
@@ -58,21 +37,20 @@
 
     .header-right { margin-left:auto; display:flex; align-items:center; gap:18px; }
     .instagram-link { display:flex; align-items:center; justify-content:center; color:white; text-decoration:none; }
-    .instagram-link svg { width:25px; height:25px; display:block; transition:transform .2s ease, color .2s ease; }
+    .instagram-link svg { width:25px; height:25px; display:block; transition:transform .2s ease,color .2s ease; }
     .instagram-link:hover svg { transform:scale(1.12); color:#ffd800; }
-
     .profile-menu { position:relative; }
     .profile-button { background:transparent; border:none; color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
-    .profile-button svg { width:27px; height:27px; display:block; transition:transform .2s ease, color .2s ease; }
+    .profile-button svg { width:27px; height:27px; display:block; transition:transform .2s ease,color .2s ease; }
     .profile-button:hover svg { transform:scale(1.12); color:#ffd800; }
     .profile-dropdown { position:absolute; top:42px; right:0; width:190px; background:white; border-radius:8px; box-shadow:0 8px 25px rgba(0,0,0,.18); overflow:hidden; display:none; z-index:9999; }
     .profile-dropdown.open { display:block; }
-    .profile-dropdown a, .profile-dropdown button { width:100%; display:block; padding:13px 16px; background:white; border:none; color:#071c4a; text-align:left; text-decoration:none; font-size:14px; font-weight:600; cursor:pointer; }
-    .profile-dropdown a:hover, .profile-dropdown button:hover { background:#f5f5f5; }
+    .profile-dropdown a,.profile-dropdown button { width:100%; display:block; padding:13px 16px; background:white; border:none; color:#071c4a; text-align:left; text-decoration:none; font-size:14px; font-weight:600; cursor:pointer; }
+    .profile-dropdown a:hover,.profile-dropdown button:hover { background:#f5f5f5; }
     #logoutMenuItem { color:#c62828; border-top:1px solid #eee; }
 
-    .youth-hero { min-height:500px; background:radial-gradient(circle at 70% 20%, rgba(255,216,0,.09), transparent 30%), linear-gradient(115deg, rgba(7,28,74,.98), rgba(5,19,48,.96)); position:relative; overflow:hidden; color:white; }
-    .youth-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px); background-size:44px 44px; opacity:.6; pointer-events:none; }
+    .youth-hero { min-height:500px; background:radial-gradient(circle at 70% 20%,rgba(255,216,0,.09),transparent 30%),linear-gradient(115deg,rgba(7,28,74,.98),rgba(5,19,48,.96)); position:relative; overflow:hidden; color:white; }
+    .youth-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px); background-size:44px 44px; opacity:.6; pointer-events:none; }
     .hero-inner { max-width:1450px; min-height:500px; margin:0 auto; padding:58px 7%; display:grid; grid-template-columns:1.15fr .85fr; gap:55px; align-items:center; position:relative; z-index:2; }
     .hero-copy { max-width:760px; }
     .hero-title { font-family:"Barlow Condensed",sans-serif; font-size:clamp(68px,6.4vw,106px); line-height:.84; font-weight:900; font-style:italic; letter-spacing:-1px; text-transform:uppercase; margin-bottom:26px; }
@@ -83,12 +61,13 @@
     .jsg-crest-image { width:100%; max-width:620px; height:350px; object-fit:contain; display:block; }
 
     .e1-details { background:#fff; padding:60px 7%; }
-    .e1-details-inner { max-width:1450px; margin:0 auto; }
-    .e1-heading { font-family:"Montserrat",sans-serif; color:#071c4a; font-size:30px; font-weight:800; text-transform:uppercase; margin-bottom:10px; }
+    .e1-details-inner { max-width:1450px; margin:0 auto; display:grid; grid-template-columns:430px minmax(0,1fr); gap:70px; align-items:start; }
+    .e1-heading,.matches-title { font-family:"Montserrat",sans-serif; color:#071c4a; font-size:30px; font-weight:800; text-transform:uppercase; margin-bottom:10px; }
     .e1-heading-line { width:45px; height:4px; background:#ffd800; margin-bottom:30px; }
     .trainer-card { max-width:520px; background:#071c4a; border-radius:12px; padding:30px; color:white; box-shadow:0 10px 30px rgba(7,28,74,.15); }
     .trainer-role { font-family:"Montserrat",sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; color:#ffd800; margin-bottom:8px; }
     .trainer-name { font-family:"Montserrat",sans-serif; font-size:25px; font-weight:800; margin-bottom:0; }
+    .matches-box { width:100%; background:white; border:1px solid #e8ecf3; border-radius:14px; padding:22px; box-shadow:0 8px 25px rgba(0,0,0,.07); }
 
     footer { background:#071c4a; color:white; min-height:105px; padding:14px 7%; position:relative; display:flex; align-items:center; }
     .footer-left { display:flex; align-items:center; gap:20px; }
@@ -109,20 +88,21 @@
       .mobile-menu-button { display:flex; order:3; margin-left:15px; }
       .main-nav { display:none; position:absolute; top:74px; left:0; transform:none; width:100%; background:#071c4a; flex-direction:column; align-items:stretch; gap:0; padding:10px 18px 20px; border-top:1px solid rgba(255,255,255,.12); box-shadow:0 10px 20px rgba(0,0,0,.18); }
       .main-nav.open { display:flex; }
-      .main-nav > a, .team-menu-link { width:100%; padding:14px 5px; font-size:15px; border-bottom:1px solid rgba(255,255,255,.1); }
+      .main-nav > a,.team-menu-link { width:100%; padding:14px 5px; font-size:15px; border-bottom:1px solid rgba(255,255,255,.1); }
       .main-nav a.active::after { display:none; }
       .team-menu { width:100%; }
       .team-menu-link { justify-content:space-between; }
       .team-submenu { display:none; position:static; left:auto; width:100%; transform:none; opacity:1; visibility:visible; pointer-events:auto; box-shadow:none; border:none; border-radius:0; background:#0b2a65; margin:0; }
-      .team-menu.mobile-open .team-submenu, .team-menu:hover .team-submenu { display:block; position:static; transform:none; width:100%; opacity:1; visibility:visible; pointer-events:auto; }
+      .team-menu.mobile-open .team-submenu,.team-menu:hover .team-submenu { display:block; position:static; transform:none; width:100%; opacity:1; visibility:visible; pointer-events:auto; }
       .team-menu.mobile-open .menu-arrow { transform:rotate(180deg); }
       .team-submenu a { width:100%; padding:14px 20px; }
       .hero-inner { grid-template-columns:1fr; padding-top:50px; padding-bottom:50px; }
       .hero-title { font-size:clamp(52px,15vw,72px); }
+      .e1-details-inner { grid-template-columns:1fr; gap:45px; }
     }
 
     @media(max-width:620px) {
-      .youth-hero, .hero-inner { min-height:auto; }
+      .youth-hero,.hero-inner { min-height:auto; }
       .hero-inner { padding-left:22px; padding-right:22px; }
       .hero-title { font-size:58px; }
       .hero-subtitle { font-size:20px; }
@@ -153,9 +133,10 @@
 </header>
 <main>
   <section class="youth-hero"><div class="hero-inner"><div class="hero-copy"><h1 class="hero-title">G<span>Jugend</span></h1><div class="hero-subtitle">Fenerbahce Marl | DJK Germania Lenkerbeck</div></div><div class="hero-image-placeholder hero-crests"><img src="FBMxDJK.png" alt="Fenerbahçe Marl und Germania Lenkerbeck" class="jsg-crest-image"></div></div></section>
-  <section class="e1-details"><div class="e1-details-inner"><h2 class="e1-heading">Trainer</h2><div class="e1-heading-line"></div><div class="trainer-card"><div class="trainer-role">Trainer G-Jugend</div><div class="trainer-name">Adem Aydemir &amp; Yasir Arlat</div></div></div></section>
+  <section class="e1-details"><div class="e1-details-inner"><div><h2 class="e1-heading">Trainer</h2><div class="e1-heading-line"></div><div class="trainer-card"><div class="trainer-role">Trainer G-Jugend</div><div class="trainer-name">Adem Aydemir &amp; Yasir Arlat</div></div></div><div><h2 class="matches-title">Nächste Spiele</h2><div class="e1-heading-line"></div><div class="matches-box"><div class="fussballde_widget" data-id="8a81df53-e0b4-4fc3-af9f-035a6594cc2e" data-type="team-matches" style="width:100%"></div></div></div></div></section>
 </main>
 <footer><div class="footer-left"><img src="logo.png" alt="Fenerbahçe Marl" class="footer-logo"><div class="footer-links"><a href="impressum.html" class="footer-link">Impressum</a><a href="datenschutz.html" class="footer-link">Datenschutz</a></div></div><div class="footer-copy">© 2026 Fenerbahçe Marl – Alle Rechte vorbehalten</div></footer>
+<script src="https://www.fussball.de/widgets.js"></script>
 <script>
 const NEWS_API_URL="https://fenerbahce-marl-backend.onrender.com";
 const profileButton=document.getElementById("profileButton"),profileDropdown=document.getElementById("profileDropdown"),loginMenuItem=document.getElementById("loginMenuItem"),newsMenuItem=document.getElementById("newsMenuItem"),teamMenuItem=document.getElementById("teamMenuItem"),logoutMenuItem=document.getElementById("logoutMenuItem");
